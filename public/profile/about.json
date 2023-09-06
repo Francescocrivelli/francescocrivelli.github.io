@@ -1,5 +1,8 @@
 {
-    "about": " This is where you can describe about **yourself**. The more you describe about yourself, the better it is!\n\n\nExtra Information about you, like hobbies and your goals.\nExample Paragraph: I am passionate about my work. Because I love what I do, I have a steady source of motivation that drives me to do my best. In my last job, this passion led me to challenge myself daily and learn new skills that helped me to do better work. For example, I taught myself how to use Photoshop to improve the quality of our photos and graphics. I soon became the go-to person for any design needs.",
-    "imageSource": "images/about/profile.png"
+    "about": "University, should be Universal, I am basing my education in broad ranges, having a clear focus in robotics \n\n\n From an early age I started to build UAV's, started in  the FPV racing field and then moved to autonomous flights.",
+    "imageSource": "images/about/my_profile.png",
+    "height" : 45,
+        "width" : 50
+
     
 }

@@ -1,12 +1,12 @@
 {
     "education":[
         {
-            "title": "Jun 20XX - Jun 20YY",
-            "cardTitle": "B.Tech, Computer Science",
-            "cardSubtitle":"XYZ University, City",
-            "cardDetailedText": "CGPA - 9.5",
+            "title": "Aug 2021 - May 2025",
+            "cardTitle": "Bachlor of Science in Electrical Engineering and Computer Science",
+            "cardSubtitle":"University of California Berkeley",
+            "cardDetailedText": "GPA - 3.7",
             "icon" : {
-                "src": "images/education/lorem-ipsum.png"
+                "src": "images/education/ucberkeley.png"
             }
         },
         {
