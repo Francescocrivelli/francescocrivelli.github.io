@@ -1,0 +1,16 @@
+{
+    "social": [
+        {
+            "network" : "linkedin",
+            "href": "https://linkedin.com/in/francescocrivelli"
+        },
+        {
+            "network" : "github",
+            "href": "https://github.com/francescocrivelli"
+        },
+        {
+            "network" : "email",
+            "href": "crivelli@berkeley.edu"
+        }
+    ]
+}
