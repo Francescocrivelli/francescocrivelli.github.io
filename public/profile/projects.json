@@ -1,42 +1,131 @@
 {
     "projects" : [
         {
-            "image" : "images/projects/portfolio-poster.png",
-            "title": "Dev Portfolio",
-            "bodyText": "- Developer Portfolio Website made in React\n -  Fully customisable and dynamic, easily change data and images.\n - Dark Mode Support",
+            "image" : "images/projects/drone_fcg_v2.jpeg",
+            "title": "FPV Racing Drone FCG V2",
+            "bodyText": "- Designed and assemble FPV racing drone \n - uploaded and configured Betaflight firmware for optimal flight performance, handling fields like electronics, software configuration, and aerodynamics. ",
             "links": [
                 {
-                    "text": "GitHub",
-                    "href": "https://github.com/mayankagarwal09/dev-portfolio"
-                },
-                {
-                    "text": "Live",
-                    "href": "https://mayankagarwal.me"
+                    "text": "Acceleration Test",
+                    "href": "https://youtu.be/gs8dDnHlIHw"
                 }
+                
             ],
+
             "tags" : [
-                "React",
-                "Portfolio",
-                "JavaScript"
+                "Electronics and Circuit Design",
+                "Soldering",
+                "Embedded: C for Arduino",
+                "3D Modelling"
             ]
         },
         {
-            "image" : "images/projects/caaring-poster.png",
-            "title": "Caaring -  Cab Share App",
-            "bodyText": "- A Cab Sharing web app made using **Django** for **VIT** Students. People can create a new cab or request to join an existing cab.\n - Added User authentication and password reset using **SendGrid**.\n - Deployed on **heroku** using **gunicorn**.",
+            "image" : "images/projects/loopline_with_turbine.png",
+            "title": "Turbine for Loop Line Follower",
+            "bodyText": "- For a different type of competition that required a turbine to do a 360 degrees spin while following a line.\n - Design a platform that allows me to place 2 suction/grip turbines at the bottom of the car \n - Despite the fact that I had to improvise for the car turbine design, there are huge take aways after car burn during competition: such that there were more suitable electronics and mechanical aspect (10:1 for the engines) to be implemented \n - Connected the  DC engines to with a 30A ESC and controlled the power using an arduino nano \n -Competed in Guadalajara, Mexico in the event 'Talent Land'\n - April 1st, 2018 ",
+            "links": [
+                {
+                    "text": "Turbine test",
+                    "href": "https://youtube.com/shorts/kITZPxgH2Bo?feature=share"
+                },
+                {
+                    "text": "Turbine test funny 360º",
+                    "href": "https://youtu.be/x8jb4Wm0ajU"
+                }
+
+            ],
+
+            "tags" : [
+                "Electronics and Circuit Design",
+                "Power Management",
+                "Embedded: C for Arduino",
+                "3D Modelling"
+            ]
+        },
+        {
+            "image" : "images/projects/freestyle.png",
+            "title": "FPV FreeStyle Drone FCG",
+            "bodyText": "- My first FPV drone \n - Designed and assemble FPV Free Style drone \n - uploaded and configured Betaflight firmware for optimal flight performance, handling fields like electronics, software configuration, and aerodynamics.\n - March 2018 ",
+            "links": [
+                {
+                    "text": "First Fly",
+                    "href": "https://youtu.be/yul2mjaUsBg"
+                },
+                {
+                    "text": "How FPV looks",
+                    "href": "https://youtube.com/shorts/0Zs3ABfFq88?feature=share"
+                }
+                
+            ],
+
+            "tags" : [
+                "Electronics and Circuit Design",
+                "Soldering",
+                "Embedded: C for Arduino",
+                "3D Modelling"
+            ]
+        },
+        {
+            "image" : "images/projects/loopline_v1.png",
+            "title": "Loop Line Follower",
+            "bodyText": "- Loop line follower is an old and traditional robotics competition. \n - Started from building a PCB model in Eagle, then added the main components:IR, Encoder, Microcontroller (which in my case I used Arduino, to keep the coding aspect at a high level), 10:1/6V pololu motors, and a TB1266FNG driver \n - Next step was to develop a basic PID model \n - Finally, Calibration of the PID was the most time consuming part as well as as the acceleration control using the magnetic encoders \n - Competed and developed the robot in Valparaiso, Chile\n - October 11th, 2017 ",
+            "links": [
+                {
+                    "text": "Competition Video",
+                    "href": "https://youtu.be/lF7k422GYIU"
+                },
+                {
+                    "text": "Some testing",
+                    "href": "https://youtube.com/shorts/glFXjbsHDd0?feature=share"
+
+                }
+            ],
+
+            "tags" : [
+                "PCB Design",
+                "PID Control",
+                "Motor Control",
+                "Optimization PID",
+                "Arduino IDE"
+            ]
+        },
+        
+        {
+            "image" : "images/projects/watertracker.png",
+            "title": "H20 Community Water Tracker",
+            "bodyText": "- Developed a server-side focused Water Tracker web app using Firebase, JavaScript, HTML/CSS\n -  Implemented sorting algorithms (and others), APIs like weather\n - Worked in a team from brainstorming to developing a real-world application that helps 2/3 of the US \n - Year 2021",
+            "links": [
+                {
+                    "text": "Live",
+                    "href": "https://watertrackerh20.web.app/"
+                }
+            ],
+
+            "tags" : [
+                "JavaScript",
+                "HTML/CSS",
+                "Firebase",
+                "Data Structures",
+                "UI/UX"
+            ]
+        },
+        {
+            "image" : "images/projects/bidy.png",
+            "title": "Windows Voice over ",
+            "bodyText": "- A voice over interface for Windows OS.\n - Will help people do task like opening google chrome to access system information \n - Has been developed with an emphazis for people with physiscal disabilities because of the need of having a user friendly voice over control. It has also been use in Multi-Tasking.\n - Developed a friendly User Interface \n - Year 2017",
             "links": [
                 {
                     "text": "GitHub",
-                    "href": "https://github.com/mayankagarwal09/Caaring"
+                    "href": "https://github.com/Francescocrivelli/BIDY"
                 },
                 {
                     "text": "Live",
-                    "href": "http://caaring.herokuapp.com"
+                    "href": "https://www.youtube.com/shorts/DqZ7W9ozU2Y"
                 }
             ],
             "tags" : [
                 "Python",
-                "Django",
+                "C#",
                 "BootStrap",
                 "SendGrid",
                 "Heroku",
