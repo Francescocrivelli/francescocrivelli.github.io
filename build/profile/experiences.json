@@ -1,33 +1,35 @@
 {
     "experiences": [
-        {
-            "title": "Software Engineer",
-            "subtitle": "XYZ Ltd",
-            "workType": "Full-time",
+        { 
+            "title": "Course Staff ",
+            "subtitle": "Berkeley EECS Designing Information Devices and Systems",
+            "workType": "Part-time",
             "workDescription": [
-                "Integrated **2** new product.",
-                "Worked on adding **def** to **bcd**. Improved speed by 50%."
+                "Lab Assistant in the main circuits and linear algebra class",
+                "Answer questions and quiz students to asesst their knowleadge"
             ],
-            "dateText": "06/20XX – Present"
+            "dateText": "01/2023 – Present"
+        },
+
+        {
+            "title": "Kosmos",
+            "subtitle": "Startup",
+            "workType": "Founder",
+            "workDescription": [
+                "Startup developed during the European Innovation Academy in three weeks",
+                "Acquired 1000+ customers/stores, built a live MVP, interviewed 100+ customers, and pitched to panels of VCs"
+            ],
+            "dateText": "06/2022 – 06/2023"
         },
         {
-            "title": "Software Engineer",
-            "subtitle": "XYZ Ltd",
+            "title": "Software Engineer Google",
+            "subtitle": "Google",
             "workType": "Internship",
             "workDescription": [
-                "Worked on abc."
+                "Developed a server-side focused Water Tracker web app using Firebase, JavaScript, HTML/CSS",
+                "Implemented sorting algorithms (and others), APIs like weather, and different data structures to create the App."
             ],
-            "dateText": "01/20XX – 05/20XX"
-        },
-        {
-            "title": "App Developer",
-            "subtitle": "ABC Pvt Ltd",
-            "workType": "Freelance",
-            "workDescription": [
-                "Developed the official apps for the startup for both Android and iOS using hybrid framework.",
-                "Done bcd work."
-            ],
-            "dateText": "09/20XX – 01/20YY"
+            "dateText": "06/2021 – 08-2021"
         }
     ]
 }
