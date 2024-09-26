@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 2: Fun with Filters and Frequencies</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Project 2: Fun with Filters and Frequencies</h1>
+    <nav>
+        <a href="../index.html">Back to Home</a>
+    </nav>
+
+    <h2>Introduction</h2>
+    <p>
+        In this project, we explore various filtering techniques and frequency domain manipulations in images. We implement edge detection using finite difference operators, image sharpening, hybrid images, and multiresolution blending.
+    </p>
+
+    <!-- Part 1 -->
+    <h2>Part 1: Fun with Filters</h2>
+
+    <!-- Part 1.1 -->
+    <h3>Part 1.1: Finite Difference Operator</h3>
+    <div class="section">
+        <h3>Computation: Gradient Magnitude Computation</h3>
+        <p>
+            In this part, we use finite difference operators for edge detection. We apply the difference operator to the image to obtain gradients in the x and y directions. Specifically, we convolve the original image with the kernels \( D_x = [1, -1] \) and \( D_y = [1, -1]^T \). We then compute the gradient magnitude by combining the gradients in x and y. Finally, we binarize the gradient magnitude image to produce a binary edge map.
+        </p>
+        <p>
+            The gradient magnitude is used to identify the edges within an image by measuring the intensity of changes between neighboring pixels. This process involves calculating the gradients (changes in pixel values) in both the horizontal (x) and vertical (y) directions.
+        </p>
+        <p>
+            <strong>1. Compute Gradients:</strong> The image is convolved with kernels, such as 
+            <code>D<sub>x</sub> = [1, -1]</code> for the x direction and <code>D<sub>y</sub> = [1, -1]<sup>T</sup></code> for the y direction.
+        </p>
+        <p>
+            <strong>2. Gradient Magnitude Calculation:</strong> The gradient magnitude at each pixel is then computed using:
+        </p>
+        <p class="formula">
+            Gradient Magnitude = √((G<sub>x</sub>)² + (G<sub>y</sub>)²)
+        </p>
+        <p>
+            where <code>G<sub>x</sub></code> and <code>G<sub>y</sub></code> are the gradients in the x and y directions, respectively.
+        </p>
+        <p>
+            <strong>3. Result:</strong> The result is an image where higher gradient magnitudes correspond to strong edges or transitions between regions of different intensity. Optionally, binarization can be applied to emphasize these edges.
+        </p>
+        <p>
+            This method highlights boundaries and structural changes within the image, making it a crucial step in edge detection and image analysis.
+        </p>
+    </div>
+    
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/cameraman_original_1.1.png" alt="Original Image">
+            <p class="caption">Figure 1: Original Image (Cameraman)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/cameraman_grad_x_1.1.png" alt="Gradient in X">
+            <p class="caption">Figure 2: Gradient in X Direction</p>
+        </div>
+        <div class="image-column">
+            <img src="media/cameraman_grad_y_1.1.png" alt="Gradient in Y">
+            <p class="caption">Figure 3: Gradient in Y Direction</p>
+        </div>
+    
+        
+    </div>
+
+
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/cameraman_grad_magnitude_1.1.png" alt="Gradient Magnitude">
+            <p class="caption">Figure 4: Gradient Magnitude</p>
+        </div>
+        <div class="image-column">
+            <img src="media/cameraman_edges_binarization_1.1.png" alt="Binarized Edge Image">
+            <p class="caption">Figure 5: Binarized Edge Image</p>
+        </div>
+    </div>
+
+    <!-- Part 1.2 -->
+    <h3>Part 1.2: Derivative of Gaussian (DoG) Filter</h3>
+
+<div class="section">
+    <h3>Computation: Derivative of Gaussian (DoG) Filter</h3>
+    <p>
+        To reduce noise and obtain smoother edges, we apply a Gaussian blur to the image before computing the gradients. We then compute the gradient magnitude and compare it with the one obtained using the Derivative of Gaussian (DoG) filters. The DoG filters are obtained by convolving the Gaussian kernel with the finite difference operators. This allows us to perform smoothing and differentiation in one step.
+    </p>
+    <p>
+        To reduce noise from edge detection, we apply a Gaussian blur to the original image before computing gradients. By convolving the Gaussian filter with partial derivative operators, we obtain DoG filters.
+    </p>
+    <p class="formula">
+        DoG<sub>x</sub> = G * D<sub>x</sub>, DoG<sub>y</sub> = G * D<sub>y</sub>
+    </p>
+    <p>
+        Applying these DoG filters smooths the image and then calculates the gradient in one step. The result is a cleaner edge detection compared to using only the difference operator.
+    </p>
+</div>
+
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/cameraman_1.2.png" alt="Original Image">
+        <p class="caption">Figure 6: Original Image (Cameraman)</p>
+    </div>
+    <div class="image-column">
+        <img src="media/cameraman_blurred_1.2.png" alt="Blurred Image">
+        <p class="caption">Figure 7: Image after Gaussian Blur</p>
+    </div>
+    <div class="image-column">
+        <img src="media/cameraman_grad_DoG_y_1.2.png" alt="DoG Gradient in Y">
+        <p class="caption">Figure 8: Gradient in Y using DoG</p>
+    </div>
+</div>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/cameraman_grad_magnitude_blur_1.2.png" alt="Gradient Magnitude after Blurring">
+        <p class="caption">Figure 9: Gradient Magnitude after Blurring</p>
+    </div>
+    <div class="image-column">
+        <img src="media/cameraman_grad_magnitude_DoG_1.2.png" alt="Gradient Magnitude using DoG">
+        <p class="caption">Figure 10: Gradient Magnitude using DoG</p>
+    </div>
+    <div class="image-column">
+        <img src="media/cameraman_grad_DoG_x_1.2.png" alt="DoG Gradient in X">
+        <p class="caption">Figure 11: Gradient in X using DoG</p>
+    </div>
+</div>
+
+
+<p> Answer Question:The main difference between 1.1 and 1.2 is the thickness and clarity of the edges. The images with smoothing (DoG filter) show much clearer and more defined edges, resulting in thicker, more pronounced white lines. Additionally, the DoG filter produces less noise with smoother gradients and cleaner edges, where significant boundaries are more distinct and fewer spurious edges appear.</p>
+
+<p>
+    When we calculate the difference between the blurred gradient and the DoG gradient, the result is 0, confirming that both methods produce the same outcome.
+</p>
+
+
+    <!-- Part 2 -->
+    <h2>Part 2: Fun with Frequencies!</h2>
+
+    <!-- Part 2.1 -->
+    <h3> Part 2.1 Image Sharpening</h3>
+    
+    <div class="section">
+        <h3>Computation: Image Sharpening</h3>
+        <p>
+            We sharpen images by enhancing their high-frequency components. We subtract a blurred version of the image from the original to obtain the high frequencies. We then scale these high frequencies by a factor (alpha) and add them back to the original image. This unsharp masking technique enhances edges and details.
+        </p>
+        <p>
+            Image sharpening enhances high-frequency components. A Gaussian blur is applied to extract the low-frequency content, which is then subtracted from the original image to obtain high frequencies.
+        </p>
+        <p class="formula">
+            Sharpened Image = Original + α * (Original - Blurred)
+        </p>
+        <p>
+            The parameter α controls the intensity of sharpening. The sharpened image emphasizes edges and details more clearly.
+        </p>
+    </div>
+
+    <h3>Sharp Rock from Patagonia, Chile</h3>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/rock.jpeg" alt="Original Rock Image">
+            <p class="caption">Figure 12: Original Rock Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_rock_sharpened_alpha_1.2.jpeg" alt="Sharpened Rock Image Alpha=1.2">
+            <p class="caption">Figure 13: Sharpened Rock Image (Alpha = 1.2)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_rock_sharpened_alpha_2.png" alt="Sharpened Rock Image Alpha=2">
+            <p class="caption">Figure 14: Sharpened Rock Image (Alpha = 2)</p>
+        </div>
+    </div>
+    <h3>Sequential Sharpening</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_2.1_taj_sharpened_alpha_1.png" alt="Sharpened Image Alpha=1">
+            <p class="caption">Figure 15: Sharpened Image (Alpha = 1)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_taj_sharpened_alpha_2.png" alt="Sharpened Image Alpha=2">
+            <p class="caption">Figure 16: Sharpened Image (Alpha = 2)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_taj_sharpened_alpha_3.png" alt="Sharpened Image Alpha=3">
+            <p class="caption">Figure 17: Sharpened Image (Alpha = 3)</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h3>Blur and Sharpening of Pineapple Image</h3>
+        <p>
+            This section demonstrates blurring the original pineapple image and then applying different levels of sharpening. The original image is blurred to reduce detail, and then sharpening is applied incrementally to enhance the edges and restore clarity.
+        </p>
+    
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/pineapple_original.jpeg" alt="Original Pineapple Image">
+                <p class="caption">Figure 18: Original Pineapple Image</p>
+            </div>
+    
+            <div class="image-column">
+                <img src="media/pineapple_blurred.jpeg" alt="Blurred Pineapple Image">
+                <p class="caption">Figure 19: Blurred Pineapple Image</p>
+            </div>
+    
+            <div class="image-column">
+                <img src="media/pineapple_1.jpeg" alt="Sharpened Pineapple Image (Level 1)">
+                <p class="caption">Figure 20: Sharpened Pineapple Image (alpha = 1)</p>
+            </div>
+    
+            <div class="image-column">
+                <img src="media/pineapple_2.jpeg" alt="Sharpened Pineapple Image (alpha = 2)">
+                <p class="caption">Figure 21: Sharpened Pineapple Image (alpha = 2)</p>
+            </div>
+    
+            <div class="image-column">
+                <img src="media/pineapple_3.jpeg" alt="Sharpened Pineapple Image (alpha = 3)">
+                <p class="caption">Figure 22: Sharpened Pineapple Image (alpha = 3)</p>
+            </div>
+        </div>
+    </div>
+    
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_2.1_taj_sharpened_alpha_5.png" alt="Sharpened Image Alpha=5">
+            <p class="caption">Figure 23: Sharpened Image (Alpha = 5)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_taj_sharpened_alpha_10.png" alt="Sharpened Image Alpha=10">
+            <p class="caption">Figure 24: Sharpened Image (Alpha = 10)</p>
+        </div>
+    </div>
+
+    <h3>Blur and Sharpening </h3>
+    <p>
+        This section demonstrates the process of blurring an image and then sharpening it. The original image is first blurred, losing some details, and then sharpened to enhance the edges and restore clarity.
+    </p>
+
+    <p>
+        In this section, I took a sharp image of a cathedral, blurred it, and then applied the unsharp masking technique to sharpen it again. Although sharpening an already sharp image after blurring can help restore some details, the final result is often not as good as the original due to the loss of finer details during blurring.
+    </p>
+    <h3>Blur and Sharpening "Catedrale in Sicilia, Italia" </h3>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_2.1_cathedral_original.jpeg" alt="Original Cathedral Image">
+            <p class="caption">Figure 25: Original Sharp Image (Cathedral)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_cathedral_blurred.jpeg" alt="Blurred Cathedral Image">
+            <p class="caption">Figure 26: Blurred Cathedral Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_2.1_cathedral_sharpened_alpha_1.jpeg" alt="Sharpened Cathedral Image (Alpha = 2)">
+            <p class="caption">Figure 27: Resharpened Cathedral Image (Alpha = 2)</p>
+        </div>
+    </div>
+
+    <h3>Blur and Sharpening of Curacao Image</h3>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/curcao_original.jpg" alt="Original Curacao Image">
+            <p class="caption">Figure 28: Original Curacao Image</p>
+        </div>
+
+        <div class="image-column">
+            <img src="media/curcao_blurred.jpeg" alt="Blurred Curacao Image">
+            <p class="caption">Figure 29: Blurred Curacao Image</p>
+        </div>
+
+        <div class="image-column">
+            <img src="media/curcao_2.jpeg" alt="Sharpened Curacao Image">
+            <p class="caption">Figure 30: Sharpened Curacao Image</p>
+        </div>
+    </div>
+
+    <!-- Part 2.2 -->
+    <h3> Part 2.2 Hybrid Images</h3>
+    
+    <div class="section">
+        <h3>Computation: Hybrid Images</h3>
+        <p>
+            Hybrid images are created by combining the low-frequency content of one image with the high-frequency content of another. When viewed up close, the high-frequency image dominates, and when viewed from afar, the low-frequency image is more apparent. We experimented with grayscale and color images, switching the roles of the cat and human images.
+        </p>
+        <p>
+            Hybrid images are created by combining the high-frequency content of one image with the low-frequency content of another. When viewed up close, the high frequencies dominate, while from afar, the low frequencies are more visible.
+        </p>
+        <p>
+            The process involves low-pass filtering one image and high-pass filtering another, and then adding them together to form the hybrid image.
+        </p>
+    </div>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/francesco_lib.jpg" alt="Original Image of Francesco">
+            <p class="caption">Figure 31: Original Image of Francesco</p>
+        </div>
+        <div class="image-column">
+            <img src="media/luca_lib.jpg" alt="Original Image of Luca">
+            <p class="caption">Figure 32: Original Image of Luca</p>
+        </div>
+        <div class="image-column">
+            <img src="media/luca_low_pass.jpg" alt="Fourier Transform of Low-Pass Luca (Grayscale)">
+            <p class="caption">Figure 33: Fourier Transform of Low-Pass Luca (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/francesco_high_pass.jpg" alt="Fourier Transform of High-Pass Francesco (Grayscale)">
+            <p class="caption">Figure 34: Fourier Transform of High-Pass Francesco (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/francesco_luca_color_combined_sigma1_1_sigma_2_3.png" alt="Hybrid Image of Francesco and Luca">
+            <p class="caption">Figure 35: Hybrid Image of Francesco and Luca</p>
+        </div>
+    </div>
+
+    <!-- Display Fourier Transforms -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/fourier_francesco.png" alt="Fourier Transform of Francesco">
+            <p class="caption">Figure 36: Fourier Transform of Francesco</p>
+        </div>
+        <div class="image-column">
+            <img src="media/fourier_luca.png" alt="Fourier Transform of Luca">
+            <p class="caption">Figure 37: Fourier Transform of Luca</p>
+        </div>
+        <div class="image-column">
+            <img src="media/fourier_francesco_filtered.jpg" alt="Fourier Transform of Low-Pass Francesco">
+            <p class="caption">Figure 38: Fourier Transform of Low-Pass Francesco</p>
+        </div>
+        <div class="image-column">
+            <img src="media/fourier_luca_filtered.png" alt="Fourier Transform of High-Pass Luca">
+            <p class="caption">Figure 39: Fourier Transform of High-Pass Luca</p>
+        </div>
+        <div class="image-column">
+            <img src="media/fourier_francesco_luca_combined.jpg" alt="Fourier Transform of Hybrid Image">
+            <p class="caption">Figure 40: Fourier Transform of Hybrid Image (Francesco and Luca)</p>
+        </div>
+    </div>
+
+ 
+    
+
+    <h4>Cat as Low Frequency (Grayscale)</h4>
+    <p>The images below were rezised only for display to use less web memory</p>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/nutmeg_original_grey_2.2_.jpg" alt="Nutmeg Original (Grayscale)">
+            <p class="caption">Figure 41: Nutmeg Original Image (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/DerekPicture_original_grey_2.2_.jpg" alt="Derek Original (Grayscale)">
+            <p class="caption">Figure 42: Derek Original Image (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/im1_lpf_grey_grey_2.2_.jpg" alt="Low-pass Filtered Image">
+            <p class="caption">Figure 43: Low-pass Filtered Nutmeg (Low Frequency)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/im2_hpf_grey_grey_2.2_.jpg" alt="High-pass Filtered Image">
+            <p class="caption">Figure 44: High-pass Filtered Derek (High Frequency)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/hybrid_image_grey_grey_2.2_.jpg" alt="Hybrid Image (Grayscale)">
+            <p class="caption">Figure 45: Hybrid Image (Cat as Low Frequency)</p>
+        </div>
+    </div>
+
+     <!-- Adding Fourier plots for the grayscale image -->
+     <div class="image-row">
+        <div class="image-column"></div>
+            <img src="media/fourier_all.png" alt="Fourier of Nutmeg Low Frequency">
+            <p class="caption">Figure 46: Fourier Transforms for my favorite image: images above</p>
+        </div>
+
+    </div>
+
+
+    <p>other versions of the cat by far and cat by close are below</p>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/cat_by_far.png" alt="Hybrid Image">
+            <p class="caption">Figure 47: Hybrid Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/cat_by_close.png" alt="Hybrid Image">
+            <p class="caption">Figure 48: Hybrid Image</p>
+        </div>
+    </div>
+
+
+    <h4>Cat as High Frequency (Color)</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/nutmeg_original_grey_2.2_.jpg" alt="Nutmeg Original">
+            <p class="caption">Figure 49: Nutmeg Original Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/DerekPicture_original_grey_2.2_.jpg" alt="Derek Original">
+            <p class="caption">Figure 50: Derek Original Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/hybrid_image_grey_cat_is_high_2.2.jpg" alt="Hybrid Image (Cat as High Frequency)">
+            <p class="caption">Figure 51: Hybrid Image (Cat as High Frequency)</p>
+        </div>
+    </div>
+    <h5>Why Color is Better Than Grayscale for Hybrid Images</h5>
+    <p>
+        Color images often produce better hybrid results than grayscale because color channels add more information to distinguish between the high and low frequencies of the images. This additional detail enhances the effect of the hybrid, making the two combined images more recognizable at different viewing distances.
+    </p>
+
+    <h3>Other hybrid images</h3>
+    <p>
+        In this section, I created hybrid images using pictures of myself and my friend. When you view the images up close, you can see one image more clearly, but when you zoom out, another image starts to dominate. You need to zoom in and out quite a bit to notice the effect, but it becomes apparent as you change the viewing distance.
+    </p>
+    <p>The smile its hard to percieve in both of the figures. For figure 54/55 th right we see Vanessa at high frequencies and francesco at low frequencies</p>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/francesco.jpg" alt="Original Image of Francesco (Grayscale)">
+            <p class="caption">Figure 52: Original Image of Francesco (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/vanessa.jpg" alt="Original Image of Vanessa (Grayscale)">
+            <p class="caption">Figure 53: Original Image of Vanessa (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/francesco_vanessa.jpg" alt="Hybrid Image of Francesco and Vanessa (Grayscale)">
+            <p class="caption">Figure 54: Hybrid Image of Francesco and Vanessa (Grayscale)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/fran_vanessa_geryscale.png" alt="Hybrid Image of Francesco and Vanessa (Grayscale)">
+            <p class="caption">Figure 55: Hybrid Image of Francesco and Vanessa (Grayscale) with different sigma, raw image AND DIFFERENT PERCEPTION </p>
+        </div>
+    </div> 
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/francesco_filtered_color.jpg" alt="Filtered Image of Francesco (Low Frequency, Color)">
+            <p class="caption">Figure 57: Low-pass Filtered Francesco (Low Frequency, Color)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/vanessa_filtered_color.jpg" alt="Filtered Image of Vanessa (High Frequency, Color)">
+            <p class="caption">Figure 58: High-pass Filtered Vanessa (High Frequency, Color)</p>
+        </div>
+        <div class="image-column">
+            <img src="media/francesco_vanessa_color.jpg" alt="Hybrid Image of Francesco and Vanessa (Color)">
+            <p class="caption">Figure 59: Hybrid Image of Francesco and Vanessa (Color)</p>
+        </div>
+    </div>
+    <p>
+        In this section, I created hybrid images using two different expressions of Mufasa. The first image shows Mufasa smiling, while the second one captures him screaming. The hybrid image combines these two expressions, where you can see the smile up close, but the scream becomes more dominant as you zoom out.
+    </p>
+    <p>Here we can see a fail, the reason is that the images have a very different shape, and the tones are also severely different</p>
+
+    
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/mufasa_smile.jpg" alt="Mufasa Smiling">
+            <p class="caption">Figure 60: Original Image of Mufasa Smiling</p>
+        </div>
+        <div class="image-column">
+            <img src="media/smufasa_scream.jpg" alt="Mufasa Screaming">
+            <p class="caption">Figure 61: Original Image of Mufasa Screaming</p>
+        </div>
+        <div class="image-column">
+            <img src="media/mufasa_all.jpg" alt="Hybrid Image of Mufasa (Smile and Scream)">
+            <p class="caption">Figure 62: Hybrid Image of Mufasa (Smile and Scream)</p>
+        </div>
+    </div>
+
+    <h3>Part 2.2: Hybrid Images with Speaker and Mug</h3>
+<p>
+    In this section, I attempted to create a hybrid image using a speaker and a mug. Similar to the Mufasa example, this pair did not work well. The primary reason for the failure is that the two objects do not share enough structural similarity, which is essential for hybrid images to blend naturally. The distinct shapes and contours of the speaker and mug cause the hybrid to be confusing and less recognizable from different viewing distances.
+</p>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/speaker.jpg" alt="Original Image of Speaker">
+        <p class="caption">Figure 63: Original Image of Speaker</p>
+    </div>
+    <div class="image-column">
+        <img src="media/mug.jpg" alt="Original Image of Mug">
+        <p class="caption">Figure 64: Original Image of Mug</p>
+    </div>
+    <div class="image-column">
+        <img src="media/hybrid.jpg" alt="Hybrid Image of Speaker and Mug">
+        <p class="caption">Figure 65: Hybrid Image of Speaker and Mug</p>
+    </div>
+</div>
+
+
+    <!-- Part 2.3 -->
+    <h3>Part 2.3: Gaussian and Laplacian Stacks</h3>
+    
+    <div class="section">
+        <h3>Computation: Gaussian and Laplacian Stacks</h3>
+        <p>
+            We create Gaussian and Laplacian stacks for the apple and orange images. The Gaussian stack is constructed by repeatedly applying a Gaussian blur to the image. The Laplacian stack is obtained by subtracting each level of the Gaussian stack from the previous level, capturing the high-frequency details at each level.
+        </p>
+        <p>
+            Gaussian and Laplacian stacks represent images at different frequency bands. A Gaussian stack is created by successively applying a Gaussian filter to an image. The Laplacian stack is the difference between levels of the Gaussian stack.
+        </p>
+        <p>
+            These stacks are useful for multiresolution blending, where different frequency components are blended seamlessly.
+        </p>
+    </div>
+
+    <div class="image-row-big">
+        <div class="image-column">
+            <img src="media/Apple_original.png" alt="Apple Original">
+            <p class="caption">Figure 66: Original Apple Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/apple_gaussian_and_laplacian_high_sigma.png" alt="Apple Gaussian and Laplacian Stack">
+            <p class="caption">Figure 67: Apple Gaussian and Laplacian Stacks</p>
+        </div>
+    </div>
+
+    <div class="image-row-big">
+        <div class="image-column">
+            <img src="media/Orange.png" alt="Orange Original">
+            <p class="caption">Figure 68: Original Orange Image</p>
+        </div>
+        <div class="image-column">
+            <img src="media/Orange_gaussian_and_laplacian_high_sigma.png" alt="Orange Gaussian and Laplacian Stack">
+            <p class="caption">Figure 69: Orange Gaussian and Laplacian Stacks</p>
+        </div>
+    </div>
+
+    <!-- Part 2.4 -->
+    <h3>Part 2.4: Multiresolution Blending (Oraple)</h3>
+
+    <div class="section">
+        <h3>Computation: Multiresolution Blending</h3>
+        <p>
+            Multiresolution blending uses Gaussian and Laplacian stacks to combine two images smoothly. An irregular mask is applied to control the blend, allowing for smooth transitions between images.
+        </p>
+        <p>
+            Each level of the Laplacian stacks of the images is blended according to the Gaussian stack of the mask, and then the results are summed to produce the final blended image.
+        </p>
+        <p>Using the Gaussian and Laplacian stacks, we blend the apple and orange images to create the "oraple." We use a mask to define the blending region and combine the Laplacian stacks of both images according to the mask at each level. This results in a seamless blend across the images.
+        </p>
+    </div>
+
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/blended_image_oraple_2.4_.jpg" alt="Blended Oraple Image">
+            <p class="caption">Figure 70: Blended Oraple Image</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/mask.png" alt="Blending Mask">
+            <p class="caption">Figure 71: Blending Mask Used</p>
+        </div>
+    </div>
+
+    <!-- Add your own blended images here if you have any -->
+    <h3>Part 2.4: Multiresolution Blending with an Irregular Mask (Dog and Grass)</h3>
+    <p>
+        In this section, I blended an image of a dog with grass using an irregular mask. The mask was created in Adobe Photoshop, then binarized for precise blending. The multiresolution blending process involves several steps:
+    </p>
+    <ul>
+        <li>Create the Gaussian and Laplacian stack to both the dog and grass images.</li>
+        <li>Create a Gaussian stack for the mask.</li>
+        <li>Blend the images at each level using the Gaussian mask.</li>
+        <li>Reconstruct the final blended image by summing the results from all pyramid levels.</li>
+    </ul>
+    
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/grass.jpg" alt="Grass Image">
+            <p class="caption">Figure 72: Original Image of Grass</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/dog.jpg" alt="Dog Image">
+            <p class="caption">Figure 73: Original Image of Dog</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/mask_dog_2.jpg" alt="Irregular Mask">
+            <p class="caption">Figure 74: Binarized Mask for Blending</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/blended_image_dog_grass_2.4_.jpg" alt="Blended Image of Dog and Grass">
+            <p class="caption">Figure 75: Final Blended Image of Dog and Grass</p>
+        </div>
+    </div>
+    
+    <h4>Blending Process (Pyramid Levels)</h4>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/dog_grass_all.png" alt="Pyramid Levels for Dog, Grass, Mask, and Blended Image">
+            <p class="caption">Figure 76: Laplacian, Gaussian, and Blended Pyramids for Dog, Grass, and Mask</p>
+        </div>
+    </div>
+
+    <h3>Part 2.4: Multiresolution Blending with My Face and X Shape</h3>
+<p>
+    In this section, I blended an image of my face with an X shape using an irregular mask. The mask was carefully designed and binarized to control the blending process.
+</p>
+<p>
+    One of the most challenging aspects of this part of the project was creating the irregular mask and ensuring that the images were perfectly aligned. Crafting the mask in Adobe Photoshop required precision to ensure smooth transitions between the two images. After creating the mask, binarizing it to ensure accurate blending at each level was essential. Another difficulty was making sure the images of my face and the X shape were well-aligned so that the multiresolution blending produced seamless results. Misalignment could have resulted in awkward blending or artifacts, which I had to carefully avoid by adjusting the positions and scaling the images during the process.
+</p>
+
+
+
+<div class="image-row-big">
+    <div class="image-column-big">
+        <img src="media/extra_one_x.jpg" alt="X Shape Image">
+        <p class="caption">Figure 77: Original Image of X Shape</p>
+    </div>
+    <div class="image-column-big">
+        <img src="media/extra_my_face.jpg" alt="My Face Image">
+        <p class="caption">Figure 78: Original Image of My Face</p>
+    </div>
+    <div class="image-column-big">
+        <img src="media/extra_mask_face.jpg" alt="Irregular Mask for Blending">
+        <p class="caption">Figure 79: Binarized Mask for Blending</p>
+    </div>
+    <div class="image-column-big">
+        <img src="media/extra_blended_image_face_2.4_.jpg" alt="Blended Image of Face and X Shape">
+        <p class="caption">Figure 80: Final Blended Image of My Face and X Shape</p>
+    </div>
+</div>
+
+<h4>Blending Process (Pyramid Levels)</h4>
+<div class="image-row-big">
+    <div class="image-column-big">
+        <img src="media/one_x_my_face_all.png" alt="Pyramid Levels for Face, X Shape, Mask, and Blended Image">
+        <p class="caption">Figure 81: Laplacian, Gaussian, and Blended Pyramids for Face, X Shape, and Mask</p>
+    </div>
+</div>
+
+
+
+    <h2>Conclusion</h2>
+    <p>
+        Through this project, I learned how frequency domain techniques can be applied to image processing tasks such as edge detection, image sharpening, hybrid images, and blending. Understanding how to manipulate different frequency components allows for powerful image transformations and effects.
+    </p>
+</body>
+</html>
