@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 3: Face Morphing</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Project 3: Face Morphing</h1>
+    <nav>
+        <a href="../index.html">Back to Home</a>
+    </nav>
+
+    <h2>Introduction</h2>
+    <p>
+        In this project, I explored the fascinating world of face morphing. By defining facial correspondences, computing affine transformations, and generating intermediate frames, I created smooth transitions between facial images. Additionally, I computed the mean face of a population and generated caricatures by extrapolating from this mean.
+    </p>
+
+    <!-- Part 1 -->
+    <h2>Part 1: Defining Correspondences</h2>
+    <div class="section">
+        <p>
+            The first step in face morphing is to define pairs of corresponding points on two facial images—my own face and that of George Clooney. I manually selected key facial landmarks such as eyes, nose, mouth, and the outline of the face using an annotation tool. Consistent labeling of these points was crucial for accurate morphing.
+        </p>
+        <p>
+            Using these correspondences, I computed a Delaunay triangulation on the average shape of the two point sets to ensure the triangles were as regular as possible, reducing distortion during warping.
+        </p>
+    </div>
+
+    <!-- Images for Part 1 -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/francesco.jpg" alt="Francesco's Face with Correspondence Points">
+            <p class="caption">Figure 1: Francesco's Face with Correspondence Points.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_triangulation_on_francesco_face.png" alt="Triangulation on Francesco's Face">
+            <p class="caption">Figure 3: Triangulation on Francesco's Face.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_triangulation_on_meaned points.png" alt="Triangulation on Mean Shape">
+            <p class="caption">Figure 5: Triangulation on the Mean Shape.</p>
+        </div>
+        
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/george_small.jpg" alt="George Clooney's Face with Correspondence Points">
+            <p class="caption">Figure 2: George Clooney's Face with Correspondence Points.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_triangulation_on_george_points.png" alt="Triangulation on George's Face">
+            <p class="caption">Figure 4: Triangulation on George's Face.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_triangulation_of_georrge_on_meaned_face.png" alt="George's Face Warped to Mean Shape with Triangulation">
+            <p class="caption">Figure 6: George's Face Warped to Mean Shape with Triangulation.</p>
+        </div>
+    </div>
+
+
+    <!-- Part 2 -->
+    <h2>Part 2: Computing the Mid-way Face</h2>
+    <div class="section">
+        <p>
+            To compute the mid-way face, I averaged the corresponding points of the two faces to get the mean shape. Then, I warped both faces into this average shape using affine transformations for each triangle. Finally, I averaged the colors of the two warped images to obtain the mid-way face.
+        </p>
+    </div>
+    <div class="section">
+        <h3>How the Morphing Process Works</h3>
+        <p>
+            The process of morphing involves smoothly changing both the shape and colors from one face (Francesco) to another (George Clooney).
+        </p>
+    
+        <h4>1. Defining Key Points and Triangulation</h4>
+        <p>
+            First, we select key points on both faces, such as the eyes, nose, and mouth. These points help guide the morphing process by ensuring features align. We then create triangles by connecting these points, which divides both faces into a grid. This triangulation makes sure the transformation happens smoothly across the entire face.
+        </p>
+    
+        <h4>2. Warping the Shape</h4>
+        <p>
+            To change the shape of the face, we warp each triangle from my face to match the corresponding triangle on George’s face. This is done using a transformation that adjusts the size, shape, and position of each triangle, making the transition from one face to another smooth and seamless.
+        </p>
+    
+        <h4>3. Blending the Colors (Cross-Dissolve)</h4>
+        <p>
+            Once the shapes are aligned, we blend the colors of both faces. This is done by gradually mixing the pixels from my face with those from George’s. At the start, the image looks more like Francesco, but as the blend progresses, it gradually looks more like George.
+        </p>
+    
+        <h4>4. Combining Shape and Color</h4>
+        <p>
+            To create the full morphing effect, we combine the shape transformation and the color blending. For each frame in the sequence:
+            <ul>
+                <li>The shapes of both faces are warped toward an intermediate shape.</li>
+                <li>The colors are blended based on how far along the transition is.</li>
+            </ul>
+            This creates a smooth animation from Francesco to George Clooney.
+        </p>
+    </div>
+
+    <!-- Image for Part 2 -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_2_midway_face.jpg" alt="Mid-way Face">
+            <p class="caption">Figure 7: The Mid-way Face of Francesco and George Clooney.</p>
+        </div>
+    </div>
+
+    <!-- Part 3 -->
+    <h2>Part 3: The Morph Sequence</h2>
+    <div class="section">
+        <p>
+            With the mid-way face computed, I proceeded to create a morph sequence by generating intermediate frames that gradually transition from my face to George Clooney's face. This was achieved by varying the warp fraction and dissolve fraction from 0 to 1 over 45 frames, resulting in a smooth animation.
+        </p>
+    </div>
+
+    <!-- Morphing Sequence GIF -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_2_morphing_sequence_loop_0_v3.gif" alt="Morphing Sequence">
+            <p class="caption">Figure 8: Morphing Sequence from Francesco to George Clooney.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/morphing_sequence.gif" alt="Morphing Sequence">
+            <p class="caption">Figure 8.1: Morphing Sequence from Francesco to George Clooney Bouncing.</p>
+        </div>
+    </div>
+
+    <!-- Part 4 -->
+    <h2>Part 4: The Mean Face of a Population</h2>
+    <div class="section">
+        <p>
+            I utilized the FEI Face Database to compute the mean face of a population. First, I calculated the average shape by averaging the corresponding points of all faces in the dataset. Then, I warped each face to this average shape and computed the average of these warped faces.
+        </p>
+        <p>
+            Here are some examples of individual faces warped to the average shape:
+        </p>
+    </div>
+
+   <!-- Examples of Warped Faces with Original Images -->
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/1a.jpg" alt="Original Face 0">
+        <p class="caption">Figure 9a: Original Face (Example 1).</p>
+    </div>
+    <div class="image-column">
+        <img src="media/part_4_warped_face_0.jpg" alt="Warped Face 0">
+        <p class="caption">Figure 9b: Individual Face Warped to Average Shape (Example 1).</p>
+    </div>
+</div>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/21a.jpg" alt="Original Face 20">
+        <p class="caption">Figure 10a: Original Face (Example 2).</p>
+    </div>
+    <div class="image-column">
+        <img src="media/part_4_warped_face_20.jpg" alt="Warped Face 20">
+        <p class="caption">Figure 10b: Individual Face Warped to Average Shape (Example 2).</p>
+    </div>
+</div>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/41a.jpg" alt="Original Face 40">
+        <p class="caption">Figure 11a: Original Face (Example 3).</p>
+    </div>
+    <div class="image-column">
+        <img src="media/part_4_warped_face_40.jpg" alt="Warped Face 40">
+        <p class="caption">Figure 11b: Individual Face Warped to Average Shape (Example 3).</p>
+    </div>
+</div>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/61a.jpg" alt="Original Face 60">
+        <p class="caption">Figure 12a: Original Face (Example 4).</p>
+    </div>
+    <div class="image-column">
+        <img src="media/part_4_warped_face_60.jpg" alt="Warped Face 60">
+        <p class="caption">Figure 12b: Individual Face Warped to Average Shape (Example 4).</p>
+    </div>
+</div>
+
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/81a.jpg" alt="Original Face 80">
+        <p class="caption">Figure 13a: Original Face (Example 5).</p>
+    </div>
+    <div class="image-column">
+        <img src="media/part_4_warped_face_80.jpg" alt="Warped Face 80">
+        <p class="caption">Figure 13b: Individual Face Warped to Average Shape (Example 5).</p>
+    </div>
+</div>
+
+
+
+
+    <div class="section">
+        <p>
+            The computed average face of the population is shown below:
+        
+        </p>
+        <p>            Additionally, I warped my face into the average geometry and warped the average face into my face's geometry to observe the differences:
+        </p>
+    </div>
+
+    <!-- Average Face -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/average_face.jpg" alt="Average Face">
+            <p class="caption">Figure 14: The Average Face of the Population.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_4_my_face_into_mean_geometry.jpg" alt="My Face into Mean Geometry">
+            <p class="caption">Figure 15: My Face Warped into Average Geometry.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_4_warped_mean_face_into_my_face.jpg" alt="Mean Face into My Geometry">
+            <p class="caption">Figure 16: Average Face Warped into My Face's Geometry.</p>
+        </div>
+    </div>
+
+
+    <!-- Part 5 -->
+    <h2>Part 5: Caricatures - Extrapolating from the Mean</h2>
+    <div class="section">
+        <p>
+            To create caricatures, I extrapolated my facial features from the population mean by adjusting the shape and appearance beyond the average. By manipulating the warp fraction beyond the range [0,1], I generated exaggerated versions of my face.
+        </p>
+        <p>
+            Here are the results with varying warp fractions:
+        </p>
+    </div>
+
+    <!-- Caricatures -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_-0.75.jpg" alt="Extrapolation -0.75">
+            <p class="caption">Figure 17: Caricature with Warp Fraction -0.75.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_-0.5.jpg" alt="Extrapolation -0.5">
+            <p class="caption">Figure 18: Caricature with Warp Fraction -0.5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_-0.25.jpg" alt="Extrapolation -0.25">
+            <p class="caption">Figure 19: Caricature with Warp Fraction -0.25.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_0.jpg" alt="Extrapolation 0">
+            <p class="caption">Figure 20: Original Face (Warp Fraction 0).</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_0.25.jpg" alt="Extrapolation 0.25">
+            <p class="caption">Figure 21: Caricature with Warp Fraction 0.25.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_5_extrapolation_0.5.jpg" alt="Extrapolation 0.5">
+            <p class="caption">Figure 22: Caricature with Warp Fraction 0.5.</p>
+        </div>
+    </div>
+
+
+<!-- Part 6: Bells and Whistles: Ethnicity Change -->
+<h2>Part 6: Bells and Whistles: Ethnicity Change (Francesco + Turkish)</h2>
+
+<div class="section">
+    <h3>How Ethnicity Morphing Works</h3>
+    <p>
+        In this part, we explore the effects of morphing between different ethnicities. Using an average face from a Turkish population, we transform Francesco's face to take on the shape and features typical of that population, and vice versa. This allows us to visualize the effects of blending different ethnic characteristics.
+    </p>
+
+    <h4>1. Average Turkish Face</h4>
+    <p>
+        The process begins by using an average face from a Turkish dataset. This face represents the typical geometric and color properties of the Turkish population. We use the same triangulation technique to align Francesco's face with the average Turkish face.
+    </p>
+
+    <h4>2. Warping Francesco's Face to Turkish Geometry</h4>
+    <p>
+        Next, we warp Francesco's face to fit the geometry of the average Turkish face. This process involves transforming Francesco's facial structure to resemble the average Turkish proportions, such as the shape of the nose, eyes, and jawline, while retaining his original colors.
+    </p>
+    <h4>3. Warping the Turkish Face to Francesco's Geometry</h4>
+    <p>
+        To complete the transformation, we generate a midway face that combines both Francesco’s and the Turkish face's shapes and colors equally. This midway face represents a perfect blend of both ethnicities.
+        This midway face blends the key features of both faces, combining Francesco’s distinct features with the Turkish facial characteristics.
+   
+    </p>
+    <p>
+        Similarly, we warp the average Turkish face to fit Francesco's facial structure. This shows how the Turkish face would look with Francesco’s geometry, providing an interesting comparison of features.
+    </p>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/francesco_resized_300_250.jpg" alt="Francesco">
+            <p class="caption">Figure 9: Francesco's Original Face</p>
+        </div>
+        <div class="image-column">
+            <img src="media/average_turkish_resized.jpg" alt="Average Turkish Face">
+            <p class="caption">Figure 10: Average Turkish Face</p>
+        </div>
+        <div class="image-column">
+            <img src="media/midway_face_francesco_turkish.jpg" alt="Midway Face Between Francesco and Turkish">
+            <p class="caption">Figure 13: Midway Face (Francesco + Turkish)</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/turkish_warped_to_francesco.jpg" alt="Turkish Face Warped to Francesco Geometry">
+            <p class="caption">Figure 12: Turkish Face Warped to Francesco's Geometry</p>
+        </div>
+        <div class="image-column">
+            <img src="media/francesco_warped_to_turkish.jpg" alt="Francesco Warped to Turkish Geometry">
+            <p class="caption">Figure 11: Francesco Warped to Turkish Geometry</p>
+        </div>
+    </div>
+</div>
+
+<p>
+    The transformation process illustrates how facial features from different ethnic groups can blend together through shape and color adjustments. This approach can be applied to morph between any set of faces, highlighting the diversity of human facial structures.
+</p>
+
+
+
+
+    <!-- Conclusion -->
+    <h2>Conclusion</h2>
+    <p>
+        Through this project, I gained a deeper understanding of image morphing techniques, including defining correspondences, computing affine transformations, and generating morph sequences. Creating the mean face of a population and producing caricatures provided fascinating insights into facial geometry and how subtle changes can significantly alter perception.
+    </p>
+
+    <!-- References -->
+    <h2>References</h2>
+    <ol>
+        <li>
+            FEI Face Database. <a href="https://fei.edu.br/~cet/facedatabase.html" target="_blank">Link</a>
+        </li>
+        <li>
+            Delaunay Triangulation. <a href="https://en.wikipedia.org/wiki/Delaunay_triangulation" target="_blank">Link</a>
+        </li>
+    </ol>
+</body>
+</html>

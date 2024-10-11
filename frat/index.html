@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>F.R.A.T: Fire Rapid Analysis Tracker</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- Header with navigation -->
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About Me</a></li>
+                <li><a href="../projects.html">Projects</a></li>
+                <li><a href="../index.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Project Detail Section -->
+    <section id="project-detail">
+        <h1>F.R.A.T: Fire Rapid Analysis Tracker</h1>
+        <img src="media/frat_drone.jpg" alt="F.R.A.T Image" class="project-detail-image">
+
+        <h2>Overview</h2>
+        <p>
+            F.R.A.T. is a drone payload designed to enable fire crews to identify and monitor live fire detections and classify potential surface fire Rate of Spread (ROS) in observed areas. Using live fire detections along with ROS rate potential, crews can quickly recognize where to target suppression efforts.
+        </p>
+
+        <h2>Key Features</h2>
+        <ul>
+            <li>Real-time thermal hotspot detection using a 32x24 pixel IR camera.</li>
+            <li>OpenCV algorithms for identifying thermal hotspots and projecting them onto GPS coordinates.</li>
+            <li>Integration of live environmental data (humidity, temperature, wind speed) with static datasets for ROS prediction.</li>
+            <li>MQTT network solution for data publishing and remote monitoring.</li>
+            <li>Custom hardware integration using Raspberry Pi and various sensors.</li>
+        </ul>
+
+        <h2>Technologies Used</h2>
+        <ul>
+            <li><strong>Hardware:</strong> Raspberry Pi 4B, MLX90640 Thermal Camera, GPS Module, Custom Anemometer.</li>
+            <li><strong>Software:</strong> Python, OpenCV, MQTT, Various Python libraries for sensor integration.</li>
+            <li><strong>Datasets:</strong> LANDFIRE datasets for fuel models, slope, and aspect.</li>
+        </ul>
+
+        <h2>Impact</h2>
+        <p>
+            F.R.A.T. provides a cost-effective solution for rapid fire analysis, assisting firefighting efforts by providing crucial data on fire spread potential and hotspot locations. This technology enhances situational awareness and decision-making in wildfire management.
+        </p>
+
+        <h2>Project Report</h2>
+        <p>
+            For more detailed information, you can view the full project report <a href="pdf/frat_report.pf" target="_blank">here</a>.
+        </p>
+
+        <!-- Add any images or diagrams as needed -->
+        <!-- Example Image -->
+        <!--
+        <img src="images/projects/frat_diagram.png" alt="F.R.A.T Diagram" class="project-detail-image">
+        -->
+
+        <!-- Back to Projects Link -->
+        <div class="back-to-projects">
+            <a href="projects.html">&larr; Back to Projects</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Francesco Crivelli. All rights reserved.</p>
+    </footer>
+</body>
+</html>
