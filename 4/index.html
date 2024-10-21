@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Project 4A: Image Warping and Mosaicing</title>
+        <link rel="stylesheet" href="style.css">
+        <!-- Include MathJax -->
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+        </script>
+    </head>
+    
+<body>
+    <h1>Project 4A: Image Warping and Mosaicing</h1>
+    <nav>
+        <a href="../index.html">Back to Home</a>
+    </nav>
+
+    <h2>Introduction</h2>
+    <p>
+        In this project, I explored techniques for image warping and mosaicing to create panoramas and rectify images. This involved capturing images with overlapping fields of view, computing homographies, warping images, and blending them seamlessly.
+    </p>
+    <p>You will see at the end that I have also experimented with different lighting scenarion, day and night</p>
+
+
+    <!-- Part 1 -->
+    <h2>Part 1: Taking the Images</h2>
+    <div class="section">
+        <p>
+            To create panoramas, I captured multiple images of scenes with overlapping regions. It's essential to keep the camera's center of projection (COP) fixed while rotating the camera around it. This ensures that the transformations between images are projective, allowing for accurate homography estimation. I took photos of various scenes, ensuring sufficient overlap and consistent exposure settings.
+        </p>
+        <p>You will see at the end that I have also experimented with different lighting scenarios, both day and night.</p>
+    
+        <!-- SFU University Images -->
+        <h3>Scene 1: SFU University General Hall Area</h3>
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/im1.jpg" alt="Image 1 (SFU University)">
+                <p class="caption">Figure 1: Image 1 of SFU University General Hall Area.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/im2.jpg" alt="Image 2 (SFU University)">
+                <p class="caption">Figure 2: Image 2 of SFU University General Hall Area.</p>
+            </div>
+        </div>
+    
+        <!-- Night Pictures in Burnaby BC -->
+        <h3>Scene 2: Night Pictures in Burnaby, BC</h3>
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/night0.jpg" alt="Night Image 0">
+                <p class="caption">Figure 3: Night Image 0 in Burnaby, BC.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/night1.jpg" alt="Night Image 1">
+                <p class="caption">Figure 4: Night Image 1 in Burnaby, BC.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/night2.jpg" alt="Night Image 2">
+                <p class="caption">Figure 5: Night Image 2 in Burnaby, BC.</p>
+            </div>
+        </div>
+    
+        <!-- Indoor Scene Images -->
+        <h3>Scene 3: Doing Work in a Room</h3>
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/room1.jpg" alt="Room Image 1">
+                <p class="caption">Figure 6: Room Image 1.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/room2.jpg" alt="Room Image 2">
+                <p class="caption">Figure 7: Room Image 2.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/room3.jpg" alt="Room Image 3">
+                <p class="caption">Figure 8: Room Image 3.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Part 2 -->
+    <h2>Part 2: Recovering Homographies</h2>
+    <div class="section">
+        <p>
+            To align images, I needed to compute the homography matrix that maps points from one image to corresponding points in another. Given a set of corresponding points \((x, y)\) in the first image and \((x', y')\) in the second image, the homography \(H\) satisfies:
+        </p>
+        <p class="formula">
+            \[
+            \begin{bmatrix}
+            x' \\
+            y' \\
+            1
+            \end{bmatrix}
+            =
+            H
+            \begin{bmatrix}
+            x \\
+            y \\
+            1
+            \end{bmatrix}
+            \]
+        </p>
+        <p>
+            The homography \(H\) is a \(3 \times 3\) matrix with 8 degrees of freedom (since it's defined up to scale). We can set up a system of equations for each pair of corresponding points:
+        </p>
+        <p class="formula">
+            \[
+            \begin{cases}
+            x' = \dfrac{h_{11}x + h_{12}y + h_{13}}{h_{31}x + h_{32}y + h_{33}} \\
+            y' = \dfrac{h_{21}x + h_{22}y + h_{23}}{h_{31}x + h_{32}y + h_{33}}
+            \end{cases}
+            \]
+        </p>
+        <p>
+            This can be rearranged into a set of linear equations \(A\mathbf{h} = \mathbf{b}\), where \(\mathbf{h}\) is a vector containing the elements of \(H\). With at least four pairs of points, we can solve for \(\mathbf{h}\) using least squares to minimize the reprojection error.
+        </p>
+    </div>
+
+    <!-- Part 3 -->
+    <h2>Part 3: Warping the Images</h2>
+    <div class="section">
+        <p>
+            With the homography computed, I warped one image onto the plane of the other. To achieve this, I applied the inverse homography to map pixels from the destination image back to the source image. This inverse warping ensures that every pixel in the output image gets a value from the source image, preventing holes.
+        </p>
+        <p>
+            I determined the bounding box of the warped image by transforming the corner points and then used interpolation to compute pixel values at non-integer coordinates. This process allowed me to align the images accurately, preparing them for blending.
+        </p>
+    </div>
+
+    <!-- Images for Warping -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/Im1.jpg" alt="Image 1">
+            <p class="caption">Figure 1: Original Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/Im2.jpg" alt="Image 2">
+            <p class="caption">Figure 2: Original Image 2.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/im1_warped_to_im2.jpg" alt="Warped Image 1 onto Image 2">
+            <p class="caption">Figure 3: Image 1 Warped onto Image 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/Im1_warped.jpg" alt="Warped Image 1">
+            <p class="caption">Figure 4: Warped Image 1.</p>
+        </div>
+    </div>
+
+    <!-- Part 4 -->
+    <h2>Part 4: Image Rectification</h2>
+    <div class="section">
+        <p>
+            Image rectification involves warping an image so that a selected plane becomes frontal-parallel. I selected images containing planar surfaces like screens or keyboards. By choosing points that define a rectangle on the plane, I mapped these points to a true rectangle in the output image.
+        </p>
+        <p>
+            One challenge was accurately selecting the corner points, especially in images with perspective distortion. Slight inaccuracies could lead to misalignment in the rectified image. Ensuring that the correspondences were precise was crucial for successful rectification.
+        </p>
+    </div>
+
+    <!-- Rectification Images -->
+    <h3>Rectification Example 1</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/computer picture.jpg" alt="Original Computer Screen">
+            <p class="caption">Figure 5: Original Image of Computer Screen.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/computer_rectified.jpg" alt="Rectified Computer Screen">
+            <p class="caption">Figure 6: Rectified Image of Computer Screen.</p>
+        </div>
+    </div>
+
+    <h3>Rectification Example 2</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/computer_top.jpeg" alt="Original Top View">
+            <p class="caption">Figure 7: Original Image (Top View).</p>
+        </div>
+        <div class="image-column">
+            <img src="media/computer_top_rectified.jpg" alt="Rectified Top View">
+            <p class="caption">Figure 8: Rectified Image (Top View).</p>
+        </div>
+    </div>
+
+    <h3>Rectification Example 3</h3>
+    <p>
+        The third attempt involved rectifying an image of a keyboard. However, this attempt wasn't successful due to challenges in accurately selecting the corner points amidst repetitive patterns and reflections on the keyboard surface. The failure highlights the importance of clear feature points for homography estimation.
+    </p>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/keyboard.jpeg" alt="Original Keyboard">
+            <p class="caption">Figure 9: Original Image of Keyboard.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/keyboard_rectified.jpg" alt="Rectified Keyboard">
+            <p class="caption">Figure 10: Attempted Rectification of Keyboard.</p>
+        </div>
+    </div>
+
+    <!-- Part 5 -->
+<!-- Part 4: Image Blending -->
+<h2>Part 5: Image Blending</h2>
+<div class="section">
+    <p>
+        Image blending involves combining two or more images into a seamless panorama. This is done by aligning the images using homographies and then blending them smoothly to reduce visible seams between the overlapping regions.
+    </p>
+
+    <h3>Blending Process</h3>
+    <p>
+        The blending process uses masks to define the regions of overlap between two images. The goal is to gradually transition between the two images using an alpha mask, which controls how much of each image contributes to the final result. The mask typically transitions smoothly from 1 (fully image 1) to 0 (fully image 2).
+    </p>
+
+    <p>
+        Additionally, edges in the overlapping regions are handled carefully to avoid visible artifacts. Edge detection can help to identify significant transitions between regions, and these edges are softened during the blending process to make the final panorama look natural. 
+    </p>
+    
+    <h4>How the Mask Works</h4>
+    <p>
+        In the blending process, we use a mask that defines how the two images are combined. The mask transitions between 1 (image 1) and 0 (image 2) across the overlapping region. By applying this mask, we can ensure a smooth transition, where both images contribute to the blended region in proportion to their mask values.
+    </p>
+
+    <h4>Handling Edges</h4>
+    <p>
+        Edge detection helps in identifying the boundaries in the overlapping region where there is a significant intensity change. This allows us to adjust the blending at the edges, ensuring that the seams between the images are less noticeable. The detected edges are used to guide the blending process, where we perform more smoothing along the edges to avoid visible sharp transitions.
+    </p>
+
+    <!-- Image of Mask and Edges -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/mask.jpg" alt="Blending Mask">
+            <p class="caption">Figure 1: The Mask used for Blending.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/edges.jpg" alt="Edges Detected">
+            <p class="caption">Figure 2: Detected Edges in the Overlapping Region.</p>
+        </div>
+    </div>
+
+    <p>
+        The mask defines the transition region, and the edge map guides the blending around the seams. The mask ensures that the images blend smoothly across the transition region, while the edge map helps in softening the edges in this region. The final blended image is a combination of the two images with the contribution of each image based on the mask.
+    </p>
+    
+    <h4>Blending Example</h4>
+    <p>
+        In the example of blending two images from the SFU University general room, the mask smoothly transitions between the two images in the overlapping region, and edge detection helps to soften the transitions near the boundary.
+    </p>
+    
+
+    <!-- Blending Images -->
+    <h3>Blending Example 1: SFU University General Room</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/im1.jpg" alt="SFU Image 1">
+            <p class="caption">Figure 11: SFU Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/im2.jpg" alt="SFU Image 2">
+            <p class="caption">Figure 12: SFU Image 2.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column-big">
+            <img src="media/panorama_sfu.jpg" alt="SFU Panorama">
+            <p class="caption">Figure 13: Blended Panorama of SFU.</p>
+        </div>
+    </div>
+
+    <h3>Blending Example 2: Night Pictures in Burnaby, BC, Canada</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/night0.jpg" alt="Night Image 0">
+            <p class="caption">Figure 14: Night Image 0.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/night1.jpg" alt="Night Image 1">
+            <p class="caption">Figure 15: Night Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/night2.jpg" alt="Night Image 2">
+            <p class="caption">Figure 16: Night Image 2.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column-big">
+            <img src="media/panorama_night.jpeg" alt="Night Panorama">
+            <p class="caption">Figure 17: Blended Night Panorama.</p>
+        </div>
+    </div>
+
+    <h3>Blending Example 3: Doing Work</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/room1.jpg" alt="Room Image 1">
+            <p class="caption">Figure 18: Room Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/room2.jpg" alt="Room Image 2">
+            <p class="caption">Figure 19: Room Image 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/room3.jpg" alt="Room Image 3">
+            <p class="caption">Figure 20: Room Image 3.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column-big">
+            <img src="media/panorama_room.jpg" alt="Room Panorama">
+            <p class="caption">Figure 21: Blended Panorama of Room.</p>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <h2>Conclusion</h2>
+    <p>
+        This project deepened my understanding of homographies and image warping. By successfully aligning and blending multiple images, I was able to create seamless panoramas and rectify images. The challenges in point selection and blending techniques highlighted the importance of precision and the effectiveness of computational methods in image processing.
+    </p>
+
+</body>
+</html>
