@@ -1,4 +1,246 @@
 /* General Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    padding-top: 60px; /* Equal to header height */
+}
+
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
+p {
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+a:hover {
+    color: #0056b3;
+}
+
+/* Header Styles */
+header {
+    background-color: #fff;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    border-bottom: 1px solid #eaeaea;
+    z-index: 1000;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 60px;
+    padding: 0 2em;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+}
+
+.nav-links li {
+    margin-left: 2em;
+}
+
+.nav-links a {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Hamburger Menu (hidden by default) */
+.menu-toggle {
+    display: none;
+}
+
+/* Hero Section Styles */
+.hero-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4em 2em;
+    background-color: #f0f0f0;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.hero-container {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-text {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.hero-text h1 {
+    font-size: 3em;
+    margin: 0.5em 0;
+}
+
+.hero-text h1 span {
+    color: #007BFF;
+}
+
+.hero-text p {
+    font-size: 1.5em;
+    margin: 0.5em 0;
+}
+
+.cta-button {
+    display: inline-block;
+    margin-top: 1em;
+    padding: 0.8em 1.2em;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}
+
+.hero-image {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.profile-image {
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
+/* Contact Section */
+#contact {
+    padding: 4em 2em;
+    background-color: #f9f9f9;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+#contact h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+}
+
+#contact p {
+    font-size: 1.1em;
+    margin-bottom: 2em;
+}
+
+.social-media {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.social-media a {
+    margin: 0 1em;
+    font-size: 1.2em;
+    display: inline-flex;
+    align-items: center;
+    color: #333;
+    text-decoration: none;
+}
+
+.social-media a:hover {
+    color: #007BFF;
+}
+
+.social-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 8px;
+}
+
+/* Calendly Widget Styles */
+.calendly-inline-widget {
+    margin: 0 auto;
+    max-width: 800px;
+}
+
+@media (max-width: 768px) {
+    /* Adjust Header for Mobile */
+    header {
+        justify-content: space-between;
+    }
+
+    .menu-toggle {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-toggle div {
+        width: 25px;
+        height: 3px;
+        background-color: #333;
+        margin: 5px 0;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        display: none;
+    }
+
+    .nav-links li {
+        margin: 1em 0;
+    }
+
+    /* Hero Section */
+    .hero-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-text {
+        padding-right: 0;
+    }
+
+    .hero-image {
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    /* Social Media */
+    .social-media {
+        flex-direction: column;
+    }
+
+    .social-media a {
+        margin: 0.5em 0;
+    }
+
+    /* Calendly Widget */
+    .calendly-inline-widget {
+        width: 100%;
+        min-width: unset;
+    }
+}
+
+/* General Styles */
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
@@ -536,3 +778,6 @@ footer {
 .back-to-projects a:hover {
     text-decoration: underline;
 }
+
+
+

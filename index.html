@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Francesco Crivelli</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- Link to external CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,9 +13,14 @@
 <!-- Header with navigation -->
 <header>
     <nav>
+        <a href="#" class="menu-toggle">
+            <div></div>
+            <div></div>
+            <div></div>
+        </a>
         <ul class="nav-links">
             <li><a href="#about">About Me</a></li>
-            <li><a href="projects.html">Projects</a></li> <!-- Added Projects tab -->
+            <li><a href="projects.html">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -25,9 +31,14 @@
     <div class="hero-container">
         <!-- Left side: Text content -->
         <div class="hero-text">
-            <h1>Hey! I'm <span>Francesco</span></h1>
+            <h1>Francesco Crivelli<span></span></h1>
             <!-- <p>A brief tagline or description can go here.</p> -->
             <a href="projects.html" class="cta-button">View My Work</a>
+            <div> 
+                <small>I am a senior EECS student at UC Berkeley, deeply passionate about AI and robotics.</small>
+                <small>My projects span machine learning, computer vision, and robotic systems, including drone-based wildfire detection and aptamer-based electrochemical sensors for healthcare. Now, my primary focus is on advancing robot learning and its applications in real-world scenarios. </small>
+            </div>
+           
         </div>
         
         <!-- Right side: Profile image -->
@@ -40,11 +51,13 @@
 <section id="contact">
     <h2>Contact Me</h2>
     <p>
-        Feel free to reach out through any of the platforms below or schedule a meeting.
+        You can reach out through any of the platforms or schedule a meeting below.
     </p>
     <div class="social-media">
         <a href="https://github.com/francescocrivelli/" target="_blank"><img src="images/github-icon.png" alt="GitHub" class="social-icon"> GitHub</a>
         <a href="https://www.linkedin.com/in/francesco-crivelli/" target="_blank"><img src="images/linkedin-icon.png" alt="LinkedIn" class="social-icon"> LinkedIn</a>
+        <a href="https://youtube.com/@francescocrivelli?si=bllJ5q9Zg58yznz9" target="_blank"> <img src="images/youtube_icon.jpeg" alt="YouTube" class="social-icon"> YouTube </a>
+        <a href="mailto:francesco.crivelli21@gmail.com"> Email</a>
     </div>
 
     <!-- Calendly inline widget begin -->
@@ -55,7 +68,18 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2023 Your Name. All rights reserved.</p>
+        <p>&copy; 2023 Francesco Crivelli. All rights reserved.</p>
     </footer>
+
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+    
+        menuToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        });
+    </script>
 </body>
 </html>
+
