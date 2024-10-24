@@ -77,7 +77,12 @@
     
         menuToggle.addEventListener('click', function(e) {
             e.preventDefault();
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            // Check the current display state
+            if (window.getComputedStyle(navLinks).display === 'none') {
+                navLinks.style.display = 'flex'; // Show the nav-links
+            } else {
+                navLinks.style.display = 'none'; // Hide the nav-links
+            }
         });
     </script>
 </body>
