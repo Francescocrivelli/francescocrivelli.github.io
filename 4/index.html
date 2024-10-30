@@ -12,6 +12,67 @@
     </head>
     
 <body>
+    <h1>Project 4AB Image Warping - Feature Matching and Automatic Image Stitching</h1>
+    <h2> General Introduction</h2>
+<p>
+    In Project 4A, I explored image warping and mosaicing to create panoramas and rectify images. Using homographies, I aligned and blended images to generate seamless panoramas. In Project 4B, I implemented feature detection, descriptor extraction, matching, and homography estimation to automate this process, guided by the paper <em>“Multi-Image Matching using Multi-Scale Oriented Patches”</em> by Brown et al.
+</p>
+<p>
+    A memorable aspect of these projects was observing the impact of movement on image stitching. For instance, stitching images of the Berkeley Doe Library posed challenges due to moving people, whereas static scenes, like my Berkeley Hills sunset, produced more stable results. The project deepened my understanding of computer vision techniques and changed the way I contemplate scenes, encouraging me to think about photographic opportunities.
+</p>
+
+<!-- Displaying Final Results -->
+<h3>Example Results</h3>
+
+<!-- Berkeley Doe Library Images -->
+<h4>Berkeley Doe Library</h4>
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/berkeley_library0.jpg" alt="Berkeley Library Image 0">
+        <p class="caption">Figure 1: Berkeley Doe Library Image 0.</p>
+    </div>
+    <div class="image-column">
+        <img src="media/berkeley_library1.jpg" alt="Berkeley Library Image 1">
+        <p class="caption">Figure 2: Berkeley Doe Library Image 1.</p>
+    </div>
+    </div>
+</div>
+<div class="image-row-big">
+    <div class="image-column-big">
+        <img src="media/automatic_stitching_berkeley_library.jpg" alt="Automatic Stitching Result - Berkeley Library">
+        <p class="caption">Figure 5: Automatic Stitching Result of Berkeley Doe Library.</p>
+    </div>
+</div>
+
+<!-- Berkeley Hills Images -->
+<h4>Berkeley Hills on My Classical Sunset Run</h4>
+<div class="image-row">
+    <div class="image-column">
+        <img src="media/berkeley_hills1.jpg" alt="Berkeley Hills Image 1">
+        <p class="caption">Figure 6: Berkeley Hills Image 1.</p>
+    </div>
+    <div class="image-column">
+        <img src="media/berkeley_hills2.jpg" alt="Berkeley Hills Image 2">
+        <p class="caption">Figure 7: Berkeley Hills Image 2.</p>
+    </div>
+    <div class="image-column">
+        <img src="media/berkeley_hills3.jpg" alt="Berkeley Hills Image 3">
+        <p class="caption">Figure 8: Berkeley Hills Image 3.</p>
+    </div>
+</div>
+<div class="image-row-big">
+    <div class="image-column-big">
+        <img src="media/automatic_stitching_berkeley_hills.jpg" alt="Automatic Stitching Result - Berkeley Hills">
+        <p class="caption">Figure 9: Automatic Stitching Result of Berkeley Hills Sunset.</p>
+    </div>
+</div>
+
+<p>
+    These final results showcase how different scenes and lighting conditions impact the stitching outcome, illustrating the value of controlled and carefully chosen scenes for creating smooth, automatic panoramas.
+</p>
+
+
+
     <h1>Project 4A: Image Warping and Mosaicing</h1>
     <nav>
         <a href="../index.html">Back to Home</a>
@@ -320,6 +381,270 @@
     <p>
         This project deepened my understanding of homographies and image warping. By successfully aligning and blending multiple images, I was able to create seamless panoramas and rectify images. The challenges in point selection and blending techniques highlighted the importance of precision and the effectiveness of computational methods in image processing.
     </p>
+
+    <h1>Project 4B: Feature Matching and Autostitching</h1>
+    <nav>
+        <a href="../index.html">Back to Home</a>
+    </nav>
+
+    <!-- Introduction -->
+    <h2>Introduction</h2>
+    <p>
+        In this project, I developed a system for automatically stitching images into a mosaic by implementing feature detection, description, matching, and homography estimation techniques. A key aspect of this project was to read and implement concepts from the research paper <em>“Multi-Image Matching using Multi-Scale Oriented Patches”</em> by Brown et al., with several simplifications.
+    </p>
+    <p>
+        One of the coolest things I learned from this project was how much I started to pay attention to my surroundings and consider photographic opportunities. I noticed a change in the way I think and contemplate scenes, as I began to pay attention to where I go and to take pictures that could be stitched together. Another interesting observation was the impact of moving objects on automatic feature matching. For instance, when I took pictures of the Berkeley Doe Library with people walking by, it was challenging to get the stitch working correctly due to the moving subjects.
+    </p>
+
+    <!-- Displaying Final Results in Introduction -->
+    <h3>Example Results</h3>
+
+    <!-- Berkeley Doe Library Images -->
+    <h4>Berkeley Doe Library</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/berkeley_library0.jpg" alt="Berkeley Library Image 0">
+            <p class="caption">Figure 1: Berkeley Doe Library Image 0.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/berkeley_library1.jpg" alt="Berkeley Library Image 1">
+            <p class="caption">Figure 2: Berkeley Doe Library Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/berkeley_library2.jpg" alt="Berkeley Library Image 2">
+            <p class="caption">Figure 3: Berkeley Doe Library Image 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/berkeley_library3.jpg" alt="Berkeley Library Image 3">
+            <p class="caption">Figure 4: Berkeley Doe Library Image 3.</p>
+        </div>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/automatic_stitching_berkeley_library.jpg" alt="Automatic Stitching Result - Berkeley Library">
+            <p class="caption">Figure 5: Automatic Stitching Result of Berkeley Doe Library.</p>
+        </div>
+    </div>
+
+    <!-- Berkeley Hills Images -->
+    <h4>Berkeley Hills on My Classical Sunset Run</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/berkeley_hills1.jpg" alt="Berkeley Hills Image 1">
+            <p class="caption">Figure 6: Berkeley Hills Image 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/berkeley_hills2.jpg" alt="Berkeley Hills Image 2">
+            <p class="caption">Figure 7: Berkeley Hills Image 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/berkeley_hills3.jpg" alt="Berkeley Hills Image 3">
+            <p class="caption">Figure 8: Berkeley Hills Image 3.</p>
+        </div>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/automatic_stitching_berkeley_hills.jpg" alt="Automatic Stitching Result - Berkeley Hills">
+            <p class="caption">Figure 9: Automatic Stitching Result of Berkeley Hills Sunset.</p>
+        </div>
+    </div>
+
+    <p>
+        Due to the presence of moving people in some images, stitching all of them was challenging. Therefore, I focused on stitching the images without significant movement to achieve better results.
+    </p>
+
+    <!-- Step 1: Harris Interest Point Detector -->
+    <h2>Step 1: Harris Interest Point Detector</h2>
+    <div class="section">
+        <p>
+            The first step was to detect corner features in the images using the Harris Interest Point Detector. Harris corners are points in an image where the surrounding pixels have significant changes in intensity in all directions, making them suitable for tracking and matching.
+        </p>
+        <p>
+            The Harris corner detector computes the gradient of the image and analyzes the eigenvalues of the second-moment matrix to find regions with significant variations. These points are overlaid on the image as shown below.
+        </p>
+    </div>
+        <!-- Step 1.2: Adaptive Non-Maximal Suppression -->
+        <h2>Step 1.2: Adaptive Non-Maximal Suppression (ANMS)</h2>
+        <div class="section">
+            <p>
+                After detecting corners, I implemented Adaptive Non-Maximal Suppression (ANMS) to select a subset of keypoints that are both strong and well-distributed across the image. This process helps in reducing the computational load and improving the matching performance.
+            </p>
+            <p>
+                The ANMS algorithm works by computing a suppression radius \( r_i \) for each corner point, defined as the minimum distance to a stronger corner, scaled by a robustness constant \( c_{\text{robust}} \). The suppression radius is calculated as:
+            </p>
+            <p class="formula">
+                \[
+                r_i = \min_{j} \left( \| x_i - x_j \| \quad \text{such that} \quad f_j > f_i \cdot c_{\text{robust}} \right)
+                \]
+            </p>
+            <p>
+                Here, \( f_i \) is the corner strength at point \( i \), and \( x_i \) is the coordinate of point \( i \). The robustness constant \( c_{\text{robust}} \) controls the suppression level. I used \( c_{\text{robust}} = 0.9 \) and selected the top 500 points with the largest suppression radii.
+            </p>
+            <p>
+                The resulting keypoints after applying ANMS are shown below.
+            </p>
+        </div>
+    <div class="image-row">
+        <div class="image-column-big">
+            <img src="media/all_corners_from_harris_corners_sfu.png" alt="Harris Corners on SFU Image">
+            <p class="caption">Figure 10: Detected Harris Corners on SFU Image.</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/anms_filtered_corners_sfu.png" alt="ANMS Filtered Corners on SFU Image">
+            <p class="caption">Figure 11: ANMS Filtered Corners on SFU Image.</p>
+        </div>
+    </div>
+
+
+
+    <!-- Step 2: Feature Descriptor Extraction -->
+    <h2>Step 2: Feature Descriptor Extraction</h2>
+    <div class="section">
+        <p>
+            For each keypoint, I extracted a feature descriptor to characterize the local image region. I sampled a 40x40 pixel window around each keypoint and downsampled it to an 8x8 patch by taking a step size of 5 pixels. This process captures the essential structure while reducing the dimensionality.
+        </p>
+        <p>
+            The descriptors were bias and gain normalized to account for lighting variations. I ignored rotation invariance for simplicity. An example of a feature descriptor is shown below.
+        </p>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/descriptor_for_point_15_sfu.png" alt="Feature Descriptor for Point 15 on SFU Image">
+            <p class="caption">Figure 12: Feature Descriptor for Keypoint 15 on SFU Image.</p>
+        </div>
+    </div>
+
+    <!-- Step 3: Feature Matching -->
+    <h2>Step 3: Feature Matching</h2>
+    <div class="section">
+        <p>
+            With the feature descriptors extracted, I proceeded to match them between pairs of images. I used the approach described by Lowe, where matches are determined based on the ratio of the distances to the first and second nearest neighbors.
+        </p>
+        <p>
+            Specifically, for each descriptor in the first image, I found its two nearest neighbors in the second image. If the ratio of the distances \( \frac{d_1}{d_2} \) was below a threshold (I used 0.8), the match was considered reliable. This helps in filtering out ambiguous matches.
+        </p>
+        <p>
+            The matched features before and after applying the threshold are visualized below.
+        </p>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/pre_matching_descriptos_corners_sfu_image1_and_image_2.png" alt="Pre-Matching Descriptors">
+            <p class="caption">Figure 13: Feature Matches Before Thresholding.</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/post_matching_descriptor_pre_ransac_sfu_image1_and_image_2.png" alt="Post-Matching Descriptors">
+            <p class="caption">Figure 14: Feature Matches After Applying Threshold (Pre-RANSAC).</p>
+        </div>
+    </div>
+
+    <!-- Step 4: RANSAC -->
+    <h2>Step 4: RANSAC for Homography Estimation</h2>
+    <div class="section">
+        <p>
+            To robustly estimate the homography between the images, I used the RANSAC (Random Sample Consensus) algorithm. RANSAC iteratively selects random subsets of matches to compute candidate homographies and then evaluates them based on the number of inliers—matches that fit the model within a certain error threshold.
+        </p>
+        <p>
+            The algorithm proceeds as follows:
+        </p>
+        <ol>
+            <li>Select 4 random point correspondences.</li>
+            <li>Compute the homography \( H \) using these points.</li>
+            <li>Apply \( H \) to all matched points and compute the reprojection error.</li>
+            <li>Count the number of inliers where the error is below a threshold.</li>
+            <li>Repeat the process for a set number of iterations or until a satisfactory model is found.</li>
+        </ol>
+        <p>
+            The final homography is computed using all inliers from the best model. This process helps to eliminate outliers and results in a more accurate alignment.
+        </p>
+        <p>
+            The matches after applying RANSAC are shown below.
+        </p>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/sfu_after_ransac_result.png" alt="Matches After RANSAC">
+            <p class="caption">Figure 15: Feature Matches After RANSAC.</p>
+        </div>
+    </div>
+
+    <!-- Step 5: Final Results -->
+    <h2>Final Results: Manual vs. Automatic Stitching</h2>
+    <div class="section">
+        <p>
+            After computing the homographies automatically, I proceeded to stitch the images into panoramas. Below are comparisons between manual stitching (from Project 4A) and automatic stitching for each of the mosaics.
+        </p>
+        <p>it is also important to mentioned that I did some modification in my blending process for part 4B</p>
+    </div>
+
+    <!-- Comparison 1: SFU University General Room -->
+    <h3>Comparison 1: SFU University General Room</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/panorama_manual_sfu.jpg" alt="Manual Stitching - SFU">
+            <p class="caption">Figure 16: Manual Stitching of SFU Images.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/automatic_stich_sfu.jpg" alt="Automatic Stitching - SFU">
+            <p class="caption">Figure 17: Automatic Stitching of SFU Images.</p>
+        </div>
+    </div>
+
+    <!-- Comparison 2: Night Pictures in Burnaby, BC -->
+    <h3>Comparison 2: Night Pictures in Burnaby, BC</h3>
+    <div class="image-row">
+        <div class="image-column"> 
+            <img src="media/panorama_manual_night.jpg" alt="Manual Stitching - Night">
+            <p class="caption">Figure 18: Manual Stitching of Night Images.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/automatic_stitching_night_burnaby_canada.jpg" alt="Automatic Stitching - Night">
+            <p class="caption">Figure 19: Automatic Stitching of Night Images.</p>
+        </div>
+    </div>
+
+    <!-- Comparison 3: Doing Work in a Room -->
+    <h3>Comparison 3: Doing Work in a Room</h3>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/panorama_manual_room.jpg" alt="Manual Stitching - Room">
+            <p class="caption">Figure 20: Manual Stitching of Room Images.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/automatic_stitching_room_vanessa.jpg" alt="Automatic Stitching - Room">
+            <p class="caption">Figure 21: Automatic Stitching of Room Images.</p>
+        </div>
+    </div>
+
+    <!-- Favorite Results -->
+    <h3>Additional Results</h3>
+    <p>
+        Here are my favorite final results from the Berkeley Doe Library and the Berkeley Hills.
+    </p>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/automatic_stitching_berkeley_library.jpg" alt="Automatic Stitching - Berkeley Library">
+            <p class="caption">Figure 22: Automatic Stitching of Berkeley Doe Library.</p>
+        </div>
+    </div>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/automatic_stitching_berkeley_hills.jpg" alt="Automatic Stitching - Berkeley Hills">
+            <p class="caption">Figure 23: Automatic Stitching of Berkeley Hills Sunset.</p>
+        </div>
+    </div>
+
+    <!-- Conclusion -->
+    <h2>Conclusion</h2>
+    <p>
+        Through this project, I gained a deeper understanding of feature detection, description, and matching techniques, as well as robust homography estimation using RANSAC. Implementing these algorithms allowed me to automate the image stitching process and appreciate the challenges involved, such as dealing with moving objects and varying lighting conditions.
+    </p>
+    <p>
+        The coolest thing I learned was how the combination of computer vision techniques can produce impressive results, enabling us to create panoramas automatically. Additionally, this project made me more observant of my surroundings, considering how scenes could be captured and stitched together.
+    </p>
+
+</body>
+</html>
 
 </body>
 </html>
