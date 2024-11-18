@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project 5A: Diffusion Models</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Include MathJax for rendering LaTeX equations -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+</head>
+<body>
+    <h1>Project 5A: The Power of Diffusion Models!</h1>
+    <nav>
+        <a href="../index.html">Back to Home</a>
+    </nav>
+
+    <!-- Introduction -->
+    <h2>Introduction</h2>
+    <p>
+        In this project, I explored the capabilities of diffusion models, implemented diffusion sampling loops, and used them for tasks such as inpainting and creating optical illusions. The project was structured into several parts, each focusing on different aspects of diffusion models.
+    </p>
+    <p>
+        The images in Part 0 are 254x254 pixels, while images in other parts are 64x64 pixels. Throughout the project, I used the DeepFloyd IF diffusion model, which you can learn more about <a href="https://huggingface.co/DeepFloyd/IF-I-XL-v1.0">here</a>.
+    </p>
+
+    <!-- Part 0: Model Sampling -->
+    <h2>Part 0: Model Sampling</h2>
+    <div class="section">
+        <p>
+            In this section, I sampled images from the model using different numbers of iterations. I also downloaded the precomputed text embeddings to facilitate the generation process.
+        </p>
+        <p>
+            The following images were obtained during this process:
+        </p>
+    </div>
+    <!-- Images for Part 0 -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/im1.png" alt="Sample Image im1.png">
+            <p class="caption">Figure 1: Sample Image im1.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/download4.png" alt="Sample Image download4.png">
+            <p class="caption">Figure 2: Sample Image download4.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/download2.png" alt="Sample Image download2.png">
+            <p class="caption">Figure 3: Sample Image download2.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/download3.png" alt="Sample Image download3.png">
+            <p class="caption">Figure 4: Sample Image download3.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/download1.png" alt="Sample Image download1.png">
+            <p class="caption">Figure 5: Sample Image download1.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/download.png" alt="Sample Image download.png">
+            <p class="caption">Figure 6: Sample Image download.png.</p>
+        </div>
+        
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/50_steps.png" alt="Sample Image 50_steps.png">
+            <p class="caption">Figure 7: Sample Image 50_steps.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/50_steps_large.png" alt="Sample Image 50_steps_large.png">
+            <p class="caption">Figure 10: Sample Image 50_steps_large.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/50_steps_2.png" alt="Sample Image 50_steps_2.png">
+            <p class="caption">Figure 12: Sample Image 50_steps_2.png.</p>
+        </div>
+
+        <div class="image-column">
+            <img src="media/50_steps_large3.png" alt="Sample Image 50_steps_large3.png">
+            <p class="caption">Figure 9: Sample Image 50_steps_large3.png.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/50_steps_1.png" alt="Sample Image 50_steps_1.png">
+            <p class="caption">Figure 13: Sample Image 50_steps_1.png.</p>
+        </div>
+        
+        <div class="image-column">
+            <img src="media/50_steps_large_2.png" alt="Sample Image 50_steps_large_2.png">
+            <p class="caption">Figure 11: Sample Image 50_steps_large_2.png.</p>
+        </div>
+        
+
+        
+    </div>
+   
+
+    <!-- Part 1: Sampling Loops -->
+    <h2>Part 1: Sampling Loops</h2>
+    <div class="section">
+        <p>
+            In this part, I implemented sampling loops using the pretrained DeepFloyd denoisers to produce high-quality images. I modified these sampling loops to solve different tasks such as inpainting and producing optical illusions.
+        </p>
+        <h3>Sample Image of the Campanile</h3>
+        <p>
+            The sample image used throughout this part is the Berkeley Campanile, which served as the test image for various processes.
+        </p>
+        <div class="image-row-small">
+            <div class="image-column-small">
+                <img src="media/campanile.png" alt="Berkeley Campanile">
+                <p class="caption">Figure 14: Berkeley Campanile.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Part 1.1: Forward Process -->
+    <h2>Part 1.1: Forward Process</h2>
+    <div class="section">
+        <p>
+            A key part of diffusion is the forward process, which takes a clean image and adds noise to it. In this part, I wrote a function to implement this process. The forward process is defined by:
+        </p>
+        <p class="formula">
+            \[
+            q(x_t | x_0) = \mathcal{N}(x_t ; \sqrt{\bar\alpha_t} x_0, (1 - \bar\alpha_t)\mathbf{I}) \tag{1}
+            \]
+        </p>
+        <p>
+            which is equivalent to computing:
+        </p>
+        <p class="formula">
+            \[
+            x_t = \sqrt{\bar\alpha_t} x_0 + \sqrt{1 - \bar\alpha_t} \epsilon \quad \text{where}~ \epsilon \sim \mathcal{N}(0, 1) \tag{2}
+            \]
+        </p>
+        <p>
+            Given a clean image \( x_0 \), we get a noisy image \( x_t \) at timestep \( t \) by sampling from a Gaussian with mean \( \sqrt{\bar\alpha_t} x_0 \) and variance \( (1 - \bar\alpha_t) \). Note that the forward process is not just adding noise—we also scale the image.
+        </p>
+        <p>
+            Below are the results of the forward process on the test image with \( t \in [250, 500, 750] \):
+        </p>
+    </div>
+    <!-- Images for Part 1.1 -->
+    <div class="image-row">
+        <div class="image-column-small">
+            <img src="media/campanile.png" alt="Berkeley Campanile">
+            <p class="caption">Figure 14: Berkeley Campanile.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/campanile_timestep_250.png" alt="Campanile at t=250">
+            <p class="caption">Figure 15: Noisy Campanile at t=250.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/campanile_timestep_500.png" alt="Campanile at t=500">
+            <p class="caption">Figure 16: Noisy Campanile at t=500.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/campanile_timestep_750.png" alt="Campanile at t=750">
+            <p class="caption">Figure 17: Noisy Campanile at t=750.</p>
+        </div>
+    </div>
+
+    <!-- Part 1.2: Classical Denoising -->
+    <h2>Part 1.2: Classical Denoising</h2>
+    <div class="section">
+        <p>
+            I attempted to denoise the noisy images using Gaussian blur filtering. The results were not satisfactory, highlighting the limitations of classical denoising methods in handling significant noise.
+        </p>
+        <!-- Images for Part 1.2 -->
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/campanile_timestep_250.png" alt="Campanile at t=250">
+                <p class="caption">Figure 15: Noisy Campanile at t=250.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/campanile_timestep_500.png" alt="Campanile at t=500">
+                <p class="caption">Figure 16: Noisy Campanile at t=500.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/campanile_timestep_750.png" alt="Campanile at t=750">
+                <p class="caption">Figure 17: Noisy Campanile at t=750.</p>
+            </div>
+        </div>
+        <div class="image-row">
+            <div class="image-column">
+                <img src="media/part_1_2_denoised_timestep_250.jpg" alt="Gaussian Denoising at t=250">
+                <p class="caption">Figure 18: Gaussian Denoising at t=250.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/part_1_2_denoised_timestep_500.jpg" alt="Gaussian Denoising at t=500">
+                <p class="caption">Figure 19: Gaussian Denoising at t=500.</p>
+            </div>
+            <div class="image-column">
+                <img src="media/part_1_2_denoised_timestep_750.jpg" alt="Gaussian Denoising at t=750">
+                <p class="caption">Figure 20: Gaussian Denoising at t=750.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Part 1.3: One-Step Denoising -->
+    <h2>Part 1.3: One-Step Denoising</h2>
+    <div class="section">
+        <p>
+            I used a pretrained diffusion model to denoise the images in a single step. The denoiser predicts the noise in the image, which can then be removed to recover an estimate of the original image.
+        </p>
+        <p>
+            The process involves estimating the original image from the noisy image using:
+        </p>
+        <p class="formula">
+            \[
+            \hat{x}_0 = \frac{1}{\sqrt{\bar\alpha_t}} \left( x_t - \sqrt{1 - \bar\alpha_t} \hat{\epsilon} \right) \tag{2}
+            \]
+        </p>
+        <p>
+            Here are the results for \( t \in [250, 500, 750] \):
+        </p>
+    </div>
+    <!-- Images for Part 1.3 -->
+         <!-- Noisy and Noise Estimate Images -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/campanile_timestep_250.png" alt="Noisy Image at t=250">
+            <p class="caption">Figure 24: Noisy Image at t=250.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/campanile_timestep_500.png" alt="Noise Estimate at t=500">
+            <p class="caption">Figure 25: Noise Estimate at t=500.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/campanile_timestep_750.png" alt="Noise Estimate at t=750">
+            <p class="caption">Figure 25: Noise Estimate at t=750.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_3_clean_est_t250.jpg" alt="Estimated Clean Image at t=250">
+            <p class="caption">Figure 21: Estimated Clean Image at t=250.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_3_clean_est_t500.jpg" alt="Estimated Clean Image at t=500">
+            <p class="caption">Figure 22: Estimated Clean Image at t=500.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_3_clean_est_t750.jpg" alt="Estimated Clean Image at t=750">
+            <p class="caption">Figure 23: Estimated Clean Image at t=750.</p>
+        </div>
+    </div>
+
+
+    <!-- Part 1.4: Iterative Denoising -->
+    <h2>Part 1.4: Iterative Denoising</h2>
+    <div class="section">
+        <p>
+            I implemented iterative denoising, which involves progressively denoising the image by moving from a higher noise level to a lower one. The formula used is:
+        </p>
+        <p class="formula">
+            \[
+            x_{t'} = \frac{\sqrt{\bar\alpha_{t'}}\beta_t}{1 - \bar\alpha_t} \hat{x}_0 + \frac{\sqrt{\alpha_t}(1 - \bar\alpha_{t'})}{1 - \bar\alpha_t} x_t + v_\sigma \tag{3}
+            \]
+        </p>
+        <p>
+            where:
+            <ul>
+                <li>\( x_t \) is your image at timestep \( t \).</li>
+                <li>\( x_{t'} \) is your noisy image at timestep \( t' \) where \( t' < t \) (less noisy).</li>
+                <li>\( \hat{x}_0 \) is our current estimate of the clean image using equation (2).</li>
+                <li>\( \alpha_t = \bar\alpha_t / \bar\alpha_{t'} \).</li>
+                <li>\( \beta_t = 1 - \alpha_t \).</li>
+            </ul>
+        </p>
+        <p>
+            Below are the images at various noise levels during the iterative denoising process:
+        </p>
+    </div>
+    <!-- Noisy Images at Different Timesteps -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_30.png" alt="Noisy at t=30">
+            <p class="caption">Figure 26: Noisy Campanile at t=30.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_90.png" alt="Noisy at t=90">
+            <p class="caption">Figure 27: Noisy Campanile at t=90.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_240.png" alt="Noisy at t=240">
+            <p class="caption">Figure 28: Noisy Campanile at t=240.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_390.png" alt="Noisy at t=390">
+            <p class="caption">Figure 29: Noisy Campanile at t=390.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_540.png" alt="Noisy at t=540">
+            <p class="caption">Figure 30: Noisy Campanile at t=540.</p>
+        </div>
+        <!-- at t=690 -->
+        <div class="image-column">
+            <img src="media/part_1_4_campanile_noisy_at_t_690.png" alt="Noisy at t=690">
+            <p class="caption">Figure 31: Noisy Campanile at t=690.</p>
+        </div>
+    </div>
+
+    <!-- Denoised Images -->
+    <div class="image-row">
+        <!-- original image -->
+        <div class="image-column">
+            <img src="media/campanile.png" alt="Original Image">
+            <p class="caption">Figure 32: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_iterative_denoising_clean_image.png" alt="Iteratively Denoised Image">
+            <p class="caption">Figure 32: Iteratively Denoised Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_one_step_denoising_clean_image.jpg" alt="One-Step Denoised Image">
+            <p class="caption">Figure 33: One-Step Denoised Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_4_gaussian_blur_denoising_clean_image.jpg" alt="Gaussian Blur Denoised Image">
+            <p class="caption">Figure 34: Gaussian Blur Denoised Image.</p>
+        </div>
+    </div>
+
+    <!-- Part 1.5: Diffusion Model Sampling -->
+    <h2>Part 1.5: Diffusion Model Sampling</h2>
+    <div class="section">
+        <p>
+            I generated images from scratch by starting with random noise and applying iterative denoising. Here are some samples generated with the prompt "a high quality photo":
+        </p>
+    </div>
+    <!-- Generated Samples -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_5_generated_image_clean_sample1.jpg" alt="Generated Sample 1">
+            <p class="caption">Figure 35: Generated Sample 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_5_generated_image_clean_sample2.jpg" alt="Generated Sample 2">
+            <p class="caption">Figure 36: Generated Sample 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_5_generated_image_clean_sample3.jpg" alt="Generated Sample 3">
+            <p class="caption">Figure 37: Generated Sample 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_5_generated_image_clean_sample4.jpg" alt="Generated Sample 4">
+            <p class="caption">Figure 38: Generated Sample 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_5_generated_image_clean_sample5.jpg" alt="Generated Sample 5">
+            <p class="caption">Figure 39: Generated Sample 5.</p>
+        </div>
+    </div>
+
+
+    <!-- Part 1.6: Classifier-Free Guidance (CFG) -->
+    <h2>Part 1.6: Classifier-Free Guidance (CFG)</h2>
+    <div class="section">
+        <p>
+            To improve image quality, I implemented Classifier-Free Guidance (CFG). In CFG, we compute both a noise estimate conditioned on a text prompt (\( \epsilon_c \)) and an unconditional noise estimate (\( \epsilon_u \)). The final noise estimate is:
+        </p>
+        <p class="formula">
+            \[
+            \epsilon = \epsilon_u + \gamma (\epsilon_c - \epsilon_u)
+            \]
+        </p>
+        <p>
+            where \( \gamma \) is the guidance scale (I used \( \gamma = 5 \)). Here are the generated images with CFG:
+        </p>
+    </div>
+    <!-- CFG Samples -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_6_sample_1.jpg" alt="CFG Sample 1">
+            <p class="caption">Figure 40: CFG Sample 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2.jpg" alt="CFG Sample 2">
+            <p class="caption">Figure 41: CFG Sample 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_3.jpg" alt="CFG Sample 3">
+            <p class="caption">Figure 42: CFG Sample 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_4.jpg" alt="CFG Sample 4">
+            <p class="caption">Figure 43: CFG Sample 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_5.jpg" alt="CFG Sample 5">
+            <p class="caption">Figure 44: CFG Sample 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_6.jpg" alt="CFG Sample 6">
+            <p class="caption">Figure 45: CFG Sample 6.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_6_sample_7.jpg" alt="CFG Sample 7">
+            <p class="caption">Figure 46: CFG Sample 7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_8.jpg" alt="CFG Sample 8">
+            <p class="caption">Figure 47: CFG Sample 8.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_9.jpg" alt="CFG Sample 9">
+            <p class="caption">Figure 48: CFG Sample 9.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_10.jpg" alt="CFG Sample 10">
+            <p class="caption">Figure 49: CFG Sample 10.</p>
+        </div>
+    </div>
+
+    <p>
+        Progression of Sample 2 during denoising:
+    </p>
+    <!-- Progression Images for Sample 2 -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image7.png" alt="Progression Image 7">
+            <p class="caption">Figure 50: Sample 2 Progression Image 7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image6.png" alt="Progression Image 6">
+            <p class="caption">Figure 51: Sample 2 Progression Image 6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image5.png" alt="Progression Image 5">
+            <p class="caption">Figure 52: Sample 2 Progression Image 5.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image4.png" alt="Progression Image 4">
+            <p class="caption">Figure 53: Sample 2 Progression Image 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image3.png" alt="Progression Image 3">
+            <p class="caption">Figure 54: Sample 2 Progression Image 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image2.png" alt="Progression Image 2">
+            <p class="caption">Figure 55: Sample 2 Progression Image 2.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_6_sample_2_progression_image1.png" alt="Progression Image 1">
+            <p class="caption">Figure 56: Sample 2 Progression Image 1.</p>
+        </div>
+    </div>
+    
+
+
+    <!-- Part1.7: Image-to-Image Translation -->
+    <h2>Part 1.7: Image-to-Image Translation</h2>
+    <div class="section">
+        <p>
+            I explored image editing by adding varying amounts of noise to the original image and then denoising it. The more noise added, the larger the edit.
+        </p>
+        <p>
+            For each of the sub-images, I observed the results and noted the changes.
+        </p>
+    </div>
+
+    <!-- Sub Part 1.7.1: Editing Hand-Drawn and Web Images -->
+    <h3>Sub Part 1.7.1: Editing Hand-Drawn and Web Images</h3>
+    <!-- Images for Hand-Drawn Airplane -->
+    <h4>Campanile</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/campanile.png" alt="Original Campanile">
+            <p class="caption">Figure 64: Original Campanile.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i6.png" alt="Campanile i_start=0">
+            <p class="caption">Figure 70: Campanile at i_start=1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i5.png" alt="Campanile i_start=10">
+            <p class="caption">Figure 69: Campanile at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i4.png" alt="Campanile i_start=7">
+            <p class="caption">Figure 68: Campanile at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i3.png" alt="Campanile i_start=5">
+            <p class="caption">Figure 67: Campanile at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i2.png" alt="Campanile i_start=3">
+            <p class="caption">Figure 66: Campanile at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_campanile_at_different_i1.png" alt="Campanile i_start=1">
+            <p class="caption">Figure 65: Campanile at i_start=20.</p>
+        </div>
+
+    </div>
+
+    <h4>My Favorite Campanile Reconstructions</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_clean_image_i_start_20.png" alt="Campanile i_start=20">
+            <p class="caption">Figure 71: Campanile reconstruction at i_start=20.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_clean_image_i_start_10.png" alt="Campanile i_start=10">
+            <p class="caption">Figure 72: Campanile reconstruction at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_clean_image_i_start_7.png" alt="Campanile i_start=7">
+            <p class="caption">Figure 73: Campanile reconstruction at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_clean_image_i_start_5.png" alt="Campanile i_start=5">
+            <p class="caption">Figure 74: Campanile reconstruction at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_clean_image_i_start_3.png" alt="Campanile i_start=3">
+            <p class="caption">Figure 75: Campanile reconstruction at i_start=3.</p>
+        </div>
+    </div>
+
+
+    <h4>Hand-Drawn Airplane</h4>
+
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_7.png" alt="Original Airplane">
+            <p class="caption">Figure 57: Original Airplane.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_6.png" alt="Airplane i_start=6">
+            <p class="caption">Figure 58: Airplane at i_start=1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_5.png" alt="Airplane i_start=5">
+            <p class="caption">Figure 59: Airplane at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_4.png" alt="Airplane i_start=4">
+            <p class="caption">Figure 60: Airplane at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_3.png" alt="Airplane i_start=3">
+            <p class="caption">Figure 61: Airplane at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_2.png" alt="Airplane i_start=2">
+            <p class="caption">Figure 62: Airplane at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_airplane_at_different_i_start_1.png" alt="Airplane i_start=1">
+            <p class="caption">Figure 63: Airplane at i_start=20.</p>
+        </div>
+    </div>
+
+    <!-- Hand-Drawn House -->
+    <h4>Hand-Drawn House</h4>
+    <!-- Images for Hand-Drawn House -->
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start6.png" alt="Original House">
+            <p class="caption">Figure 64: Original House.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start5.png" alt="House i_start=5">
+            <p class="caption">Figure 66: House at i_start=1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start4.png" alt="House i_start=4">
+            <p class="caption">Figure 67: House at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start3.png" alt="House i_start=3">
+            <p class="caption">Figure 68: House at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start2.png" alt="House i_start=2">
+            <p class="caption">Figure 69: House at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start1.png" alt="House i_start=1">
+            <p class="caption">Figure 70: House at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_hand_drawing_house_at_different_i_start6.png" alt="House i_start=6">
+            <p class="caption">Figure 65: House at i_start=20.</p>
+        </div>
+    </div>
+
+    <!-- Web Image - Avocado -->
+    <h4>Web Image - Avocado</h4>
+    <!-- Images for Avocado -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_7.png" alt="Original Avocado">
+            <p class="caption">Figure 71: Original Avocado.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_6.png" alt="Avocado i_start=6">
+            <p class="caption">Figure 72: Avocado at i_start=1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_5.png" alt="Avocado i_start=5">
+            <p class="caption">Figure 73: Avocado at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_4.png" alt="Avocado i_start=4">
+            <p class="caption">Figure 74: Avocado at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_3.png" alt="Avocado i_start=3">
+            <p class="caption">Figure 75: Avocado at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_2.png" alt="Avocado i_start=2">
+            <p class="caption">Figure 76: Avocado at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_avocado_at_different_i_start_1.png" alt="Avocado i_start=1">
+            <p class="caption">Figure 77: Avocado at i_start=20.</p>
+        </div>
+    </div> 
+
+    <!-- Continue with other images as per your list -->
+    <!-- Web Image - Surfer -->
+    <h4>Web Image - Surfer</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_original_image.png" alt="Original Surfer">
+            <p class="caption">Figure 78: Original Surfer image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_7.png" alt="Surfer i_start=7">
+            <p class="caption">Figure 79: Surfer at i_start=1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_6.png" alt="Surfer i_start=6">
+            <p class="caption">Figure 80: Surfer at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_5.png" alt="Surfer i_start=5">
+            <p class="caption">Figure 81: Surfer at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_4.png" alt="Surfer i_start=4">
+            <p class="caption">Figure 82: Surfer at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_3.png" alt="Surfer i_start=3">
+            <p class="caption">Figure 83: Surfer at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_surfer_at_different_i_start_2.png" alt="Surfer i_start=2">
+            <p class="caption">Figure 84: Surfer at i_start=20.</p>
+        </div>
+    </div>
+
+    <!-- Web Image - Tree -->
+    <h4>Web Image - Tree</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start7.png" alt="Tree i_start=7">
+            <p class="caption">Figure 85: Treeimage original.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start6.png" alt="Tree i_start=6">
+            <p class="caption">Figure 86: Tree at i_start=15.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start5.png" alt="Tree i_start=5">
+            <p class="caption">Figure 87: Tree at i_start=10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start4.png" alt="Tree i_start=4">
+            <p class="caption">Figure 88: Tree at i_start=7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start3.png" alt="Tree i_start=3">
+            <p class="caption">Figure 89: Tree at i_start=5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start2.png" alt="Tree i_start=2">
+            <p class="caption">Figure 90: Tree at i_start=3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_1_web_image_tree_at_different_i_start1.png" alt="Tree i_start=1">
+            <p class="caption">Figure 91: Tree at i_start=1.</p>
+        </div>
+    </div>
+
+    
+    <!-- Part 1.7.2: Inpainting -->
+    <h3>Part 1.7.2: Inpainting</h3>
+    <p>
+        I implemented inpainting by using a mask to specify regions to edit. By applying the diffusion process only within the masked area, new content is generated while the rest of the image remains unchanged.
+    </p>
+    <h4>Campanile Mask Process Version 1</h4>
+    <!-- Images for Campanile Mask Process Version 1 -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/campanile.png" alt="Original Campanile">
+            <p class="caption">Figure 92: Original Campanile.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_1_step_t3.png" alt="Step t3">
+            <p class="caption">Figure 93: Campanile Inpainting Step t3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_1_step_t4.png" alt="Step t4">
+            <p class="caption">Figure 94: Campanile Inpainting Step t4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_1_step_t6.png" alt="Step t6">
+            <p class="caption">Figure 95: Campanile Inpainting Step t6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_1_step_t9.png" alt="Step t9">
+            <p class="caption">Figure 96: Campanile Inpainting Step t9.</p>
+        </div>
+    </div>
+
+    <h4>Campanile Mask Process Version 2</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/campanile.png" alt="Original Campanile">
+            <p class="caption">Figure 97: Original Campanile.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_2_step_t3.png" alt="Step t3">
+            <p class="caption">Figure 98: Campanile Inpainting Step t3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_2_step_t4.png" alt="Step t4">
+            <p class="caption">Figure 99: Campanile Inpainting Step t4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_2_step_t6.png" alt="Step t6">
+            <p class="caption">Figure 100: Campanile Inpainting Step t6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_campanile_mask_process_version_2_step_t9.png" alt="Step t9">
+            <p class="caption">Figure 101: Campanile Inpainting Step t9.</p>
+        </div>
+    </div>
+    <!-- Similarly add other images and sections -->
+    <h4>Color Painting Process</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_7.png" alt="Original Image">
+            <p class="caption">Figure 102: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_2_mask.png" alt="Mask">
+            <p class="caption">Figure 103: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_8_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 104: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_1.png" alt="Final Result">
+            <p class="caption">Figure 109: Final Color Painting Result.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_6.png" alt="Step 4">
+            <p class="caption">Figure 108: Color Painting Step 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_3.png" alt="Step 1">
+            <p class="caption">Figure 105: Color Painting Step 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_5.png" alt="Step 3">
+            <p class="caption">Figure 107: Color Painting Step 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_4.png" alt="Step 2">
+            <p class="caption">Figure 106: Color Painting Step 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_color_lips_1.png" alt="Final Result">
+            <p class="caption">Figure 109: Final Color Painting Result.</p>
+        </div>        
+    </div>
+
+    <h4>Goggles Inpainting Process - Larger Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_8.png" alt="Original Image">
+            <p class="caption">Figure 110: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_7_the_mask.png" alt="Mask">
+            <p class="caption">Figure 111: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_6_the_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 112: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_1.png" alt="Final Result">
+            <p class="caption">Figure 113: Final Result.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_2.png" alt="Step 1">
+            <p class="caption">Figure 114: Inpainting Step 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_3.png" alt="Step 2">
+            <p class="caption">Figure 115: Inpainting Step 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_4.png" alt="Step 3">
+            <p class="caption">Figure 116: Inpainting Step 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_larger_mask_5.png" alt="Step 4">
+            <p class="caption">Figure 117: Inpainting Step 4.</p>
+        </div>
+    </div>
+
+    <h4>Goggles Inpainting Process - Smaller Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_8.png" alt="Original Image">
+            <p class="caption">Figure 118: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_6_the_mask.png" alt="Mask">
+            <p class="caption">Figure 119: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_7_the_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 120: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_1.png" alt="Final Result">
+            <p class="caption">Figure 121: Final Result.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_2.png" alt="Step 1">
+            <p class="caption">Figure 122: Inpainting Step 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_3.png" alt="Step 2">
+            <p class="caption">Figure 123: Inpainting Step 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_4.png" alt="Step 3">
+            <p class="caption">Figure 124: Inpainting Step 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_googles_on_francesco_face_smaller_mask_5.png" alt="Step 4">
+            <p class="caption">Figure 125: Inpainting Step 4.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer - Eyes Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_eyes_image_type4_original_image.png" alt="Original Image">
+            <p class="caption">Figure 126: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_eyes_image_type3_the_mask.png" alt="Mask">
+            <p class="caption">Figure 127: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_eyes_image_type2_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 128: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_eyes_image_type1.png" alt="Final Result">
+            <p class="caption">Figure 129: Final Result.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer - Full Face Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_ferer_full_face_image_type_4_original_image.png" alt="Original Image">
+            <p class="caption">Figure 130: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_ferer_full_face_image_type_3_the_mask.png" alt="Mask">
+            <p class="caption">Figure 131: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_ferer_full_face_image_type_2hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 132: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_ferer_full_face_image_type_1.png" alt="Final Result">
+            <p class="caption">Figure 133: Final Result.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer - Small Tennis Ball Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_small_image_type_4.png" alt="Original Image">
+            <p class="caption">Figure 134: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_small_image_type_3_the_mask.png" alt="Mask">
+            <p class="caption">Figure 135: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_small_image_type_2hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 136: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_small_image_type_1.png" alt="Final Result">
+            <p class="caption">Figure 137: Final Result.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer - Large Tennis Ball Mask</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_large_image_type_4.png" alt="Original Image">
+            <p class="caption">Figure 138: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_large_image_type_2_the_mask.png" alt="Mask">
+            <p class="caption">Figure 139: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_large_image_type_1_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 140: Area to Fill.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_tennis_ball_mask_large_image_type_3.png" alt="Final Result">
+            <p class="caption">Figure 141: Final Result.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer - Full Body Mask Progression</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_17_original_image.png" alt="Original Image">
+            <p class="caption">Figure 142: Original Image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_16_the_mask.png" alt="Mask">
+            <p class="caption">Figure 143: Mask.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_15_hole_to_fill.png" alt="Area to Fill">
+            <p class="caption">Figure 144: Area to Fill.</p>
+        </div>
+    </div>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_1.png" alt="Step 1">
+            <p class="caption">Figure 145: Inpainting Step 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_4.png" alt="Step 4">
+            <p class="caption">Figure 146: Inpainting Step 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_7.png" alt="Step 7">
+            <p class="caption">Figure 147: Inpainting Step 7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_10.png" alt="Step 10">
+            <p class="caption">Figure 148: Inpainting Step 10.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_2_roger_federer_full_body_mask_image_type_14.png" alt="Final Result">
+            <p class="caption">Figure 149: Final Result.</p>
+        </div>
+    </div>
+
+    <!-- Part 1.7.3: Text-Conditional Image-to-image Translation -->
+    <h3>Part 1.7.3: Text-Conditional Image-to-image Translation</h3>
+    <div class="section">
+        <p>
+            Same thing as the previous section, but guide the projection with a text prompt.
+        </p>
+        <p>***for all of the images set, the right most corresponds to the most blurry one</p>
+    </div>
+
+    <h4>Campanile with Rocket Prompt</h4>
+
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_1.png" alt="Campanile Rocket 1">
+            <p class="caption">Figure 152: Campanile with rocket prompt - Original image.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_7.png" alt="Campanile Rocket 7">
+            <p class="caption">Figure 153: Campanile with rocket prompt - Stage 7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_6.png" alt="Campanile Rocket 6">
+            <p class="caption">Figure 154: Campanile with rocket prompt - Stage 6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_5.png" alt="Campanile Rocket 5">
+            <p class="caption">Figure 155: Campanile with rocket prompt - Stage 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_4.png" alt="Campanile Rocket 4">
+            <p class="caption">Figure 156: Campanile with rocket prompt - Stage 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_3.png" alt="Campanile Rocket 3">
+            <p class="caption">Figure 157: Campanile with rocket prompt - Stage 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_campanile_rocket_prompt_At_differet_noise_levels_2.png" alt="Campanile Rocket 2">
+            <p class="caption">Figure 158: Campanile with rocket prompt - Stage 2.</p>
+        </div>
+    </div>
+
+    <h4>Francesco with Amalfi Coast Prompt</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_1.png" alt="Francesco Amalfi 1">
+            <p class="caption">Figure 159: Francesco with Amalfi Coast prompt - Stage 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_2.png" alt="Francesco Amalfi 2">
+            <p class="caption">Figure 160: Francesco with Amalfi Coast prompt - Stage 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_3.png" alt="Francesco Amalfi 3">
+            <p class="caption">Figure 161: Francesco with Amalfi Coast prompt - Stage 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_4.png" alt="Francesco Amalfi 4">
+            <p class="caption">Figure 162: Francesco with Amalfi Coast prompt - Stage 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_5.png" alt="Francesco Amalfi 5">
+            <p class="caption">Figure 163: Francesco with Amalfi Coast prompt - Stage 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_amalfi_coast_promt_at_different_noise_levels_6.png" alt="Francesco Amalfi 6">
+            <p class="caption">Figure 164: Francesco with Amalfi Coast prompt - Stage 6.</p>
+        </div>
+    </div>
+
+    <h4>Francesco with Rocket Prompt</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_1.png" alt="Francesco Rocket 1">
+            <p class="caption">Figure 165: Francesco with rocket prompt - Stage 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_2.png" alt="Francesco Rocket 2">
+            <p class="caption">Figure 166: Francesco with rocket prompt - Stage 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_3.png" alt="Francesco Rocket 3">
+            <p class="caption">Figure 167: Francesco with rocket prompt - Stage 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_4.png" alt="Francesco Rocket 4">
+            <p class="caption">Figure 168: Francesco with rocket prompt - Stage 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_5.png" alt="Francesco Rocket 5">
+            <p class="caption">Figure 169: Francesco with rocket prompt - Stage 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_6.png" alt="Francesco Rocket 6">
+            <p class="caption">Figure 170: Francesco with rocket prompt - Stage 6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_francesco_rocket_prompt_at_different_noise_levels_7.png" alt="Francesco Rocket 7">
+            <p class="caption">Figure 171: Francesco with rocket prompt - Stage 7.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer with Amalfi Coast Prompt</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels1.png" alt="Federer Amalfi 1">
+            <p class="caption">Figure 172: Roger Federer with Amalfi Coast prompt - Stage 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels2.png" alt="Federer Amalfi 2">
+            <p class="caption">Figure 173: Roger Federer with Amalfi Coast prompt - Stage 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels3.png" alt="Federer Amalfi 3">
+            <p class="caption">Figure 174: Roger Federer with Amalfi Coast prompt - Stage 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels4.png" alt="Federer Amalfi 4">
+            <p class="caption">Figure 175: Roger Federer with Amalfi Coast prompt - Stage 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels5.png" alt="Federer Amalfi 5">
+            <p class="caption">Figure 176: Roger Federer with Amalfi Coast prompt - Stage 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federer_amalfi_coast_prompt_at_different_noise_levels6.png" alt="Federer Amalfi 6">
+            <p class="caption">Figure 177: Roger Federer with Amalfi Coast prompt - Stage 6.</p>
+        </div>
+    </div>
+
+    <h4>Roger Federer with Rocket Prompt</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels1.png" alt="Federer Rocket 1">
+            <p class="caption">Figure 178: Roger Federer with rocket prompt - Stage 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels2.png" alt="Federer Rocket 2">
+            <p class="caption">Figure 179: Roger Federer with rocket prompt - Stage 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels3.png" alt="Federer Rocket 3">
+            <p class="caption">Figure 180: Roger Federer with rocket prompt - Stage 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels4.png" alt="Federer Rocket 4">
+            <p class="caption">Figure 181: Roger Federer with rocket prompt - Stage 4.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels5.png" alt="Federer Rocket 5">
+            <p class="caption">Figure 182: Roger Federer with rocket prompt - Stage 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_7_3_roger_federere_rocket_prompt_at_different_noise_levels6.png" alt="Federer Rocket 6">
+            <p class="caption">Figure 183: Roger Federer with rocket prompt - Stage 6.</p>
+        </div>
+    </div>
+
+
+
+
+    <!-- Part 1.8: Visual Anagrams -->
+    <h2>Part 1.8: Visual Anagrams</h2>
+    <div class="section">
+        <p>
+            I created images that appear differently when flipped upside down, known as visual anagrams. The algorithm used is:
+        </p>
+        <p class="formula">
+            \[
+            \epsilon_1 = \text{UNet}(x_t, t, p_1)
+            \]
+            \[
+            \epsilon_2 = \text{flip}(\text{UNet}(\text{flip}(x_t), t, p_2))
+            \]
+            \[
+            \epsilon = \frac{\epsilon_1 + \epsilon_2}{2}
+            \]
+        </p>
+        <p>
+            Here are some examples:
+        </p>
+    </div>
+    <!-- Images for Visual Anagrams -->
+    <h3>An Oil Painting of an Old Man / People Around a Campfire</h3>
+    <div class="image-row-big">
+        <div class="image-column-big">
+            <img src="media/part_1.8_an_oil_painting_of_an_old_man_an_oil_painting_of_people_around_a_campfire_up.png" alt="Original Orientation">
+            <p class="caption">Figure 150: Original Orientation.</p>
+        </div>
+        <div class="image-column-big">
+            <img src="media/part_1.8_an_oil_painting_of_an_old_man_an_oil_painting_of_people_around_a_campfire_upsidedown.png" alt="Flipped Orientation">
+            <p class="caption">Figure 151: Flipped Orientation.</p>
+        </div>
+    </div>
+
+    <!-- Continue with other visual anagrams -->
+    <style>
+        .flip-container {
+            width: 300px;
+            margin: 10px;
+            perspective: 1000px;
+        }
+        
+        .flip-image {
+            width: 100%;
+            transition: transform 0.5s ease;
+        }
+        
+        .flip-image:hover {
+            transform: rotate(180deg);
+        }
+        
+        .image-row-anagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+    </style>
+
+    <h3>Visual Anagrams Gallery</h3>
+    <div class="image-row-anagram">
+        <div class="flip-container">
+            <img src="media/part_1.8_a_lithograph_of_a_skull_a_photo_of_the_amalfi_cost_up.png" 
+                 alt="Skull/Amalfi Coast" 
+                 class="flip-image">
+            <p class="caption">Figure 152: Skull/Amalfi Coast</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_a_man_wearing_a_hat_an_oil_painting_of_a_snowy_mountain_village_up.png" 
+                 alt="Man with Hat/Mountain Village" 
+                 class="flip-image">
+            <p class="caption">Figure 153: Man with Hat/Mountain Village</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_a_pencil_a_rocket_ship_up.png" 
+                 alt="Pencil/Rocket Ship" 
+                 class="flip-image">
+            <p class="caption">Figure 154: Pencil/Rocket Ship</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_a_photo_of_a_hipster_barista_a_lithograph_of_a_skull_up.png" 
+                 alt="Hipster Barista/Skull" 
+                 class="flip-image">
+            <p class="caption">Figure 155: Hipster Barista/Skull</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_a_photo_of_the_amalfi_cost_an_oil_painting_of_people_around_a_campfire_up.png" 
+                 alt="Amalfi Coast/Campfire" 
+                 class="flip-image">
+            <p class="caption">Figure 156: Amalfi Coast/Campfire</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_a_rocket_ship_a_lithograph_of_waterfalls_up.png" 
+                 alt="Rocket Ship/Waterfalls" 
+                 class="flip-image">
+            <p class="caption">Figure 157: Rocket Ship/Waterfalls</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_an_oil_painting_of_a_snowy_mountain_village_a_lithograph_of_waterfalls_up.png" 
+                 alt="Mountain Village/Waterfalls" 
+                 class="flip-image">
+            <p class="caption">Figure 158: Mountain Village/Waterfalls</p>
+        </div>
+
+        <div class="flip-container">
+            <img src="media/part_1.8_dog_and_hipster_barista_promt1.png" 
+                 alt="Dog/Hipster Barista" 
+                 class="flip-image">
+            <p class="caption">Figure 159: Dog/Hipster Barista</p>
+        </div>
+    </div>
+
+    <!-- Part 1.9: Hybrid Images -->
+    <h2>Part 1.9: Hybrid Images</h2>
+    <div class="section">
+        <p>
+            I created hybrid images that appear differently when viewed up close versus from a distance. The algorithm is:
+        </p>
+        <p class="formula">
+            \[
+            \epsilon_1 = \text{UNet}(x_t, t, p_1)
+            \]
+            \[
+            \epsilon_2 = \text{UNet}(x_t, t, p_2)
+            \]
+            \[
+            \epsilon = f_{\text{lowpass}}(\epsilon_1) + f_{\text{highpass}}(\epsilon_2)
+            \]
+        </p>
+        <p>
+            where \( f_{\text{lowpass}} \) is a Gaussian blur and \( f_{\text{highpass}} \) is a high-pass filter. Here is a hybrid image of a skull and a waterfall:
+        </p>
+    </div>
+    <!-- Images for Hybrid Images -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_9_hybrid_image_skull_and_waterfall_version1.png" alt="Hybrid Image of Skull and Waterfall - Version 1">
+            <p class="caption">Figure 152: Hybrid Image of Skull and Waterfall </p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_9_hybrid_image_skull_and_waterfall_version2.png" alt="Hybrid Image of Skull and Waterfall - Version 2">
+            <p class="caption">Figure 153: Hybrid Image of Skull and Waterfall </p>
+        </div>
+        <div class="image-column">
+            <img src="media/part_1_9_hybrid_image_skull_and_waterfall_version3.png" alt="Hybrid Image of Skull and Waterfall - Version 3">
+            <p class="caption">Figure 154: Hybrid Image of Skull and Amalfi Coast </p>
+        </div>
+    </div>
+    <h4>Hybrid Image: Man and Campfire Scene</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_9_hybrid_image_a_photo_of_a_man_and_an_oil_painting_of_people_around_a _campfire.png" 
+                 alt="Hybrid Image of Man and Campfire"
+                 onmouseover="this.style.transform='rotate(180deg)'" 
+                 onmouseout="this.style.transform='rotate(0deg)'"
+                 style="transition: transform 0.5s ease">
+            <p class="caption">Figure 155: Hybrid Image combining a photo of a man and an oil painting of people around a campfire.</p>
+        </div>
+    </div>
+    <h4>Hybrid Image: Pencil Drawing and Amalfi Coast</h4>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/part_1_9_hybrid_image_pencil_and_amalfi_coast.png" 
+                 alt="Hybrid Image of Pencil Drawing and Amalfi Coast"
+                 onmouseover="this.style.transform='scaleY(-1)'" 
+                 onmouseout="this.style.transform='scaleY(1)'"
+                 style="transition: transform 0.5s ease">
+            <p class="caption">Figure 156: Hybrid Image combining a pencil drawing and the Amalfi Coast.</p>
+        </div>
+    </div>
+
+    
+
+    <!-- Part 2: Bells & Whistles -->
+    <h2>Part 2: Bells & Whistles</h2>
+    <div class="section">
+        <p>
+            I explored model bias by generating images with the prompt "successful human being". After generating 100 samples, I observed that around 69% of the images depicted males and 31% depicted females. Additionally, 88% of the people were wearing black suits. This analysis highlights potential biases in the model's training data.
+        </p>
+        <p>Here are some sample images:</p>
+    </div>
+    <!-- Sample Images for Bells & Whistles -->
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_0.png" alt="Sample 0">
+            <p class="caption">Figure 155: Sample 0.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_1.png" alt="Sample 1">
+            <p class="caption">Figure 156: Sample 1.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_2.png" alt="Sample 2">
+            <p class="caption">Figure 157: Sample 2.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_3.png" alt="Sample 3">
+            <p class="caption">Figure 158: Sample 3.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_4.png" alt="Sample 4">
+            <p class="caption">Figure 159: Sample 4.</p>
+        </div>
+    </div>
+    <div class="image-row">
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_5.png" alt="Sample 5">
+            <p class="caption">Figure 160: Sample 5.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_6.png" alt="Sample 6">
+            <p class="caption">Figure 161: Sample 6.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_7.png" alt="Sample 7">
+            <p class="caption">Figure 162: Sample 7.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_8.png" alt="Sample 8">
+            <p class="caption">Figure 163: Sample 8.</p>
+        </div>
+        <div class="image-column">
+            <img src="media/bells_and_whislt_succesful_man_9.png" alt="Sample 9">
+            <p class="caption">Figure 164: Sample 9.</p>
+        </div>
+    </div>
+        
+    </div>
+    <!-- Continue adding sample images up to bells_and_whislt_succesful_man_9.png -->
+
+    <!-- Conclusion -->
+    <h2>Conclusion</h2>
+    <p>
+        This project provided hands-on experience with diffusion models and their applications in image generation and manipulation. By implementing various techniques and experimenting with different parameters, I gained a deeper understanding of the capabilities and limitations of diffusion models in computer vision tasks.
+    </p>
+
+</body>
+</html>
