@@ -25,6 +25,24 @@
         The images in Part 0 are 254x254 pixels, while images in other parts are 64x64 pixels. Throughout the project, I used the DeepFloyd IF diffusion model, which you can learn more about <a href="https://huggingface.co/DeepFloyd/IF-I-XL-v1.0">here</a>.
     </p>
 
+    <!-- Course Logo -->
+    <h2>Course Logo</h2>
+    <div class="section">
+        <p>
+            I experimented with generating different logo designs for a computer vision course using the diffusion model. Here are two variations:
+        </p>
+        <div class="image-row">
+            <div class="image-column-medium">
+                <img src="media/course_logo_1.png" alt="Minimalist Computer Vision Logo">
+                <p class="caption">A minimalist logo for a computer vision class, featuring a stylized camera lens and digital eye.</p>
+            </div>
+            <div class="image-column-medium">
+                <img src="media/course_logo_2.png" alt="Academic Computer Vision Logo">
+                <p class="caption">An elegant academic logo combining a camera aperture with binary code, clean design.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Part 0: Model Sampling -->
     <h2>Part 0: Model Sampling</h2>
     <div class="section">
@@ -1701,9 +1719,15 @@
         </div>
     </div>
     <p>
-        Increasing the guidance scale resulted in samples that more closely resembled the conditioned class label, but setting \( \gamma \) too high led to artifacts.
+        Increasing the guidance scale (\( \gamma \)) strengthens the influence of the class conditioning, making the generated samples more closely match the characteristics of their target class labels. This works by interpolating between an unconditional and conditional diffusion model prediction, with higher \( \gamma \) values giving more weight to the conditional prediction. However, setting \( \gamma \) too high (e.g., 10) led to artifacts and overly-exaggerated class features, as the model overemphasizes class-specific attributes at the expense of natural image statistics.
     </p>
 </div>
+<div class="section">
+    <p>
+        The complete code for this project is available in this <a href="https://colab.research.google.com/drive/1reaDk0XmGXRb978Ee2TClXmRtc9YHnXo#scrollTo=BNE8-455IDm3">Google Colab notebook</a>.
+    </p>
+</div>
+
 
 <!-- Conclusion -->
 <h3>Conclusion</h3>
