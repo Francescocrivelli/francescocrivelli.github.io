@@ -85,12 +85,12 @@
             <div class="publication-links">
               <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://inst.eecs.berkeley.edu/~cs180/fa23/hw/proj5/"
+                <a href=""
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fas fa-file-pdf"></i>
                   </span>
-                  <span>write-up</span>
+                  <span>report</span>
                 </a>
               </span>
               <!-- Code Link. -->
@@ -103,6 +103,27 @@
                   <span>Code</span>
                   </a>
               </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/datasets/francescocrivelli/carrot_eating"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-database"></i>
+                  </span>
+                  <span>Dataset</span>
+                  </a>
+              </span>
+              <!-- Model Link. -->
+              <span class="link-block">
+                <a href="https://huggingface.co/francescocrivelli/carrot_feeder_model_ACT_Policy"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-brain"></i>
+                  </span>
+                  <span>Model</span>
+                  </a>
+              </span>
+              
             </div>
           </div>
         </div>
@@ -292,30 +313,38 @@
 </section>
 
 
+
+
+
 <section class="hero teaser">
   <div class="container">
     <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
-      
-         <img src="./media/francesco_eating_with hand.gif" 
-         alt="Hardware SO-ARM" 
-         style="width: 25%;
-         object-fit: cover;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           <img src="./media/boris_teleop.gif" 
           alt="Hardware SO-ARM" 
           style="width: 25%;
           aspect-ratio: 1;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <img src="./media/francesco_teleoperating_2.gif" 
-        alt="Hardware SO-ARM" 
-        style="width: 25%;
-        object-fit: cover;
-         border-radius: 8px;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          object-fit: cover;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+        <video width="25%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
+            <source src="./media/visualize_dataset_pick_and_place_cutted.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+                
+          <img src="./media/francesco_teleoperating_2.gif" 
+          alt="Hardware SO-ARM" 
+          style="width: 25%;
+          object-fit: cover;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
          
+
+          <video width="25%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
+            <source src="./media/data_visualization_01.mov" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
     </div>
   </div>
 </section>
@@ -369,44 +398,47 @@
   </div>
 </section>
 
-<div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
-    <img src="./media/mouth_detection_on_bryan.gif" 
-         alt="Hardware SO-ARM" 
-         style="width: 25%;
-         aspect-ratio: 1;
-         object-fit: cover;
-         border-radius: 8px;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 
-        <img src="./media/boris_eating.gif" 
-        alt="Hardware SO-ARM" 
-        style="width: 25%;
-        aspect-ratio: 1;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <img src="./media/robot_fpv_feed_francesco.gif" 
-         alt="Hardware SO-ARM" 
-         style="width: 25%;
-         aspect-ratio: 1;
-         object-fit: cover;
-         border-radius: 8px;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-</div>
 
-<div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;"></div>
 
-<video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <source src="./media/data_visualization_01.mov" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
 
-  <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-    <source src="./media/visualize_dataset_pick_and_place.mov" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-</div>
-  
+<section class="hero teaser">
+    <div class="container">
+        <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+            <img src="./media/mouth_detection_on_bryan.gif" 
+                alt="Hardware SO-ARM" 
+                style="width: 25%;
+                aspect-ratio: 1;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            
+                <img src="./media/francesco_eating_with hand.gif" 
+                alt="Hardware SO-ARM" 
+                style="width: 25%;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+                <img src="./media/boris_eating.gif" 
+                alt="Hardware SO-ARM" 
+                style="width: 25%;
+                aspect-ratio: 1;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <img src="./media/robot_fpv_feed_francesco.gif" 
+                alt="Hardware SO-ARM" 
+                style="width: 25%;
+                aspect-ratio: 1;
+                object-fit: cover;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </div>
+    </div>
+</section>
+
+
 
 
 <section class="hero">
@@ -490,6 +522,19 @@
   </div>
 </section>
 
+
+
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0; display: flex; justify-content: center;">
+      <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
+        <source src="./media/full_demo.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</section>
+  
 
 
 <!-- 
