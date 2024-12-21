@@ -52,7 +52,7 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://www.francescocrivelli.com/">
+      <!-- <a class="navbar-item" href="https://www.francescocrivelli.com/"> -->
       <span class="icon">
           <i class="fas fa-home"></i>
       </span>
@@ -71,14 +71,14 @@
           <h3 class="subtitle is-4 publication-title">EECS 106A, Professor Robert Horrowitz</h3>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block">Francesco Crivelli<sup>1</sup>,</span>
+            <span class="author-block"><a href="https://www.francescocrivelli.com">Francesco Crivelli</a><sup>1</sup>,</span>
             <span class="author-block">Bryan Sow<sup>1</sup>,</span>
             <span class="author-block">Claire Beaudin<sup>1</sup>,</span>
             <span class="author-block">Boris<sup>1</sup></span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of California Berkeley</span>
+            <span class="author-block"><sup>1</sup>University of California Berkeley, <a href="https://tukuypaj.org">Tukuypaj Chile</a>, <a href="https://recursivepioneer.org">Recursive at Berkeley</a></span>
           </div>
 
           <div class="column has-text-centered">
@@ -110,6 +110,20 @@
   </div>
 </section>
 
+<section class="hero teaser"></section>
+    <div class="container">
+      <div class="hero-body" style="padding: 0;">
+        <img src="./media/robot_feeding_francesco.gif" 
+             alt="Hardware SO-ARM" 
+             style="width: 50%;
+             border-radius: 8px;
+             display: block;
+             margin: 0 auto;
+             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      </div>
+    </div>
+  </section>
+
 <section class="hero">
   <div class="container is-max-desktop">
     <div class="hero-body">
@@ -127,6 +141,39 @@
     </div>
   </div>
 </section>
+
+
+<section class="hero teaser">
+    <div class="container">
+      <div class="hero-body" style="padding: 0;">
+        <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <source src="./media/all_team_getting_setup_working_time_laps_.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+    </div>
+  </section>
+
+
+
+
+
+
+
+<!-- <section class="hero teaser"></section>
+    <div class="container">
+      <div class="hero-body" style="padding: 0;">
+        <img src="./media/luis.gif" 
+             alt="Hardware SO-ARM" 
+             style="width: 30%;
+             border-radius: 8px;
+             display: block;
+             margin: 0 auto;
+             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      </div>
+    </div>
+  </section> -->
+
 
 <section class="hero">
   <div class="container is-max-desktop">
@@ -159,7 +206,10 @@
       </div>
     </div>
   </div>
+  
 </section>
+
+
 
 
 <section class="hero teaser">
@@ -184,7 +234,6 @@
           <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Building the Hardware</summary>
           <div class="content has-text-justified">
             <h3>Implementation</h3>
-            
             <h4>Journal of Building the SOARM</h4>
             <p>We spent a considerable amount of time choosing a design for the robotic arm. We carefully reviewed and selected a few key constraints we wanted to apply to the robot:</p>
             <ul>
@@ -192,9 +241,18 @@
               <li><strong>Safe to use:</strong> Safety was a huge priority. The robots we are designing are going to act autonomously, operating near the user's face.</li>
               <li><strong>Easily adaptable:</strong> We wanted to ensure that our robot worked in various environments to avoid having a consistent setup necessary for the robot to function properly. Making it easy to maintain also became an important factor.</li>
             </ul>
-
             <h4>Selection and Building Process</h4>
             <p>Due to the time constraints of the class, we decided it was best to use an open source robot found online. We eventually settled on the SOARM-100, as it satisfied all of our requirements outlined above, and it fit the overall design philosophy we wanted to employ. The SOARM-100 uses a teleoperation setup that involves 2 arms, one where a human operator manually creates the intended path trajectories, and the other copying the created motion synchronously.</p>
+            <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
+                <img src="./media/follower_arm.png"
+                     alt="follower arm"
+                     style="width: 35%;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <img src="./media/leader_arm.png"
+                     alt="leader arm" 
+                     style="width: 35%;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
 
             <p>The SO-ARM 100 uses STS3215 servos, which utilize metal gears and magnetic encoders. With the encoders in the servos and the lerobot linux environment codebase used to operate the SO-ARM 100, the joint states of angle of rotation of each servo over a period of time could be easily recorded, stored and replicated. This step was crucial to simulate real-world scenarios accurately and align the robot's behavior with the actions and intentions of the caregiver.</p>
 
@@ -202,7 +260,13 @@
             <p>We printed the SOARM-100 using PLA, which is a durable, accurate, and relatively cheap material. According to our calculations, both of the robots together (the follower and the leader) incur the total cost of: 511 grams of PLA * $0.025/gram * 2 robots = $25.55 total. The servos are slightly more expensive than a typical servo (roughly $30 each), but we agreed that the cost difference was worth both the increase in safety for the user, as well as the longevity of the robot overall.</p>
 
             <p>Properly tolerancing the prints quickly became the next challenge. The SOARM-100 is designed to have the STS3215 servos press fit into it, to ensure precision. All parts were printed at Jacobs Hall, with Prusa i3 Mk3 printers over a span of 72 hours, with a total print time of around 48 hours.</p>
-
+            <img src="./media/all_hardware_components.png"
+                 alt="All Hardware Components" 
+                 style="width: 40%;
+                        border-radius: 8px;
+                        display: block;
+                        margin: 0 auto;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
             <h4>Software Integration</h4>
             <p>The STS3215 servos were connected via a daisy chain and configured with unique IDs. We utilized scripts from the official repository for:</p>
             <ul>
@@ -215,7 +279,7 @@
             <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100 gripper. This enables visual feedback for the robot's operation and user interaction.</p>
             <img src="./media/camera_mount.png"
                  alt="Camera Mount Design"
-                 style="width: 50%;
+                 style="width: 40%;
                         border-radius: 8px;
                         display: block;
                         margin: 0 auto;
@@ -228,7 +292,207 @@
 </section>
 
 
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+      
+         <img src="./media/francesco_eating_with hand.gif" 
+         alt="Hardware SO-ARM" 
+         style="width: 25%;
+         object-fit: cover;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <img src="./media/boris_teleop.gif" 
+          alt="Hardware SO-ARM" 
+          style="width: 25%;
+          aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <img src="./media/francesco_teleoperating_2.gif" 
+        alt="Hardware SO-ARM" 
+        style="width: 25%;
+        object-fit: cover;
+         border-radius: 8px;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+         
+    </div>
+  </div>
+</section>
 
+
+  
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Teleoperation and Data Collection</summary>
+          <div class="content has-text-justified">
+            <p>To develop a robust and reliable robotic feeding assistant, we implemented a comprehensive data collection strategy utilizing our teleoperation setup. The system was designed to capture both the physical movements of the robot and visual feedback from multiple perspectives, enabling us to create a rich dataset for training and validation purposes.</p>
+
+            <h4>Data Collection Environment</h4>
+            <p>Our data collection setup consisted of two strategically placed cameras:</p>
+            <ul>
+              <li>An end-effector mounted camera providing a first-person perspective of the manipulation tasks</li>
+              <li>An overhead camera positioned 1.5 meters above the workspace center, capturing the entire scene including the follower robot and the beneficiary</li>
+            </ul>
+
+            <p>This dual-camera configuration allowed us to simultaneously monitor the robot's precise movements and maintain a comprehensive view of the interaction space. The overhead camera proved particularly valuable for pick-and-place tasks, providing clear visibility of object positions and the target locations.</p>
+
+            <h4>Data Recording and Processing</h4>
+            <p>During each teleoperated session, we recorded:</p>
+            <ul>
+              <li>Joint states from the STS3215 servo encoders at each frame</li>
+              <li>Synchronized video feeds at 30 FPS from both cameras</li>
+              <li>Temporal alignment of joint positions with visual data</li>
+            </ul>
+
+            <p>The data collection process yielded approximately 300 episodes across various tasks, including pick-and-place operations and feeding motions with baby carrots. Each episode was automatically processed to calculate key statistical metrics, including mean trajectories and standard deviations, which were subsequently uploaded to Hugging Face for further analysis.</p>
+
+            <h4>Data Validation and Refinement</h4>
+            <p>To ensure data quality, we implemented a rigorous validation process:</p>
+            <ul>
+              <li>Visual inspection of each recorded episode</li>
+              <li>Classification of episodes into successful and unsuccessful attempts</li>
+              <li>Temporal trimming to isolate relevant motion segments</li>
+              <li>Verification through physical replay on the original setup</li>
+            </ul>
+
+            <p>The replay verification step was particularly crucial, as it allowed us to confirm the accuracy of our recorded trajectories and ensure that the robot could faithfully reproduce the intended motions. This double-validation approach significantly enhanced the reliability of our dataset.</p>
+
+            <p>Through this systematic approach to data collection and validation, we established a comprehensive dataset that effectively captures the nuances of human-guided robotic manipulation. This data forms the foundation for developing robust path-planning algorithms and ensuring consistent, reliable performance in assistive feeding scenarios.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+    <img src="./media/mouth_detection_on_bryan.gif" 
+         alt="Hardware SO-ARM" 
+         style="width: 25%;
+         aspect-ratio: 1;
+         object-fit: cover;
+         border-radius: 8px;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
+        <img src="./media/boris_eating.gif" 
+        alt="Hardware SO-ARM" 
+        style="width: 25%;
+        aspect-ratio: 1;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <img src="./media/robot_fpv_feed_francesco.gif" 
+         alt="Hardware SO-ARM" 
+         style="width: 25%;
+         aspect-ratio: 1;
+         object-fit: cover;
+         border-radius: 8px;
+         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</div>
+
+<div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;"></div>
+
+<video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <source src="./media/data_visualization_01.mov" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <source src="./media/visualize_dataset_pick_and_place.mov" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+</div>
+  
+
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Training ACT Policy and Results</summary>
+          <div class="content has-text-justified">
+            <h4>Training Methodology</h4>
+            <p>We implemented the Affordance-based Conditioning for Transformer (ACT) policy training using a comprehensive dataset collected from our teleoperation setup. The training process was conducted using Google Colab's computational resources, although the extensive nature of the transformer architecture resulted in significant training durations. Our primary focus was on the pick-and-place task, for which we had collected robust demonstration data.</p>
+
+            <p>The training pipeline incorporated several key components:</p>
+            <ul>
+              <li>Temporal sequence processing of joint states and visual features</li>
+              <li>Integration of multi-modal inputs (proprioceptive and visual)</li>
+              <li>Transformer-based attention mechanisms for trajectory prediction</li>
+              <li>Cross-validation using held-out demonstration episodes</li>
+            </ul>
+
+            <h4>Low-Level Policy Language Conditioning</h4>
+            <p>Our approach to policy conditioning followed a structured data collection template:</p>
+            <ul>
+              <li>Baseline dataset: 100 episodes of standard feeding interactions</li>
+              <li>Positional variations: 50 episodes from alternative feeding positions</li>
+              <li>Object variations: 50 episodes per different food item</li>
+            </ul>
+
+            <p>The language conditioning was implemented through semantic signal association. For instance, we collected 50 episodes with the signal "feed carrot" and another 50 with "feed cherry," enabling the model to develop object-specific manipulation strategies. This methodology creates a semantic mapping between natural language commands and corresponding manipulation behaviors.</p>
+
+            <h4>Visual Activation System</h4>
+            <p>Based on insights from interviews with beneficiaries and their families at the non-profit organization, we identified mouth opening as a critical signal for feeding initiation. Our system architecture comprises sophisticated computer vision components working in concert with robotic control systems.</p>
+
+            <p>The technical implementation includes:</p>
+            <ul>
+              <li>Video Processing Pipeline:
+                <ul>
+                  <li>MediaPipe libraries integration for real-time face detection</li>
+                  <li>OpenCV-based FaceMesh implementation for facial point tracking</li>
+                  <li>Euclidean distance computation between upper and lower lip coordinates</li>
+                  <li>Confidence threshold validation for activation triggers</li>
+                </ul>
+              </li>
+              <li>Hardware Configuration:
+                <ul>
+                  <li>Logitech C922 webcam (30 FPS) for live demonstrations</li>
+                  <li>Innomaker 720p USB2.0 UVC Camera for video recordings</li>
+                  <li>Jetson Nano processor for computational tasks</li>
+                </ul>
+              </li>
+              <li>Safety Features:
+                <ul>
+                  <li>Confidence threshold requirements for activation</li>
+                  <li>Continuous monitoring and validation of facial landmarks</li>
+                  <li>Real-time verification of mouth state detection</li>
+                </ul>
+              </li>
+            </ul>
+
+            <h4>Training Results and Analysis</h4>
+            <p>The training process yielded interesting insights into the challenges of robotic manipulation learning:</p>
+            <ul>
+              <li>Loss curves exhibited notable volatility, particularly in the pick-and-place task</li>
+              <li>Trajectory variations in velocity and approach angles contributed to training noise</li>
+              <li>Dataset heterogeneity impacted convergence characteristics</li>
+            </ul>
+
+            <p>The observed noise in the loss function can be attributed to several factors:</p>
+            <ul>
+              <li>Diverse demonstration velocities in the training dataset</li>
+              <li>Varying approach angles during pick-and-place operations</li>
+              <li>Natural variability in human teleoperation styles</li>
+              <li>Multi-modal learning challenges across visual and proprioceptive domains</li>
+            </ul>
+
+            <p>To ensure the reliability of our trained policies, we conducted extensive validation through physical replay on the original setup, verifying the model's ability to generalize across different scenarios while maintaining safety constraints.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- 
 <section class="hero teaser">
   <div class="container">
     <div class="hero-body" style="padding: 0;">
@@ -243,7 +507,7 @@
                   box-shadow: 0 6px 12px rgba(0,0,0,0.2);">
     </div>
   </div>
-</section>
+</section> -->
 
 
 
