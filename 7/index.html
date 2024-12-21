@@ -156,12 +156,12 @@
       <div class="content">
         <h2 class="title is-3">Abstract</h2>
         <p class="has-text-justified">
-            We present a novel low-cost assistive robotic feeding system developed in collaboration between UC Berkeley's Recursive Pioneer and Tukuypaj, a Chilean non-profit organization serving individuals with severe motor disabilities. Our work demonstrates that high-performance feeding assistance can be achieved using affordable hardware - 
-            specifically the SO-100 robotic arm platform ($110 per arm), which we've enhanced through custom modifications and advanced control algorithms. Prior to system development, we conducted extensive interviews with Tukuypaj's beneficiaries and caregivers, gathering crucial insights about the challenges and requirements of assisted feeding,
+            We present a novel low-cost assistive robotic feeding system developed in collaboration between UC Berkeley's <a href="https://recursivepioneer.org/">Recursive Pioneer</a> and <a href="https://www.tukuypaj.org/">Tukuypaj</a>, a Chilean non-profit organization serving individuals with severe motor disabilities. We learnt that the organization is often short-staffed in having available personnel to feed their quadriplegic community during mealtimes. Therefore, our primary project objective was to build a robotic system that can help reach for food and feed quadriplegic beneficiaries. We aspired to create a robotic system that grants the quadriplegic community greater self-sufficiency, while devising a solution that can be replicated at scale. Our work demonstrates that high-performance feeding assistance can be achieved using affordable hardware - 
+            specifically the SO-100 robotic arm platform ($110 per arm), which we've enhanced through custom modifications and advanced control algorithms. Prior to system development, we conducted extensive interviews with <a href="https://www.tukuypaj.orgn/">Tukuypaj</a>'s beneficiaries and caregivers, gathering crucial insights about the challenges and requirements of assisted feeding,
             which directly informed our technical specifications and design choices. Our technical implementation leverages the LeRobot framework for data collection and utilizes an Adversarial Control Transformer (ACT) architecture trained on demonstration data, exploring the feasibility of combining imitation learning with affordable hardware to
             create accessible robotic solutions. Initial development has focused on establishing reliable control mechanisms and movement patterns using the LeRobot framework's sophisticated tools for robot control and training, with an emphasis on system stability and movement precision while maintaining the low-cost advantage of the SO-100 platform.
             Through systematic testing in controlled environments, we are laying the groundwork for future real-world applications, representing an important step toward making assistive robotics technology more accessible through cost-effective solutions. By combining affordable hardware with sophisticated control frameworks, we demonstrate the potential
-            for bringing advanced robotics assistance to resource-constrained settings, setting the stage for future field testing and deployment in therapeutic environments across Tukuypaj's centers and similar care facilities worldwide.
+            for bringing advanced robotics assistance to resource-constrained settings, setting the stage for future field testing and deployment in therapeutic environments across <a href="https://www.tukuypaj.org/">Tukuypaj</a>'s centers and similar care facilities worldwide.
         </p>
       </div>
     </div>
@@ -254,17 +254,30 @@
 
 <section class="hero teaser">
     <div class="container">
-      <div class="hero-body" style="padding: 0;">
-        <figure>
+      <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+        <figure style="width: 45%; margin: 0;">
           <img src="./media/hardware_so_arm.gif" 
                alt="Hardware SO-ARM" 
-               style="width: 70%;
+               style="width: 100%;
                border-radius: 8px;
                display: block;
                margin: 0 auto;
                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
           <figcaption style="text-align: center; margin-top: 10px;">
             Figure 3: Hardware demonstration of SO-ARM robot
+          </figcaption>
+        </figure>
+
+        <figure style="width: 45%; margin: 0;">
+          <img src="./media/3d_printing.gif"
+               alt="3D Printing Process" 
+               style="width: 100%;
+               border-radius: 8px;
+               display: block;
+               margin: 0 auto;
+               box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <figcaption style="text-align: center; margin-top: 10px;">
+            Figure 4: 3D printing process of robot components
           </figcaption>
         </figure>
       </div>
@@ -321,7 +334,7 @@
             </ul>
 
             <h4>Camera Integration</h4>
-            <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100 gripper. This enables visual feedback for the robot's operation and user interaction.</p>
+            <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100 gripper. We learnt the need of putting a camera right next to the gripper to ensure that we could gather camera data of the gripper opening and closing. This enables visual feedback for the robot's operation and user interaction.</p>
             <img src="./media/camera_mount.png"
                  alt="Camera Mount Design"
                  style="width: 40%;
@@ -413,6 +426,14 @@
 
             <p>The replay verification step was particularly crucial, as it allowed us to confirm the accuracy of our recorded trajectories and ensure that the robot could faithfully reproduce the intended motions. This double-validation approach significantly enhanced the reliability of our dataset.</p>
 
+            <h4>Custom Scripts and Implementation</h4>
+            <p>The elalcance contains five files in total, the .pycache and __init__.py files allow for functions created within this folder to be exported and executable. The mouth_recognition.py file provides a window for a live demonstration of the code used for implementing the mesh for mouth-open detection, and mouth_recog.py turns the code into a exportable function named mouth_open_activate which returns a boolean value, only giving a True output when it detects that a mouth being open. Otherwise, when the mouth remains closed the program continues to run.</p>
+
+            <figure>
+              <img src="./media/script.png" alt="Custom Scripts Structure" style="width: 70%; border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              <figcaption style="text-align: center; margin-top: 10px;">Custom scripts structure and implementation</figcaption>
+            </figure>
+
             <p>Through this systematic approach to data collection and validation, we established a comprehensive dataset that effectively captures the nuances of human-guided robotic manipulation. This data forms the foundation for developing robust path-planning algorithms and ensuring consistent, reliable performance in assistive feeding scenarios.</p>
           </div>
         </details>
@@ -420,7 +441,6 @@
     </div>
   </div>
 </section>
-
 
 
 
