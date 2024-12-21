@@ -74,7 +74,7 @@
             <span class="author-block">Bryan Sow<sup>1</sup>,</span>
             <span class="author-block">Claire Beaudin<sup>1</sup>,</span>
             <span class="author-block">Boris<sup>1</sup></span>
-            <span class="author-block">Professor Roberto Horrowit<sup>2</sup></span>
+            <span class="author-block">Professor Roberto Horrowitz<sup>2</sup></span>
           </div>
 
           <div class="is-size-5 publication-authors">
@@ -156,7 +156,7 @@
       <div class="content">
         <h2 class="title is-3">Abstract</h2>
         <p class="has-text-justified">
-            We present a novel low-cost assistive robotic feeding system developed in collaboration between UC Berkeley's <a href="https://recursivepioneer.org/">Recursive Pioneer</a> and <a href="https://www.tukuypaj.org/">Tukuypaj</a>, a Chilean non-profit organization serving individuals with severe motor disabilities. We learnt that the organization is often short-staffed in having available personnel to feed their quadriplegic community during mealtimes. Therefore, our primary project objective was to build a robotic system that can help reach for food and feed quadriplegic beneficiaries. We aspired to create a robotic system that grants the quadriplegic community greater self-sufficiency, while devising a solution that can be replicated at scale. Our work demonstrates that high-performance feeding assistance can be achieved using affordable hardware - 
+            We present a novel low-cost assistive robotic feeding system developed in collaboration between UC Berkeley's <a href="https://recursivepioneer.org/">Recursive Pioneers</a> and <a href="https://www.tukuypaj.org/">Tukuypaj</a>, a Chilean non-profit organization serving individuals with severe motor disabilities. We learnt that the organization is often short-staffed in having available personnel to feed their quadriplegic community during mealtimes. Therefore, our primary project objective was to build a robotic system that can help reach for food and feed quadriplegic beneficiaries. We aspired to create a robotic system that grants the quadriplegic community greater self-sufficiency, while devising a solution that can be replicated at scale. Our work demonstrates that high-performance feeding assistance can be achieved using affordable hardware - 
             specifically the SO-100 robotic arm platform ($110 per arm), which we've enhanced through custom modifications and advanced control algorithms. Prior to system development, we conducted extensive interviews with <a href="https://www.tukuypaj.orgn/">Tukuypaj</a>'s beneficiaries and caregivers, gathering crucial insights about the challenges and requirements of assisted feeding,
             which directly informed our technical specifications and design choices. Our technical implementation leverages the LeRobot framework for data collection and utilizes an Adversarial Control Transformer (ACT) architecture trained on demonstration data, exploring the feasibility of combining imitation learning with affordable hardware to
             create accessible robotic solutions. Initial development has focused on establishing reliable control mechanisms and movement patterns using the LeRobot framework's sophisticated tools for robot control and training, with an emphasis on system stability and movement precision while maintaining the low-cost advantage of the SO-100 platform.
@@ -338,7 +338,7 @@
   </section>
 
 
-  
+
 
 <section class="hero">
   <div class="container is-max-desktop">
@@ -356,7 +356,7 @@
               <li><strong>Easily adaptable:</strong> We wanted to ensure that our robot worked in various environments to avoid having a consistent setup necessary for the robot to function properly. Making it easy to maintain also became an important factor.</li>
             </ul>
             <h4>Selection and Building Process</h4>
-            <p>Due to the time constraints of the class, we decided it was best to use an open source robot found online. We eventually settled on the SOARM-100, as it satisfied all of our requirements outlined above, and it fit the overall design philosophy we wanted to employ. The SOARM-100 uses a teleoperation setup that involves 2 arms, one where a human operator manually creates the intended path trajectories, and the other copying the created motion synchronously.</p>
+            <p>Due to the time constraints of the class, we decided it was best to use an open source robot found online. We eventually settled on the SOARM-100, as it satisfied all of our requirements outlined above, and it fit the overall design philosophy we wanted to employ. The SOARM-100 uses a teleoperation setup that involves 2 arms, one where a human operator manually creates the intended path trajectories, and the other copying the created motion synchronously (TheRobotStudio et al., 2024).</p>
             <div style="display: flex; justify-content: center; gap: 20px; margin: 20px 0;">
                 <img src="./media/follower_arm.png"
                      alt="follower arm"
@@ -382,7 +382,7 @@
                         margin: 0 auto;
                         box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
             <h4>Software Integration</h4>
-            <p>The STS3215 servos were connected via a daisy chain and configured with unique IDs. We utilized scripts from the official repository for:</p>
+            <p>The STS3215 servos were connected via a daisy chain and configured with unique IDs. We utilized scripts from the official repository (Alibert et al., 2024) for:</p>
             <ul>
               <li>Finding port addresses for microcontroller-computer connection</li>
               <li>Configuring motor IDs</li>
@@ -390,7 +390,7 @@
             </ul>
 
             <h4>Camera Integration</h4>
-            <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100 gripper. We learnt the need of putting a camera right next to the gripper to ensure that we could gather camera data of the gripper opening and closing. This enables visual feedback for the robot's operation and user interaction.</p>
+            <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100  (Chekuri, 2024). We learnt the need of putting a camera right next to the gripper to ensure that we could gather camera data of the gripper opening and closing. This enables visual feedback for the robot's operation and user interaction.</p>
             <img src="./media/camera_mount.png"
                  alt="Camera Mount Design"
                  style="width: 40%;
@@ -490,7 +490,7 @@
               <figcaption style="text-align: center; margin-top: 10px;">Custom scripts structure and implementation</figcaption>
             </figure>
 
-            <p>Through this systematic approach to data collection and validation, we established a comprehensive dataset that effectively captures the nuances of human-guided robotic manipulation. This data forms the foundation for developing robust path-planning algorithms and ensuring consistent, reliable performance in assistive feeding scenarios.</p>
+            <p>(Please refer to our <a href="https://github.com/Francescocrivelli/le-alcance" target="_blank">README.md</a> for more information on the codebase) Through this systematic approach to data collection and validation, we established a comprehensive dataset that effectively captures the nuances of human-guided robotic manipulation. This data forms the foundation for developing robust path-planning algorithms and ensuring consistent, reliable performance in assistive feeding scenarios.</p>
           </div>
         </details>
       </div>
