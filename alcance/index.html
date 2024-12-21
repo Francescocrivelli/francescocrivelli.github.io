@@ -205,57 +205,110 @@
     </div>
   </section> -->
 
-
-<section class="hero">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <div class="content">
-        <details>
-          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Design Ideoology</summary>
-          <div class="content has-text-justified">
-
-            <h3>Design ideology = low cost cost and scalable robotics to tacle real world problems:</h3>
-
-            <p>The first steps of our project involved going through the design process, conducting interviews to gather data on the problem and gain insight into the target users that we are designing for. There were two key insights that we learnt about the beneficiaries during the interview process:</p>
-            <ul>
-              <li>Most of the quadriplegic interviewees are non-vocal, and heavily rely on facial expressions to communicate. For instance, when a caretaker picks up a certain food item, they would smile to indicate if they would like the food item or not.</li>
-              <li>We learnt that their main diet consists of chopped up food that requires the use of a spoon. One caretaker was kindly willing to help take a video of their feeding process. Studying the video, we learnt the path motions that our robotic arm needed to replicate to accomplish such a task.</li>
-            </ul>
-
-            <p>The desired functionality of our system involves the creation of path trajectories for the robot system to bring the food to the beneficiary's mouth, while enabling the beneficiary to enact the movement on his/her own. Our main design criteria involves creating a simplified system that is easy to implement, ensuring robustness in reproducibility and reliability, all while ensuring that the system does not deviate too far from their usual feeding routine to ensure a sense of familiarity and easy adoption. The design that we chose is in alignment with this design philosophy.</p>
-
-            <p>We first considered constrained situations where we have fixed types of food and fixed relative positions between the food item and the beneficiary. We knew that when our robotic system would be deployed, it would need to perform its function in various environments and situations. Furthermore, we also wanted direct human input over the path trajectories of the robot arm, such that the caretakers can directly dictate how the robot brings the food to the beneficiary and personalize the trajectories for each of them. To fulfill these conditions, we thought it was best for our system to employ a path planning setup where we had two robot arms – one which allowed a caretaker to manually create the path trajectory, and the other arm replicating and storing the motion. We knew that creating and obtaining hardware for two arms was much more difficult than for one, but we felt that this design choice would allow for the path planning element of the project to be easier to implement, and allow caretakers greater influence over the movement of the robot arms as they interact with the beneficiaries in the physical world.</p>
-
-            <p>Secondly, we also wanted to create a bridge where the beneficiaries can directly communicate with the robot system. Learning that they mainly communicate through facial expressions, we knew that incorporating computer vision to read their expressions was crucial in our design setup. It was hard to decide upon a mechanism for communication as in reality we learnt that every beneficiary has a different way of communicating their needs through facial expressions (some smile while others chuff), hence we thought it was easiest to standardize the manner of communication. We decided upon having the robot system react to the beneficiaries opening their mouths to bring the food to them.</p>
-
-            <p>In tandem, the overall flow of the use of the robot system was intended as follows: the caretakers can manually create the path trajectories, and the beneficiaries can execute the movement of the arms along these trajectories by opening their mouths.</p>
-
-            <p>We also aspired to incorporate a second tier to our design philosophy, where we considered dynamic situations involving different types of food, positions of food relative to the beneficiary, beneficiary interactions with the robot system, etc. We wanted to create a form of general intelligence where the robot would "know" how to bring the food item to the beneficiary, regardless of the situation it is being presented. Therefore, we wanted to try implementing a learning aspect to the project. By creating various scenarios, and using the design of the robot to dictate how the food is brought to the beneficiary, we hoped to enact reinforcement learning where the robot learns the intended action to carry out given the scenario, and develop a policy which enable the robot to autonomously create pathways and bring the food item to the beneficiary.</p>
-
-            <p>We felt that the design choices we made fulfilled our design objectives in creating a simplified design which was efficient in implementation while being highly reproducible in executing what we wanted the system to do in serving the needs of the beneficiaries. We tackled the design philosophy on the constrained and dynamic front of varying levels of difficulty, while ensuring that user-friendliness remained our top priority, ensuring a created system that would be durable. We were unsure over how robust this system would be in executing the task in the real world, but felt that it is a good starting point to build off of.</p>
-          </div>
-
-          <div style="display: flex; justify-content: center; margin: 20px 0;">
-            <img src="./media/luis_end_user.png" 
-                 alt="Luis - End User"
-                 style="width: 50%; 
-                        border-radius: 8px;
-                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-          </div>
-        </details>
+  <section class="hero">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <div class="content">
+          <details>
+            <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Design Ideology</summary>
+            <div class="content has-text-justified">
+  
+              <h3>Design Ideology: Low-Cost and Scalable Robotics to Tackle Real-World Problems</h3>
+  
+              <p>The first steps of our project involved going through the design process, conducting interviews to gather data on the problem and gain insight into the target users that we are designing for. There were two key insights that we learnt about the beneficiaries during the interview process:</p>
+              <ul>
+                <li>Most of the quadriplegic interviewees are non-vocal, and heavily rely on facial expressions to communicate. For instance, when a caretaker picks up a certain food item, they would smile to indicate if they would like the food item or not.</li>
+                <li>We learnt that their main diet consists of chopped up food that requires the use of a spoon. One caretaker was kindly willing to help take a video of their feeding process. Studying the video, we learnt the path motions that our robotic arm needed to replicate to accomplish such a task.</li>
+              </ul>
+  
+              <p>The desired functionality of our system involves the creation of path trajectories for the robot system to bring the food to the beneficiary's mouth, while enabling the beneficiary to enact the movement on his/her own. Our main design criteria involves creating a simplified system that is easy to implement, ensuring robustness in reproducibility and reliability, all while ensuring that the system does not deviate too far from their usual feeding routine to ensure a sense of familiarity and easy adoption. The design that we chose is in alignment with this design philosophy.</p>
+  
+              <p>We first considered constrained situations where we have fixed types of food and fixed relative positions between the food item and the beneficiary. We knew that when our robotic system would be deployed, it would need to perform its function in various environments and situations. Furthermore, we also wanted direct human input over the path trajectories of the robot arm, such that the caretakers can directly dictate how the robot brings the food to the beneficiary and personalize the trajectories for each of them. To fulfill these conditions, we thought it was best for our system to employ a path planning setup where we had two robot arms – one which allowed a caretaker to manually create the path trajectory, and the other arm replicating and storing the motion. We knew that creating and obtaining hardware for two arms was much more difficult than for one, but we felt that this design choice would allow for the path planning element of the project to be easier to implement, and allow caretakers greater influence over the movement of the robot arms as they interact with the beneficiaries in the physical world.</p>
+  
+              <p>Secondly, we also wanted to create a bridge where the beneficiaries can directly communicate with the robot system. Learning that they mainly communicate through facial expressions, we knew that incorporating computer vision to read their expressions was crucial in our design setup. It was hard to decide upon a mechanism for communication as in reality we learnt that every beneficiary has a different way of communicating their needs through facial expressions (some smile while others chuff), hence we thought it was easiest to standardize the manner of communication. We decided upon having the robot system react to the beneficiaries opening their mouths to bring the food to them.</p>
+  
+              <p>In tandem, the overall flow of the use of the robot system was intended as follows: the caretakers can manually create the path trajectories, and the beneficiaries can execute the movement of the arms along these trajectories by opening their mouths.</p>
+  
+              <p>We also aspired to incorporate a second tier to our design philosophy, where we considered dynamic situations involving different types of food, positions of food relative to the beneficiary, beneficiary interactions with the robot system, etc. We wanted to create a form of general intelligence where the robot would "know" how to bring the food item to the beneficiary, regardless of the situation it is being presented. Therefore, we wanted to try implementing a learning aspect to the project. By creating various scenarios, and using the design of the robot to dictate how the food is brought to the beneficiary, we hoped to enact reinforcement learning where the robot learns the intended action to carry out given the scenario, and develop a policy which enable the robot to autonomously create pathways and bring the food item to the beneficiary.</p>
+  
+              <p>We felt that the design choices we made fulfilled our design objectives in creating a simplified design which was efficient in implementation while being highly reproducible in executing what we wanted the system to do in serving the needs of the beneficiaries. We tackled the design philosophy on the constrained and dynamic front of varying levels of difficulty, while ensuring that user-friendliness remained our top priority, ensuring a created system that would be durable. We were unsure over how robust this system would be in executing the task in the real world, but felt that it is a good starting point to build off of.</p>
+  
+              <div style="display: flex; justify-content: center; margin: 40px 0;">
+                <img src="./media/luis_end_user.png" 
+                     alt="Luis - End User"
+                     style="width: 50%; 
+                            border-radius: 8px;
+                            box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+              </div>
+  
+              <div style="display: flex; justify-content: center; margin: 40px 0;">
+                <div id="schematic" style="width: 80%; height: 300px;"></div>
+              </div>
+  
+            </div>
+          </details>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
   
-</section>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.3.0/raphael.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowchart/1.15.0/flowchart.min.js"></script>
+  <script>
+    var diagramCode = `
+      st=>start: Using Teleoperation to create path trajectory
+      op1=>operation: Enables human input, caretakers can dictate how the robot brings the food to the mouth of the beneficiary
+      op2=>operation: Enabling Computer Vision to see beneficiary's face
+      op3=>operation: Follower arm executes path trajectory for feeding when beneficiary opens mouth
+      e=>end: Quadriplegic communities mainly communicate through facial expressions; this creates a communication bridge between robot system and them
+  
+      st->op1->op2->op3->e
+    `;
+    flowchart.parse(diagramCode).drawSVG('schematic', {
+      'x': 0,
+      'y': 0,
+      'line-width': 2,
+      'line-length': 50,
+      'text-margin': 10,
+      'font-size': 14,
+      'font-color': 'black',
+      'line-color': 'black',
+      'element-color': 'black',
+      'fill': 'white',
+      'yes-text': 'yes',
+      'no-text': 'no',
+      'arrow-end': 'block',
+      'scale': 1,
+      'symbols': {
+        'start': {
+          'font-color': 'red',
+          'element-color': 'red',
+          'fill': 'yellow'
+        },
+        'end': {
+          'class': 'end-element'
+        }
+      },
+      'flowstate': {
+        'past': { 'fill': '#CCCCCC', 'font-size': 12 },
+        'current': { 'fill': 'yellow', 'font-color': 'red', 'font-weight': 'bold' },
+        'future': { 'fill': '#FFFF99' },
+        'request': { 'fill': 'blue' },
+        'invalid': { 'fill': '#444444' },
+        'approved': { 'fill': '#58C4A3', 'font-size': 12, 'yes-text': 'APPROVED', 'no-text': 'n/a' },
+        'rejected': { 'fill': '#C45879', 'font-size': 12, 'yes-text': 'n/a', 'no-text': 'REJECTED' }
+      }
+    });
+  </script>
+  
 
 
 
 
-<section class="hero teaser">
-    <div class="container">
-      <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
-        <figure style="width: 45%; margin: 0;">
+<section class="hero teaser" style="margin-top: 10px;">
+    <div class="container" style="margin-top: 10px;">
+      <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px; margin-top: 10px;">
+        <figure style="width: 45%; margin: 0; margin-top: 10px;">
           <img src="./media/hardware_so_arm.gif" 
                alt="Hardware SO-ARM" 
                style="width: 100%;
@@ -268,7 +321,7 @@
           </figcaption>
         </figure>
 
-        <figure style="width: 45%; margin: 0;">
+        <figure style="width: 45%; margin: 0; margin-top: 20px;">
           <img src="./media/3d_printing.gif"
                alt="3D Printing Process" 
                style="width: 100%;
@@ -283,6 +336,9 @@
       </div>
     </div>
   </section>
+
+
+  
 
 <section class="hero">
   <div class="container is-max-desktop">
@@ -565,7 +621,6 @@
 </section>
 
 
-
 <section class="hero teaser">
   <div class="container">
     <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
@@ -612,6 +667,124 @@
     </div>
   </div>
 </section> -->
+
+
+
+<section class="hero" style="display: flex; justify-content: center;">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Conclusion and System Analysis</summary>
+          <div class="content has-text-justified">
+            <h3>System Performance and Design Criteria Evaluation</h3>
+            
+            <p>Our implemented system successfully demonstrated the core functionality of trajectory storage and replication, activated through a computer vision-based mouth-opening detection system. The current implementation achieves single-trajectory actuation per mouth-open event, though further development is required to enable multiple trajectory replications across repeated activations.</p>
+
+            <h3>Technical Challenges and Implementation Constraints</h3>
+
+            <p>A significant technical challenge emerged in the end-effector design phase. Initial attempts focused on developing CAD-designed spoon holder attachments for the SO-ARM100's end effector, with the intention of enabling food scooping and delivery operations. However, practical testing revealed considerable limitations in this approach:</p>
+
+            <ul>
+              <li>Inconsistent gripper-to-holder attachment mechanics</li>
+              <li>Unstable motion patterns post-attachment</li>
+              <li>Limited precision in food manipulation tasks</li>
+            </ul>
+
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+              <img src="./media/spoon.png" 
+                   alt="Spoon holder prototype design"
+                   style="width: 50%; 
+                          border-radius: 8px;
+                          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+
+            <h3>Future Development Pathways</h3>
+
+            <p>Given resource and time constraints, we pivoted to direct food manipulation using the existing gripper system, focusing on handling discrete food items such as carrots or broccoli. While this approach demonstrated system viability, our user research indicates that spoon-based feeding remains the preferred method for beneficiaries. Future iterations should prioritize:</p>
+
+            <ul>
+              <li>Comprehensive redesign of the SO-ARM100 end-effector</li>
+              <li>Integration of specialized spoon-holding mechanisms</li>
+              <li>Software optimization for fluid, spoon-based feeding motions</li>
+              <li>Enhanced trajectory replication capabilities</li>
+            </ul>
+
+            <p>These improvements would align the system more closely with established feeding practices while maintaining the core benefits of our current implementation.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Team</summary>
+          <div class="content has-text-justified">
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+              <img src="./media/team_image.png" 
+                   alt="Team Photo"
+                   style="width: 100%; 
+                          border-radius: 8px;
+                          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <p style="text-align: center; font-style: italic; margin-top: -10px;">
+              The picture above was taken on Tuesday RRR week at 5:30 am
+            </p>
+          </div>
+
+            <p style="text-align: center; margin: 20px 0;">
+              The entire team contributed countless hours with all-nighters for data collection, extensive robot maintenance, and shared many laughs along the way.
+            </p>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 30px;">
+              <div style="width: 23%;">
+                <h4>Bryan Sow</h4>
+                <ul>
+                  <li>Major: EECS</li>
+                  <li>Contribution: CAD design, Robot assembly and interface</li>
+                  <li>Fun Fact: The "keep track and Be On Time"</li>
+                </ul>
+              </div>
+
+              <div style="width: 23%;">
+                <h4>Francesco Crivelli</h4>
+                <ul>
+                  <li>Major: EECS</li>
+                  <li>Contribution: Framework setup, ACT training, robot assembly</li>
+                  <li>Fun Fact: The "Certified Crazy Visionary"</li>
+                </ul>
+              </div>
+
+              <div style="width: 23%;">
+                <h4>Boris</h4>
+                <ul>
+                  <li>Major: Data Science</li>
+                  <li>Contribution: Developed computer vision and trained ACT policy</li>
+                  <li>Fun Fact: The Joker</li>
+                </ul>
+              </div>
+
+              <div style="width: 23%;">
+                <h4>Claire</h4>
+                <ul>
+                  <li>Major: Data Science</li>
+                  <li>Contribution: 3D printed and rapidly prototyped robot components</li>
+                  <li>Fun Fact: The "Be Nice"</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
 
 
 
