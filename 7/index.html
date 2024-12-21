@@ -131,16 +131,21 @@
   </div>
 </section>
 
-<section class="hero teaser"></section>
+<section class="hero teaser">
     <div class="container">
       <div class="hero-body" style="padding: 0;">
-        <img src="./media/robot_feeding_francesco.gif" 
-             alt="Hardware SO-ARM" 
-             style="width: 50%;
-             border-radius: 8px;
-             display: block;
-             margin: 0 auto;
-             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <figure>
+          <img src="./media/robot_feeding_francesco.gif" 
+               alt="Hardware SO-ARM" 
+               style="width: 70%;
+               border-radius: 8px;
+               display: block;
+               margin: 0 auto;
+               box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <figcaption style="text-align: center; margin-top: 10px;">
+            Figure 1: Robot feeding demonstration with Francesco
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -167,10 +172,15 @@
 <section class="hero teaser">
     <div class="container">
       <div class="hero-body" style="padding: 0;">
-        <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-          <source src="./media/all_team_getting_setup_working_time_laps_.mov" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <figure>
+          <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            <source src="./media/all_team_getting_setup_working_time_laps_.mov" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+          <figcaption style="text-align: center; margin-top: 10px;">
+            Figure 2: Time lapse of team setup and development process
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -203,6 +213,7 @@
         <details>
           <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Design Ideoology</summary>
           <div class="content has-text-justified">
+
             <h3>Design ideology = low cost cost and scalable robotics to tacle real world problems:</h3>
 
             <p>The first steps of our project involved going through the design process, conducting interviews to gather data on the problem and gain insight into the target users that we are designing for. There were two key insights that we learnt about the beneficiaries during the interview process:</p>
@@ -223,6 +234,14 @@
 
             <p>We felt that the design choices we made fulfilled our design objectives in creating a simplified design which was efficient in implementation while being highly reproducible in executing what we wanted the system to do in serving the needs of the beneficiaries. We tackled the design philosophy on the constrained and dynamic front of varying levels of difficulty, while ensuring that user-friendliness remained our top priority, ensuring a created system that would be durable. We were unsure over how robust this system would be in executing the task in the real world, but felt that it is a good starting point to build off of.</p>
           </div>
+
+          <div style="display: flex; justify-content: center; margin: 20px 0;">
+            <img src="./media/luis_end_user.png" 
+                 alt="Luis - End User"
+                 style="width: 50%; 
+                        border-radius: 8px;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
         </details>
       </div>
     </div>
@@ -236,13 +255,18 @@
 <section class="hero teaser">
     <div class="container">
       <div class="hero-body" style="padding: 0;">
-        <img src="./media/hardware_so_arm.gif" 
-             alt="Hardware SO-ARM" 
-             style="width: 50%;
-             border-radius: 8px;
-             display: block;
-             margin: 0 auto;
-             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <figure>
+          <img src="./media/hardware_so_arm.gif" 
+               alt="Hardware SO-ARM" 
+               style="width: 70%;
+               border-radius: 8px;
+               display: block;
+               margin: 0 auto;
+               box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <figcaption style="text-align: center; margin-top: 10px;">
+            Figure 3: Hardware demonstration of SO-ARM robot
+          </figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -318,33 +342,32 @@
 
 <section class="hero teaser">
   <div class="container">
-    <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
-          <img src="./media/boris_teleop.gif" 
-          alt="Hardware SO-ARM" 
-          style="width: 25%;
-          aspect-ratio: 1;
-          object-fit: cover;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+    <div class="hero-body" style="padding: 0; display: flex; flex-direction: column; align-items: center;">
+      <div style="display: flex; justify-content: center; gap: 20px;">
+        <figure style="width: 25%; margin: 0;">
+          <img src="./media/boris_teleop.gif" alt="Boris Teleoperation" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <figcaption style="text-align: center; margin-top: 5px;">Figure 4: Boris demonstrating teleoperation</figcaption>
+        </figure>
 
-        <video width="25%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
+        <figure style="width: 25%; margin: 0;">
+          <video width="100%" height="100%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); aspect-ratio: 1; object-fit: cover;">
             <source src="./media/visualize_dataset_pick_and_place_cutted.mov" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-                
-          <img src="./media/francesco_teleoperating_2.gif" 
-          alt="Hardware SO-ARM" 
-          style="width: 25%;
-          object-fit: cover;
-          border-radius: 8px;
-          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-
-         
-
-          <video width="25%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
-            <source src="./media/data_visualization_01.mov" type="video/mp4">
-            Your browser does not support the video tag.
           </video>
+          <figcaption style="text-align: center; margin-top: 5px;">Figure 5: Dataset visualization of pick-and-place task</figcaption>
+        </figure>
+
+        <figure style="width: 25%; margin: 0;">
+          <img src="./media/francesco_teleoperating_2.gif" alt="Francesco Teleoperation" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <figcaption style="text-align: center; margin-top: 5px;">Figure 6: Francesco performing teleoperation</figcaption>
+        </figure>
+
+        <figure style="width: 25%; margin: 0;">
+          <video width="100%" height="100%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); aspect-ratio: 1; object-fit: cover;">
+            <source src="./media/data_visualization_01.mov" type="video/mp4">
+          </video>
+          <figcaption style="text-align: center; margin-top: 5px;">Figure 7: Data visualization of robot movements</figcaption>
+        </figure>
+      </div>
     </div>
   </div>
 </section>
@@ -401,39 +424,30 @@
 
 
 
-
 <section class="hero teaser">
     <div class="container">
-        <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
-            <img src="./media/mouth_detection_on_bryan.gif" 
-                alt="Hardware SO-ARM" 
-                style="width: 25%;
-                aspect-ratio: 1;
-                object-fit: cover;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            
-                <img src="./media/francesco_eating_with hand.gif" 
-                alt="Hardware SO-ARM" 
-                style="width: 25%;
-                object-fit: cover;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <div class="hero-body" style="padding: 0; display: flex; flex-direction: column; align-items: center;">
+            <div style="display: flex; justify-content: center; gap: 20px;">
+                <figure style="width: 25%; margin: 0;">
+                    <img src="./media/mouth_detection_on_bryan.gif" alt="Mouth Detection on Bryan" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <figcaption style="text-align: center; margin-top: 5px;">Figure 8: Mouth detection on Bryan</figcaption>
+                </figure>
 
-                <img src="./media/boris_eating.gif" 
-                alt="Hardware SO-ARM" 
-                style="width: 25%;
-                aspect-ratio: 1;
-                object-fit: cover;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-            <img src="./media/robot_fpv_feed_francesco.gif" 
-                alt="Hardware SO-ARM" 
-                style="width: 25%;
-                aspect-ratio: 1;
-                object-fit: cover;
-                border-radius: 8px;
-                box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <figure style="width: 25%; margin: 0;">
+                    <img src="./media/francesco_eating_with hand.gif" alt="Francesco Eating with Hand" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <figcaption style="text-align: center; margin-top: 5px;">Figure 9: Francesco eating with hand</figcaption>
+                </figure>
+
+                <figure style="width: 25%; margin: 0;">
+                    <img src="./media/boris_eating.gif" alt="Boris Eating" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <figcaption style="text-align: center; margin-top: 5px;">Figure 10: Boris eating</figcaption>
+                </figure>
+
+                <figure style="width: 25%; margin: 0;">
+                    <img src="./media/robot_fpv_feed_francesco.gif" alt="Robot FPV Feeding Francesco" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                    <figcaption style="text-align: center; margin-top: 5px;">Figure 11: Robot FPV feeding Francesco</figcaption>
+                </figure>
+            </div>
         </div>
     </div>
 </section>
@@ -506,6 +520,14 @@
               <li>Dataset heterogeneity impacted convergence characteristics</li>
             </ul>
 
+            <img src="./media/training_loss.png"
+                 alt="Training Loss Plot"
+                 style="width: 60%;
+                        border-radius: 8px;
+                        display: block;
+                        margin: 20px auto;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+
             <p>The observed noise in the loss function can be attributed to several factors:</p>
             <ul>
               <li>Diverse demonstration velocities in the training dataset</li>
@@ -526,16 +548,33 @@
 
 <section class="hero teaser">
   <div class="container">
-    <div class="hero-body" style="padding: 0; display: flex; justify-content: center;">
-      <video width="50%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); object-fit: cover;">
-        <source src="./media/full_demo.mov" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+    <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+      <figure style="width: 45%; margin: 0;">
+        <video width="100%" autoplay loop muted playsinline style="border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); object-fit: cover;">
+          <source src="./media/full_demo_official.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 8: Full system demonstration
+        </figcaption>
+      </figure>
+
+      <figure style="width: 45%; margin: 0;">
+        <video width="100%" autoplay loop muted playsinline style="border-radius: 12px; box-shadow: 0 6px 12px rgba(0,0,0,0.15); object-fit: cover;">
+          <source src="./media/bryan_being_fed.mov" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 9: Bryan testing the feeding system
+        </figcaption>
+      </figure>
     </div>
   </div>
 </section>
-  
 
+<p>
+    
+</p>
 
 <!-- 
 <section class="hero teaser">
@@ -562,9 +601,25 @@
 </script>
 
 
-
-
-
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0;">
+      <h2 class="title has-text-centered" style="margin: 60px 0 20px 0;">
+        Final Project Video
+      </h2>
+      <figure style="margin: 40px 0;">
+        <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/DRsAnFrGtw4?autoplay=1&mute=1"
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </iframe>
+      </figure>
+    </div>
+  </div>
+</section>
 
 
 
@@ -583,6 +638,9 @@
     </div>
   </div>
 </section>
+
+
+
 
 
 
