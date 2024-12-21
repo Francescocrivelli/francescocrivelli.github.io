@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="NeRF Built from scratch">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeRF Project</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../nerfies_style/static/js/fontawesome.all.min.js"></script>
+  <script src="../nerfies_style/static/js/bulma-carousel.min.js"></script>
+  <script src="../nerfies_style/static/js/bulma-slider.min.js"></script>
+  <script src="../nerfies_style/static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://www.francescocrivelli.com/">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">EL-ALCANCE</h1>
+          <h2 class="subtitle is-3 publication-title">Robotic Feeding Assistant for Quadriplegic Individuals in LATAM</h2>
+          <h3 class="subtitle is-4 publication-title">EECS 106A, Professor Robert Horrowitz</h3>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Francesco Crivelli<sup>1</sup>,</span>
+            <span class="author-block">Bryan Sow<sup>1</sup>,</span>
+            <span class="author-block">Claire Beaudin<sup>1</sup>,</span>
+            <span class="author-block">Boris<sup>1</sup></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>University of California Berkeley</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://inst.eecs.berkeley.edu/~cs180/fa23/hw/proj5/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>write-up</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Francescocrivelli/le-alcance"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <h2 class="title is-3">Abstract</h2>
+        <p class="has-text-justified">
+            We present a novel low-cost assistive robotic feeding system developed in collaboration between UC Berkeley's Recursive Pioneer and Tukuypaj, a Chilean non-profit organization serving individuals with severe motor disabilities. Our work demonstrates that high-performance feeding assistance can be achieved using affordable hardware - 
+            specifically the SO-100 robotic arm platform ($110 per arm), which we've enhanced through custom modifications and advanced control algorithms. Prior to system development, we conducted extensive interviews with Tukuypaj's beneficiaries and caregivers, gathering crucial insights about the challenges and requirements of assisted feeding,
+            which directly informed our technical specifications and design choices. Our technical implementation leverages the LeRobot framework for data collection and utilizes an Adversarial Control Transformer (ACT) architecture trained on demonstration data, exploring the feasibility of combining imitation learning with affordable hardware to
+            create accessible robotic solutions. Initial development has focused on establishing reliable control mechanisms and movement patterns using the LeRobot framework's sophisticated tools for robot control and training, with an emphasis on system stability and movement precision while maintaining the low-cost advantage of the SO-100 platform.
+            Through systematic testing in controlled environments, we are laying the groundwork for future real-world applications, representing an important step toward making assistive robotics technology more accessible through cost-effective solutions. By combining affordable hardware with sophisticated control frameworks, we demonstrate the potential
+            for bringing advanced robotics assistance to resource-constrained settings, setting the stage for future field testing and deployment in therapeutic environments across Tukuypaj's centers and similar care facilities worldwide.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Design Ideoology</summary>
+          <div class="content has-text-justified">
+            <h3>Design ideology = low cost cost and scalable robotics to tacle real world problems:</h3>
+
+            <p>The first steps of our project involved going through the design process, conducting interviews to gather data on the problem and gain insight into the target users that we are designing for. There were two key insights that we learnt about the beneficiaries during the interview process:</p>
+            <ul>
+              <li>Most of the quadriplegic interviewees are non-vocal, and heavily rely on facial expressions to communicate. For instance, when a caretaker picks up a certain food item, they would smile to indicate if they would like the food item or not.</li>
+              <li>We learnt that their main diet consists of chopped up food that requires the use of a spoon. One caretaker was kindly willing to help take a video of their feeding process. Studying the video, we learnt the path motions that our robotic arm needed to replicate to accomplish such a task.</li>
+            </ul>
+
+            <p>The desired functionality of our system involves the creation of path trajectories for the robot system to bring the food to the beneficiary's mouth, while enabling the beneficiary to enact the movement on his/her own. Our main design criteria involves creating a simplified system that is easy to implement, ensuring robustness in reproducibility and reliability, all while ensuring that the system does not deviate too far from their usual feeding routine to ensure a sense of familiarity and easy adoption. The design that we chose is in alignment with this design philosophy.</p>
+
+            <p>We first considered constrained situations where we have fixed types of food and fixed relative positions between the food item and the beneficiary. We knew that when our robotic system would be deployed, it would need to perform its function in various environments and situations. Furthermore, we also wanted direct human input over the path trajectories of the robot arm, such that the caretakers can directly dictate how the robot brings the food to the beneficiary and personalize the trajectories for each of them. To fulfill these conditions, we thought it was best for our system to employ a path planning setup where we had two robot arms – one which allowed a caretaker to manually create the path trajectory, and the other arm replicating and storing the motion. We knew that creating and obtaining hardware for two arms was much more difficult than for one, but we felt that this design choice would allow for the path planning element of the project to be easier to implement, and allow caretakers greater influence over the movement of the robot arms as they interact with the beneficiaries in the physical world.</p>
+
+            <p>Secondly, we also wanted to create a bridge where the beneficiaries can directly communicate with the robot system. Learning that they mainly communicate through facial expressions, we knew that incorporating computer vision to read their expressions was crucial in our design setup. It was hard to decide upon a mechanism for communication as in reality we learnt that every beneficiary has a different way of communicating their needs through facial expressions (some smile while others chuff), hence we thought it was easiest to standardize the manner of communication. We decided upon having the robot system react to the beneficiaries opening their mouths to bring the food to them.</p>
+
+            <p>In tandem, the overall flow of the use of the robot system was intended as follows: the caretakers can manually create the path trajectories, and the beneficiaries can execute the movement of the arms along these trajectories by opening their mouths.</p>
+
+            <p>We also aspired to incorporate a second tier to our design philosophy, where we considered dynamic situations involving different types of food, positions of food relative to the beneficiary, beneficiary interactions with the robot system, etc. We wanted to create a form of general intelligence where the robot would "know" how to bring the food item to the beneficiary, regardless of the situation it is being presented. Therefore, we wanted to try implementing a learning aspect to the project. By creating various scenarios, and using the design of the robot to dictate how the food is brought to the beneficiary, we hoped to enact reinforcement learning where the robot learns the intended action to carry out given the scenario, and develop a policy which enable the robot to autonomously create pathways and bring the food item to the beneficiary.</p>
+
+            <p>We felt that the design choices we made fulfilled our design objectives in creating a simplified design which was efficient in implementation while being highly reproducible in executing what we wanted the system to do in serving the needs of the beneficiaries. We tackled the design philosophy on the constrained and dynamic front of varying levels of difficulty, while ensuring that user-friendliness remained our top priority, ensuring a created system that would be durable. We were unsure over how robust this system would be in executing the task in the real world, but felt that it is a good starting point to build off of.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero teaser">
+    <div class="container">
+      <div class="hero-body" style="padding: 0;">
+        <img src="./media/hardware_so_arm.gif" 
+             alt="Hardware SO-ARM" 
+             style="width: 50%;
+             border-radius: 8px;
+             display: block;
+             margin: 0 auto;
+             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+      </div>
+    </div>
+  </section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Building the Hardware</summary>
+          <div class="content has-text-justified">
+            <h3>Implementation</h3>
+            
+            <h4>Journal of Building the SOARM</h4>
+            <p>We spent a considerable amount of time choosing a design for the robotic arm. We carefully reviewed and selected a few key constraints we wanted to apply to the robot:</p>
+            <ul>
+              <li><strong>Low cost and replicable:</strong> We wanted to choose an accessible design that could be easily reproducible. If we were to make a successful product, we would want to be able to deploy it easily.</li>
+              <li><strong>Safe to use:</strong> Safety was a huge priority. The robots we are designing are going to act autonomously, operating near the user's face.</li>
+              <li><strong>Easily adaptable:</strong> We wanted to ensure that our robot worked in various environments to avoid having a consistent setup necessary for the robot to function properly. Making it easy to maintain also became an important factor.</li>
+            </ul>
+
+            <h4>Selection and Building Process</h4>
+            <p>Due to the time constraints of the class, we decided it was best to use an open source robot found online. We eventually settled on the SOARM-100, as it satisfied all of our requirements outlined above, and it fit the overall design philosophy we wanted to employ. The SOARM-100 uses a teleoperation setup that involves 2 arms, one where a human operator manually creates the intended path trajectories, and the other copying the created motion synchronously.</p>
+
+            <p>The SO-ARM 100 uses STS3215 servos, which utilize metal gears and magnetic encoders. With the encoders in the servos and the lerobot linux environment codebase used to operate the SO-ARM 100, the joint states of angle of rotation of each servo over a period of time could be easily recorded, stored and replicated. This step was crucial to simulate real-world scenarios accurately and align the robot's behavior with the actions and intentions of the caregiver.</p>
+
+            <h4>3D Printing and Assembly</h4>
+            <p>We printed the SOARM-100 using PLA, which is a durable, accurate, and relatively cheap material. According to our calculations, both of the robots together (the follower and the leader) incur the total cost of: 511 grams of PLA * $0.025/gram * 2 robots = $25.55 total. The servos are slightly more expensive than a typical servo (roughly $30 each), but we agreed that the cost difference was worth both the increase in safety for the user, as well as the longevity of the robot overall.</p>
+
+            <p>Properly tolerancing the prints quickly became the next challenge. The SOARM-100 is designed to have the STS3215 servos press fit into it, to ensure precision. All parts were printed at Jacobs Hall, with Prusa i3 Mk3 printers over a span of 72 hours, with a total print time of around 48 hours.</p>
+
+            <h4>Software Integration</h4>
+            <p>The STS3215 servos were connected via a daisy chain and configured with unique IDs. We utilized scripts from the official repository for:</p>
+            <ul>
+              <li>Finding port addresses for microcontroller-computer connection</li>
+              <li>Configuring motor IDs</li>
+              <li>Centering motors for accurate rotation ranges (-2048 to 2048)</li>
+            </ul>
+
+            <h4>Camera Integration</h4>
+            <p>For the mouth-open detection system, we adapted an existing camera mount design to work with the Innomaker 720p USB2.0 UVC Camera, modifying it to fit the SOARM-100 gripper. This enables visual feedback for the robot's operation and user interaction.</p>
+            <img src="./media/camera_mount.png"
+                 alt="Camera Mount Design"
+                 style="width: 50%;
+                        border-radius: 8px;
+                        display: block;
+                        margin: 0 auto;
+                        box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0;">
+      <img src="./static/images/rotation_3000_steps.gif" 
+           alt="NeRF Rotation" 
+           style="width: 100vw; 
+                  max-width: 700px;
+                  height: auto;
+                  margin: 0 auto;
+                  display: block;
+                  border-radius: 12px;
+                  box-shadow: 0 6px 12px rgba(0,0,0,0.2);">
+    </div>
+  </div>
+</section>
+
+
+
+<!-- MathJax for LaTeX rendering -->
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">AL-CANCE</span> High-level robotic feeding assistant
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section" id="BibTeX"></section>
+  <div class="container is-max-desktop content">
+    <h2 class="title">References</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        <strong>[1]</strong> TheRobotStudio, Moss, J., Cadene, R., & Alibert, S. (2024). TheRobotStudio/so-ARM100: Standard open arm 100. SO-ARM100. 
+        <a href="https://github.com/TheRobotStudio/SO-ARM100?tab=readme-ov-file">https://github.com/TheRobotStudio/SO-ARM100</a>
+      </p>
+
+      <p>
+        <strong>[2]</strong> Alibert, S., Cadene, R., Soare, A., Gallouedec, Q., Zouitine, A., & Wolf, T. (2024). Lerobot/examples/10_use_so100.md at main · Huggingface/lerobot. LeRobot: State-of-the-art Machine Learning for Real-World Robotics in Pytorch.
+        <a href="https://github.com/huggingface/lerobot/blob/main/examples/10_use_so100.md">https://github.com/huggingface/lerobot</a>
+      </p>
+
+      <p>
+        <strong>[3]</strong> Chekuri, S. R. (2024). Meetsitaram/koch-V1-1: A version 1.1 of the alexander koch low cost robot arm with some small changes. Low-Cost Robot Arm: Koch v1.1.
+        <a href="https://github.com/meetsitaram/koch-v1-1/blob/camera_mounts/hardware/follower/STL/Gripper_Cam_Mount.stl">https://github.com/meetsitaram/koch-v1-1</a>
+      </p>
+      <h2>cite our work</h2>
+      <pre><code>@misc{crivelli2024lealcance,
+        author = {Francesco C., Bryan S., Claire B., and Boris},
+        title = {Le-Alcance: A Fork of LeRobot for Low-Cost Robotic Learning},
+        howpublished = "\url{https://github.com/francescocrivelli/le-alcance}",
+        year = {2024}
+        }</code></pre>
+    </div>
+  </div>
+</section>
+
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://nerfies.github.io/">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
