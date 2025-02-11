@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Visual Servoing for Robot Control">
+  <meta name="keywords" content="visual servoing, robotics, Sawyer robot, workspace velocity control, jointspace control">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Servoing for Robot Control</title>
+
+  <!-- Optional simple styling for readability -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      background: #f9f9f9;
+    }
+    header {
+      background: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav {
+      background: #444;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem;
+      background: #fff;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: #333;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    p, ul, ol, li, pre, code {
+      color: #444;
+      margin-bottom: 1rem;
+    }
+    section {
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 1rem;
+    }
+    section:last-of-type {
+      border-bottom: none;
+    }
+    figure {
+      margin: 1rem 0;
+      text-align: center;
+    }
+    figure iframe, figure video {
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    figcaption {
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    footer {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    /* Optional scrollable code blocks or math segments */
+    code, pre {
+      background: #f4f4f4;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Visual Servoing for Robot Control</h1>
+  <p>By Aryan Jain, Francesco Crivelli, and Jordan Argel</p>
+</header>
+
+<nav>
+  <!-- Example nav links; add or remove as needed -->
+  <a href="#introduction">Introduction</a>
+  <a href="#methods">Methods</a>
+  <a href="#results">Experimental Results</a>
+  <a href="#applications">Applications</a>
+  <a href="#references">References</a>
+</nav>
+
+<main class="container">
+
+  <!-- ABSTRACT -->
+  <section>
+    <h2>Abstract</h2>
+    <p>
+      This paper explores visual servoing techniques for controlling a robotic manipulator, particularly the Sawyer robot. We analyze three different control strategies: workspace velocity control, jointspace velocity control, and jointspace torque control. Implementation challenges, tuning methodologies, and experimental results are presented to evaluate the effectiveness of each approach. Finally, we discuss real-world applications of visual servoing in robotics.
+    </p>
+  </section>
+
+  <!-- INTRODUCTION -->
+  <section id="introduction">
+    <h2>1. Introduction</h2>
+    <p>
+      Visual servoing, or vision-based robot control, utilizes real-time visual feedback to guide a robotic system. Unlike pre-programmed motion planning, visual servoing enables dynamic responses to environmental changes. This report investigates three feedback control methods and their implementation for tracking an AR marker with the Sawyer robot.
+    </p>
+  </section>
+
+  <!-- METHODS -->
+  <section id="methods">
+    <h2>2. Methods</h2>
+
+    <!-- 2.1 WORKSPACE VELOCITY CONTROL -->
+    <h3>2.1 Workspace Velocity Control</h3>
+    <p>
+      Workspace velocity control aims to track a desired trajectory in the workspace while only being able to issue joint-space velocity commands. The control strategy consists of computing a spatial-frame workspace velocity that reduces the error between the current end-effector configuration and the desired configuration, and then converting that to a joint-space velocity directly fed as input to the robot.
+    </p>
+    <p>
+      We define the workspace velocity control law as follows (in simplified notation):
+    </p>
+    <p>
+      <code>U<sup>s</sup> = K<sub>p</sub> (ξ<sub>td</sub><sup>s</sup>) + V<sub>d</sub><sup>s</sup></code>
+    </p>
+    <ul>
+      <li><code>U<sup>s</sup></code> is the spatial-frame workspace velocity.</li>
+      <li><code>V<sub>d</sub><sup>s</sup></code> is the feedforward term, given by the nominal spatial-frame velocity of the desired trajectory.</li>
+      <li><code>ξ<sub>td</sub><sup>s</sup></code> is the feedback term correcting the error between the current and desired configurations.</li>
+      <li><code>K<sub>p</sub></code> is a 6×6 diagonal gain matrix with non-negative entries.</li>
+    </ul>
+    <p>
+      The workspace velocity <code>U<sup>s</sup>(t)</code> is converted into joint velocities <code>θ̇(t)</code> via the pseudo-inverse of the spatial Jacobian:
+    </p>
+    <p>
+      <code>θ̇(t) = J<sup>†</sup>(θ(t)) ⋅ U<sup>s</sup>(t)</code>
+    </p>
+
+    <!-- 2.2 JOINTSPACE VELOCITY CONTROL -->
+    <h3>2.2 Jointspace Velocity Control</h3>
+    <p>
+      In jointspace velocity control, the target trajectory <code>θ<sub>d</sub>(t)</code> is specified in jointspace. The control law uses a proportional-derivative (PD) approach:
+    </p>
+    <p>
+      <code>θ̇ = θ̇<sub>d</sub>(t) + K<sub>p</sub>(θ<sub>d</sub> - θ) + K<sub>v</sub>(θ̇<sub>d</sub> - θ̇)</code>
+    </p>
+    <p>
+      where <code>K<sub>p</sub></code> and <code>K<sub>v</sub></code> are diagonal gain matrices, ensuring a balance between position and velocity error correction.
+    </p>
+
+    <!-- 2.3 JOINTSPACE TORQUE CONTROL -->
+    <h3>2.3 Jointspace Torque Control</h3>
+    <p>
+      In jointspace torque control, the controller computes the required joint torques <code>τ</code> directly. Similar to the jointspace velocity controller, it includes a feedforward term for desired accelerations and a PD feedback term:
+    </p>
+    <p>
+      <code>τ = M(θ)θ̈<sub>d</sub> + C(θ, θ̇)θ̇<sub>d</sub> + N(θ, θ̇) + K<sub>p</sub>(θ<sub>d</sub> - θ) + K<sub>v</sub>(θ̇<sub>d</sub> - θ̇)</code>
+    </p>
+    <ul>
+      <li><code>M(θ)</code>: Inertia matrix</li>
+      <li><code>C(θ, θ̇)</code>: Coriolis matrix</li>
+      <li><code>N(θ, θ̇)</code>: Gravity vector</li>
+      <li><code>K<sub>p</sub></code>, <code>K<sub>v</sub></code>: Proportional and derivative gains</li>
+    </ul>
+
+    <!-- 2.4 TUNING PROCEDURE (WORKSPACE) -->
+    <h3>2.4 Tuning Procedure (Workspace Velocity Control)</h3>
+    <p>
+      For workspace velocity control, the gain matrix <code>K<sub>p</sub></code> consists of six tunable parameters: three for translation (<code>K<sub>x</sub></code>, <code>K<sub>y</sub></code>, <code>K<sub>z</sub></code>) and three for rotation (<code>K<sub>ω1</sub></code>, <code>K<sub>ω2</sub></code>, <code>K<sub>ω3</sub></code>). The final tuned values were selected by starting conservatively, then incrementally increasing gains to minimize steady-state error while avoiding oscillations.
+    </p>
+
+    <!-- 2.5 TUNING PROCEDURE (JOINTSPACE VELOCITY CONTROL) -->
+    <h3>2.5 Tuning Procedure (Jointspace Velocity Control)</h3>
+    <p>
+      The PD gains <code>K<sub>p</sub></code> and <code>K<sub>v</sub></code> each have seven parameters (one per Sawyer joint). The steps included:
+    </p>
+    <ol>
+      <li><strong>Initial Gain Selection:</strong> Conservative values to ensure stability.</li>
+      <li><strong>Incremental Adjustments:</strong> Increasing <code>K<sub>p</sub></code> to reduce error, balancing <code>K<sub>v</sub></code> to damp oscillations.</li>
+      <li><strong>Empirical Testing:</strong> Iterating until minimal steady-state error with smooth tracking.</li>
+    </ol>
+    <figure>
+      <img src="https://via.placeholder.com/600x300?text=Example+Tuning+Plot" alt="Tuning Plot" style="max-width:100%;">
+      <figcaption>Figure: Example tuning response for PD Jointspace Velocity Control</figcaption>
+    </figure>
+  </section>
+
+  <!-- EXPERIMENTAL RESULTS -->
+  <section id="results">
+    <h2>3. Experimental Results</h2>
+
+    <p>
+      We conducted several experiments with the Sawyer robot to evaluate controller performance. Key metrics included trajectory tracking error, stability, and control effort. Below is a summary of our experimental design and findings.
+    </p>
+
+    <h3>3.1 Experimental Design</h3>
+    <ul>
+      <li><strong>Experiments Conducted:</strong> We tested workspace velocity control and jointspace torque control under predefined trajectories, random motions, and visual servoing tasks.</li>
+      <li><strong>Control Group:</strong> As a baseline, an open-loop or simple PD system was used, enabling comparison of closed-loop performance gains.</li>
+      <li><strong>Testing Conditions:</strong> External disturbances and varied initial conditions were introduced to assess robustness.</li>
+    </ul>
+
+    <h3>3.2 Results and Analysis</h3>
+    <figure>
+      <img src="https://via.placeholder.com/600x300?text=Experimental+Results+Plot" alt="Experimental Results" style="max-width:100%;">
+      <figcaption>Figure: Comparing desired vs. actual end-effector trajectory</figcaption>
+    </figure>
+    <ul>
+      <li><strong>Trajectory Tracking:</strong> Most controllers followed the reference path closely, with minimal overshoot after careful gain tuning.</li>
+      <li><strong>Stability:</strong> Both workspace velocity and jointspace torque methods maintained stability, though jointspace torque often exhibited smoother joint motions.</li>
+      <li><strong>Observed Differences:</strong> Some overshoot or slower response in high-gain configurations; occasional oscillations in incorrectly tuned setups.</li>
+    </ul>
+
+    <h3>3.3 Visual Servoing Performance</h3>
+    <p>
+      For visual servoing experiments, we tested the controller by tracking an AR marker in real time. The chosen controller (e.g., PD control in jointspace) provided a good balance of stability and accuracy. Results showed minimal error during steady motions, though faster marker movements introduced minor delays due to vision-latency.
+    </p>
+    <figure>
+      <img src="https://via.placeholder.com/600x300?text=Visual+Servoing+Plot" alt="Visual Servoing Plot" style="max-width:100%;">
+      <figcaption>Figure: Desired vs. actual end-effector trajectory under visual servoing</figcaption>
+    </figure>
+    <p>
+      Multiple trials confirmed consistent performance under moderately dynamic conditions, though improvements may be needed for highly rapid changes.
+    </p>
+
+    <!-- VIDEOS SECTION -->
+    <h3>3.4 Experiment Videos</h3>
+    <p>
+      Below are short embedded videos demonstrating different tuning stages and control strategies. (Click play to see the Sawyer's motions.)
+    </p>
+    <figure>
+      <!-- workspace tuned -->
+      <iframe width="300" height="200" src="https://youtube.com/shorts/oEZiWzaVAFw" 
+              title="Workspace Tuned"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+      </iframe>
+      <figcaption>Workspace Velocity Control (Tuned)</figcaption>
+    </figure>
+    <figure>
+      <!-- workspace raw -->
+      <iframe width="300" height="200" src="https://www.youtube.com/embed/X6FnyGJ1MpM" 
+              title="Workspace Raw"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+      </iframe>
+      <figcaption>Workspace Velocity Control (Untuned/Raw)</figcaption>
+    </figure>
+    <figure>
+      <!-- joint space tuned -->
+      <iframe width="300" height="200" src="https://www.youtube.com/embed/7e4XnPulePM"
+              title="Joint Space Tuned"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+      </iframe>
+      <figcaption>Joint Space Velocity Control (Tuned)</figcaption>
+    </figure>
+    <figure>
+      <!-- joint space not tuned -->
+      <iframe width="300" height="200" src="https://youtube.com/shorts/qoZTiPUa5iE"
+              title="Joint Space Not Tuned"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen>
+      </iframe>
+      <figcaption>Joint Space Velocity Control (Not Tuned)</figcaption>
+    </figure>
+
+  </section>
+
+  <!-- APPLICATIONS -->
+  <section id="applications">
+    <h2>4. Applications</h2>
+    <p>Visual servoing is widely used across various domains, enabling robots to adapt in real-time:</p>
+    <ul>
+      <li><strong>Autonomous Robotic Manipulation:</strong> Handling objects in cluttered or dynamic environments.</li>
+      <li><strong>Industrial Automation:</strong> High-precision assembly, welding, and inspection tasks.</li>
+      <li><strong>Surgical Robotics:</strong> Systems like da Vinci rely on visual servoing for precise minimally invasive procedures.</li>
+      <li><strong>Drone Navigation:</strong> Obstacle avoidance and target tracking in GPS-denied scenarios.</li>
+      <li><strong>Service Robotics:</strong> Human interaction (gesture recognition, motion tracking) in healthcare or household automation.</li>
+      <li><strong>Microscale Manipulation:</strong> Microassembly and bioengineering tasks requiring nanoscale precision.</li>
+    </ul>
+  </section>
+
+  <!-- REFERENCES -->
+  <section id="references">
+    <h2>5. Bibliography</h2>
+    <p>
+      [1] Siciliano, B., Sciavicco, L., Villani, L., & Oriolo, G. 
+      <em>Robotics: Modeling, Planning and Control</em>. Springer, 2009.
+    </p>
+    <p>
+      <strong>GitHub Repository:</strong> 
+      <a href="https://github.com/Aryan9101/106b-labs.git" target="_blank" rel="noopener">
+        https://github.com/Aryan9101/106b-labs.git
+      </a>
+    </p>
+    <p>
+      <strong>Experiment Video Demo:</strong> 
+      <a href="https://your-video-link" target="_blank" rel="noopener">
+        https://your-video-link
+      </a>
+    </p>
+    <p>
+      <strong>Video Speedup Factor:</strong> [1.0]
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2025 Visual Servoing Project – All Rights Reserved</p>
+</footer>
+
+</body>
+</html>
