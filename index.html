@@ -10,21 +10,24 @@
 </head>
 <body>
     <!-- Header with navigation -->
-<!-- Header with navigation -->
-<header>
-    <nav>
-        <a href="#" class="menu-toggle">
-            <div></div>
-            <div></div>
-            <div></div>
-        </a>
-        <ul class="nav-links">
-            <li><a href="#about">About Me</a></li>
-            <li><a href="projects.html">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
-</header>
+    <header>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a role="button" class="navbar-burger menu-toggle" aria-label="menu" aria-expanded="false">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="navbar-menu nav-links">
+                <div class="navbar-start" style="width: 100%; justify-content: center;">
+                    <a class="navbar-item" href="index.html#about">About Me</a>
+                    <a class="navbar-item" href="projects.html">Projects</a>
+                    <a class="navbar-item" href="index.html#contact">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </header>
 
 <!-- Hero section -->
 <section class="hero-content">
@@ -46,7 +49,9 @@
         
         <!-- Right side: Profile image -->
         <div class="hero-image">
-            <img src="images/my_profile.png" alt="Francesco Crivelli" class="profile-image">
+            <a href="projects.html">
+                <img src="images/my_profile.png" alt="Francesco Crivelli" class="profile-image">
+            </a>
         </div>
     </div>
 </section>
@@ -57,10 +62,16 @@
         You can reach out through any of the platforms or schedule a meeting below.
     </p>
     <div class="social-media">
-        <a href="https://github.com/francescocrivelli/" target="_blank"><img src="images/github-icon.png" alt="GitHub" class="social-icon"> GitHub</a>
-        <a href="https://www.linkedin.com/in/francesco-crivelli/" target="_blank"><img src="images/linkedin-icon.png" alt="LinkedIn" class="social-icon"> LinkedIn</a>
-        <a href="https://youtube.com/@francescocrivelli?si=bllJ5q9Zg58yznz9" target="_blank"> <img src="images/youtube_icon.jpeg" alt="YouTube" class="social-icon"> YouTube </a>
-        <a href="mailto:francesco.crivelli21@gmail.com"> Email</a>
+        <a href="https://github.com/francescocrivelli/" target="_blank"><img src="images/github-icon.png" alt="GitHub" class="social-icon" style="width: 20px; height: 20px; object-fit: contain;"> GitHub</a>
+        <a href="https://www.linkedin.com/in/francesco-crivelli/" target="_blank"><img src="images/linkedin-icon.png" alt="LinkedIn" class="social-icon" style="width: 20px; height: 20px; object-fit: contain;"> LinkedIn</a>
+        <a href="https://youtube.com/@francescocrivelli?si=bllJ5q9Zg58yznz9" target="_blank"><img src="images/youtube_icon.jpeg" alt="YouTube" class="social-icon" style="width: 20px; height: 20px; object-fit: contain; background-color: transparent;"> YouTube</a>
+        <a href="mailto:francesco.crivelli21@gmail.com">
+            <svg class="social-icon" style="width: 20px; height: 20px; object-fit: contain;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+            </svg> 
+            Email
+        </a>
     </div>
 
     <!-- Calendly inline widget begin -->
@@ -75,17 +86,59 @@
     </footer>
 
     <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-    
-        menuToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            // Check the current display state
-            if (window.getComputedStyle(navLinks).display === 'none') {
-                navLinks.style.display = 'flex'; // Show the nav-links
-            } else {
-                navLinks.style.display = 'none'; // Hide the nav-links
-            }
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            // Toggle menu when hamburger icon is clicked
+            menuToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.classList.toggle('active');
+                navLinks.classList.toggle('active');
+                document.body.classList.toggle('menu-open');
+            });
+            
+            // Close menu when clicking links
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (navLinks.classList.contains('active') && 
+                    !navLinks.contains(event.target) && 
+                    !menuToggle.contains(event.target)) {
+                    
+                    menuToggle.classList.remove('active');
+                    navLinks.classList.remove('active');
+                    document.body.classList.remove('menu-open');
+                }
+            });
+        });
+
+        // Add this to both index.html and projects.html
+        document.querySelectorAll('.project-item a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Allow default link behavior
+            });
+        });
+        
+        // Extra handling for GIF clicks
+        document.querySelectorAll('.project-item img').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                // Navigate to the project page
+                const projectLink = this.closest('.project-item').querySelector('a[href*="index.html"]');
+                if (projectLink) {
+                    window.location.href = projectLink.href;
+                }
+            });
         });
     </script>
 </body>
