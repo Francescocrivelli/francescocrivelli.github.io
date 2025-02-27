@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Voyager: An Open-Ended Embodied Agent with Large Language Models">
+  <meta name="keywords" content="Voyager, Minecraft, LLM, Autonomous Agent">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voyager</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="../nerfies_style/static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="../nerfies_style/static/js/fontawesome.all.min.js"></script>
+  <script src="../nerfies_style/static/js/bulma-carousel.min.js"></script>
+  <script src="../nerfies_style/static/js/bulma-slider.min.js"></script>
+  <script src="../nerfies_style/static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="../projects.html">
+        <span class="icon">
+          <i class="fas fa-home"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Enhancing AI Efficiency</h1>
+          <h2 class="subtitle is-3 publication-title">Vision Integration and Multi-Agent Collaboration in the Voyager Framework for Minecraft</h2>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Team Members:</span>
+            <span class="author-block"><a href="https://www.linkedin.com/in/xiaomei-song-731493230/">Xiaomei Song</a>,</span>
+            <span class="author-block"><a href="https://alhojel.github.io/">Alberto Hojel</a>,</span>
+            <span class="author-block"><a href="https://www.linkedin.com/in/francesco-crivelli/">Francesco Crivelli</a>,</span>
+            <span class="author-block"><a href="https://www.linkedin.com/in/kunal-agrawal-697824203/?originalSubdomain=in">Kunal Agrawal</a></span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><a href="https://www.berkeley.edu/">University of California Berkeley</a></span>
+            <span class="author-block">Group Name: Mind-Guer</span>
+            <span class="author-block">Track: Applications</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Code Link - Update to their repo -->
+              <span class="link-block">
+                <a href="https://github.com/alhojel/Voyager2"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Project Link - Add your project link if available -->
+              <span class="link-block">
+                <a href="https://voyager.minedojo.org/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-globe"></i>
+                  </span>
+                  <span>Project Page</span>
+                  </a>
+              </span>
+              <!-- Original Paper Link -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2305.16291"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Original Paper</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+      <figure style="width: 45%; margin: 0;">
+        <video width="100%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <source src="./media/video1_agents_in_minecraft.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 1a: Multi-Agent Voyager agents exploring in Minecraft
+        </figcaption>
+      </figure>
+
+      <figure style="width: 45%; margin: 0;">
+        <video width="100%" autoplay loop muted playsinline style="border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+          <source src="./media/video2_agents_in_minecraft.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 1b: Multi-Agent Voyager with vision capabilities
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <h2 class="title is-3">Abstract</h2>
+        <p class="has-text-justified">
+          This project aims to advance the development of embodied AI agents by leveraging video games as a testing ground, specifically building upon the Voyager framework in Minecraft. We propose enhancing the existing architecture through a combination of state-of-the-art LLM integration, reinforcement learning techniques, and optimized prompt engineering. Our approach focuses on improving long-horizon task completion and skill acquisition, using Minecraft's open-ended environment as a low-risk platform for developing foundational AI capabilities. By optimizing agent behavior through direct gameplay feedback and sophisticated skill library management, we aim to demonstrate significantly improved performance over baseline metrics, particularly in exploration and task completion efficiency.
+        </p>
+        <p class="has-text-justified">
+          We are expanding upon the Voyager Paper which created Large Language Agents capable of playing the video game Minecraft. We wanted to take the idea of the project further, and we integrated multi-agent capabilities and added vision agents. A central focus of the original research was the enhancement of agent behavior through iterative gameplay feedback and the strategic management of a comprehensive skill library. These improvements led to significant advancements in both exploration efficiency and task completion effectiveness compared to baseline models. Our project introduced multi-agent capabilities and incorporated vision-based agents, enriching the interactions and collaborative potential within the Minecraft ecosystem.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0; display: flex; justify-content: center; gap: 20px;">
+      <figure style="width: 45%; margin: 0;">
+        <img src="./media/Minecraft Demo Resized.gif" 
+             alt="Minecraft Environment Demo" 
+             style="width: 100%;
+             border-radius: 8px;
+             display: block;
+             margin: 0 auto;
+             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 2: Minecraft Agent in Action
+        </figcaption>
+      </figure>
+
+      <figure style="width: 45%; margin: 0;">
+        <img src="./media/voyager_diagram_vision_agent.png"
+             alt="Multi-Agent Voyager System Architecture" 
+             style="width: 100%;
+             border-radius: 8px;
+             display: block;
+             margin: 0 auto;
+             box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <figcaption style="text-align: center; margin-top: 10px;">
+          Figure 3: Multi-Agent Voyager System Architecture with Vision Integration
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Methodology</summary>
+          <div class="content has-text-justified">
+            <h3>1. Multi-bots Communication</h3>
+            <p>The multi-bot system significantly expands over the original voyager architecture by enabling multiple bot instances to operate concurrently within the same Minecraft world. At the heart of this system is the Multi-Agent Manager, a central coordination component that handles the initialization and lifecycle management of multiple bot instances. The manager creates separate checkpointing directories for each bot and assigns unique identifiers (like "bot1-alby" and "bot2-france") along with dedicated ports for communication.</p>
+            
+            <h4>System Design:</h4>
+            <p>The system employs an independent process architecture where each bot operates in its own Node.js process through the Mineflayer framework. Communication between bots is facilitated through a REST API interface, with each bot assigned its own port (starting from 3000). To maintain accountability and enable debugging, separate logging directories track each bot's activities, and individual first-person viewports are available for monitoring each bot's perspective in real-time.</p>
+            
+            <p>A crucial aspect of the design is the shared environment state. While bots operate independently, they all exist within the same Minecraft world instance. This means they can observe and interact with blocks and items placed by other bots, creating opportunities for collaborative behavior. The environment maintains a consistent state across all bot instances, ensuring coherent interactions between bots.</p>
+            
+            <h4>Multi-bots Workflow:</h4>
+            <p>In our implementation, we focused on analyzing how agents in Minecraft naturally organize themselves and how quickly this self-organization emerges. Our multi-agent system allows us to examine how agents learn to avoid conflicts, share resources, and develop complementary roles, while also studying whether agents can accelerate their learning by observing each other's behaviors.</p>
+            
+            <p>Skill sharing represents a key collaborative aspect of the system. While bots maintain their individual skill libraries, they can contribute successful behaviors to a shared skill pool. When one bot successfully completes a task, the associated skill becomes available to other bots, fostering collaborative learning across the bot population. This knowledge-sharing mechanism accelerates the overall learning process and promotes the development of more sophisticated behaviors.</p>
+            
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+              <img src="./media/bot_trajectory.png" 
+                   alt="Bot Trajectory"
+                   style="width: 70%; 
+                          border-radius: 8px;
+                          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <p style="text-align: center; font-style: italic; margin-top: 5px;">
+              Figure 4: Visualization of bot exploration trajectory in Minecraft
+            </p>
+
+            <h3>2. Vision Agent Integration</h3>
+            <p>As outlined in Voyager's original implementation, a significant limitation exists in the realm of multimodal feedback. Specifically, Voyager does not currently support visual perception due to the text-only nature of the available GPT-4 API at its inception. This constraint restricts the framework's ability to perform tasks that require nuanced spatial understanding and visual analysis.</p>
+            
+            <p>To address this limitation, in this project, we developed and integrated a Vision Agent to enhance spatial reasoning and task efficiency within a multi-agent Minecraft environment. The VisionAgent was designed to analyze images using GPT-4 Vision, extracting critical spatial relationships such as block positions and accessibility and storing these insights in a structured vision_memory.json file. This capability allows the agent to leverage past experiences and adapt strategies for both repetitive and complex tasks through a multi-modal memory system.</p>
+            
+            <p>The integration of the Vision Agent into the multi-agent workflow was achieved through a modular architecture that allows for seamless communication and data sharing among agents. The Vision Agent is responsible for analyzing visual data captured from the environment and providing actionable insights to other agents in the system.</p>
+            
+            <h4>Multi-Agent Workflow:</h4>
+            <p>In the multi-agent workflow, each agent has a distinct role that contributes to the overall functionality of the system. The primary agents include:</p>
+            
+            <ul>
+              <li><strong>Vision Agent:</strong> This agent captures and analyzes visual data from the environment. It identifies objects, assesses their properties, and provides insights to other agents. The Vision Agent acts as the sensory component of the system, enabling other agents to understand their surroundings.</li>
+              <li><strong>Action Agent:</strong> This agent receives insights from the Vision Agent and determines the appropriate actions to take based on the current context. It utilizes information about optimal blocks and other relevant objects to execute tasks such as mining, crafting, or navigating.</li>
+              <li><strong>Critic Agent:</strong> The Critic Agent evaluates the actions taken by the Action Agent based on the insights provided by the Vision Agent. It assesses the effectiveness of the actions and provides feedback, which can be used to refine the decision-making process of the Action Agent.</li>
+              <li><strong>Curriculum Agent:</strong> Acts as the communication hub and task manager. Integrate Vision Insights into Observations. It ensures tasks proposed are informed by visual information.</li>
+            </ul>
+            
+            <h3>3. Tools and Frameworks</h3>
+            <p>The development and implementation of the multi-agent system utilized a variety of technologies and frameworks, including:</p>
+            
+            <ul>
+              <li><strong>LangChain:</strong> Utilized to manage interactions between agents and facilitate the processing of natural language inputs and outputs.</li>
+              <li><strong>OpenAI API:</strong> Integrated for leveraging large language models (LLMs) to enhance the reasoning capabilities of the agents.</li>
+              <li><strong>Custom Logging Tools:</strong> Developed to capture detailed logs of agent interactions and system performance, enabling thorough analysis and debugging.</li>
+              <li><strong>JSON:</strong> Used for data interchange between agents, ensuring a structured and easily parsable format for communication.</li>
+              <li><strong>React, Flask:</strong> Front end and back end.</li>
+              <li><strong>Pandas, Matplotlib, and Seaborn:</strong> Popular Python visualization libraries, which we specifically use to generate graphs.</li>
+            </ul>
+            
+            <p>By leveraging these tools and frameworks, the project was able to create a robust and efficient multi-agent system capable of performing complex tasks in a dynamic environment.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Experiments and Evaluation</summary>
+          <div class="content has-text-justified">
+            <p>We evaluated our enhanced Voyager framework using metrics similar to those in the original paper, including distance traveled and unique items collected. These metrics allow us to quantitatively assess the improvements gained through vision integration and multi-agent collaboration.</p>
+            
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+              <img src="./media/unique_items_collected.png" 
+                   alt="Unique Items Collected Chart"
+                   style="width: 70%; 
+                          border-radius: 8px;
+                          box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+            </div>
+            <p style="text-align: center; font-style: italic; margin-top: 5px;">
+              Figure 7: Preliminary results showing unique items collected over time
+            </p>
+            
+            <p>The preliminary results shown above were obtained from a single bot run. We weren't able to have a bot running long enough to get results that we could definitively compare to the original Voyager results. Running the model for extended periods of time with the number of API calls required became quite expensive ($5-$10 for even short runs of about fifteen minutes). This is an area we've identified for optimization in future work.</p>
+            
+            <p>Despite these limitations, the initial results appear promising, and we expect this enhanced model to outperform the original in terms of exploration efficiency and task completion due to the added vision capabilities and potential for collaborative behavior among agents.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container">
+    <div class="hero-body" style="padding: 0;">
+      <h2 class="title has-text-centered" style="margin: 60px 0 20px 0;">
+        Project Presentation Video
+      </h2>
+      <figure style="margin: 40px 0;">
+        <iframe width="560" height="315" 
+                src="https://www.youtube.com/embed/G77NCvRi53c?autoplay=1&mute=1"
+                title="YouTube video player" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                style="border-radius: 8px; display: block; margin: 0 auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        </iframe>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="content">
+        <details>
+          <summary class="title is-3" style="cursor: pointer; margin-bottom: 1rem;">Conclusion and Future Work</summary>
+          <div class="content has-text-justified">
+            <p>This project successfully extended the Voyager framework by integrating vision capabilities and enabling multi-agent workflows within the Minecraft environment. By enhancing the agents with vision processing and facilitating collaboration between multiple agents, we've created a more versatile system capable of tackling complex tasks through coordinated effort and spatial awareness.</p>
+            
+            <p>The integration of vision agents into multi-agent workflows has substantial implications for the development of embodied AI. Enhanced performance in simulated environments like Minecraft serves as a stepping stone toward more complex real-world applications, including multi-agent workforces, autonomous systems, and human-AI collaborative platforms.</p>
+            
+            <h3>Future Work</h3>
+            <ul>
+              <li><strong>Scalability Enhancements:</strong> Expanding the system to support a larger number of agents and more complex tasks, assessing performance and coordination efficiency at scale.</li>
+              <li><strong>Collaborative Spatial Reasoning:</strong> Enable multiple agents to work together on spatial tasks, sharing information about their environments and coordinating actions.</li>
+              <li><strong>Human-Agent Collaboration:</strong> Exploring interactions between AI agents and human players, fostering more natural and intuitive collaboration.</li>
+              <li><strong>Real-World Applications:</strong> Transitioning the multi-agent vision framework from simulated environments to real-world applications, such as robotics and autonomous systems.</li>
+              <li><strong>Adaptive Learning Mechanisms:</strong> Implementing adaptive learning algorithms that allow agents to learn and evolve their strategies based on dynamic environmental changes and collaborative experiences.</li>
+              <li><strong>Improved Prompting Mechanisms:</strong> Exploring different prompting strategies such as incorporating DSPy and implementing Chain of Thought, and reducing the number of API calls which reduces monetary constraints.</li>
+            </ul>
+            
+            <p>By pursuing these avenues, future work can build upon the foundational advancements achieved in this project, driving the development of more sophisticated and versatile AI agents. The implications of this research are very exciting, and being able to create agents that can navigate a world and perform tasks can hopefully translate over to the real world, helping the development of robots that are able to navigate their surroundings and perform a variety of tasks.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">References</h2>
+
+    <div class="content has-text-justified">
+      <p>
+        <strong>[1]</strong> Zhang, K., Yang, Z., & Basar, T. (2020). Deep Reinforcement Learning for Multi-Agent Systems: A Survey. IEEE Transactions on Neural Networks and Learning Systems, 32(1), 4-24.
+      </p>
+
+      <p>
+        <strong>[2]</strong> Foerster, J., Nardelli, N., Farquhar, G., Torr, P. H., Kohli, P., & Whiteson, S. (2018). Counterfactual Multi-Agent Policy Gradients. Advances in Neural Information Processing Systems, 31, 4297-4307.
+      </p>
+
+      <p>
+        <strong>[3]</strong> Kolve, E., Mottaghi, R., Han, W., VanderBilt, E., Weihs, L., Herrasti, A., Gordon, D., Zhu, Y., Gupta, A., and Farhadi, A. AI2-thor: An interactive 3d environment for visual AI. arXiv preprint arXiv:1712.05474, 2017.
+      </p>
+
+      <p>
+        <strong>[4]</strong> Savva, M., Malik, J., Parikh, D., Batra, D., Kadian, A., Maksymets, O., Zhao, Y., Wijmans, E., Jain, B., Straub, J., Liu, J., and Koltun, V. Habitat: A platform for embodied AI research. In 2019 IEEE/CVF International Conference on Computer Vision, ICCV 2019.
+      </p>
+
+      <p>
+        <strong>[5]</strong> Zhu, Y., Wong, J., Mandlekar, A., and Martín-Martín, R. robosuite: A modular simulation framework and benchmark for robot learning. arXiv preprint arXiv:2009.12293, 2020.
+      </p>
+
+      <p>
+        <strong>[6]</strong> Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., Neelakantan, A., Shyam, P., Sastry, G., Askell, A., et al. Language models are few-shot learners. Advances in Neural Information Processing Systems, 2020.
+      </p>
+
+      <p>
+        <strong>[7]</strong> Fan, L., Wang, G., Jiang, Y., Mandlekar, A., Yang, Y., Zhu, H., Tang, A., Huang, D-A., Zhu, Y., and Anandkumar, A. MineDojo: Building open-ended embodied agents with internet-scale knowledge. arXiv preprint arXiv:2206.08853, 2022.
+      </p>
+
+      <p>
+        <strong>[8]</strong> Wang, G., Xie, Y., Jiang, Y., Mandlekar, A., Xiao, C., Zhu, Y., Fan, L., Anandkumar, A. (2023). Voyager: An Open-Ended Embodied Agent with Large Language Models. <a href="https://arxiv.org/abs/2305.16291">https://arxiv.org/abs/2305.16291</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf">Enhancing AI Efficiency</span> - Vision Integration and Multi-Agent Collaboration in the Voyager Framework for Minecraft
+      </h2>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link" href="https://github.com/MineDojo/Voyager" class="external-link">
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is borrowed from <a href="https://nerfies.github.io/">Nerfies</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
