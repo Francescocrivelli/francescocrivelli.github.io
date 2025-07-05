@@ -639,7 +639,39 @@ footer {
     max-width: 800px;
 }
 
+/* Substack Section */
+.substack-section {
+    padding: 4em 2em;
+    background-color: #ffffff;
+    text-align: center;
+    box-sizing: border-box;
+}
 
+.substack-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    color: #333;
+}
+
+.substack-section p {
+    font-size: 1.1em;
+    margin-bottom: 2em;
+    color: #666;
+}
+
+.substack-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.substack-container iframe {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    width: 480px;
+    height: 320px;
+}
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -654,6 +686,18 @@ footer {
     .calendly-inline-widget {
         width: 100%;
         min-width: unset;
+    }
+
+    .substack-container iframe {
+        width: 100%;
+        height: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .substack-container iframe {
+        width: 100%;
+        height: 250px;
     }
 }
 
